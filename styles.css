@@ -52,22 +52,22 @@ body {
 
 /* Override container styles for home page to fit 100vh */
 .home-container.container {
-    margin: auto; /* Center vertically and horizontally */
-    padding: 30px;
-    height: auto; /* Auto height instead of 100vh */
-    min-height: 80vh; /* Minimum height */
-    max-height: 90vh; /* Maximum height */
-    max-width: 600px; /* Reduced from 700px */
+    margin: auto;
+    padding: 25px;
+    height: auto;
+    min-height: auto; /* Remove minimum height */
+    max-height: none; /* Remove maximum height constraint */
+    max-width: 550px;
     width: 90%;
     display: flex;
     flex-direction: column;
-    border-radius: 12px; /* Restore border radius for card-like appearance */
+    border-radius: 12px;
     box-sizing: border-box;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    overflow-y: auto; /* Allow scrolling if content is too tall */
+    overflow: visible; /* Prevent scrolling */
 }
 
 /* Typography */
@@ -77,7 +77,7 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 38px;
+    font-size: 36px;
     margin-bottom: 5px;
     text-align: center;
     font-weight: 700;
@@ -123,9 +123,9 @@ a:hover {
 }
 
 .home-header {
-    padding: 20px 0 10px;
+    padding: 10px 0 5px;
     border-bottom: 1px solid var(--secondary-color);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 /* Adjust main content to take available space */
@@ -134,21 +134,21 @@ a:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .tagline {
     font-family: var(--font-heading);
     font-style: italic;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--accent-color);
-    margin: 5px 0 20px;
+    margin: 3px 0 15px;
 }
 
 .date, .location {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--primary-color);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 /* Details Section */
@@ -156,15 +156,15 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 10px auto;
     width: 100%;
-    gap: 10px;
+    gap: 8px;
 }
 
 .detail-item {
     flex: 1;
     min-width: 120px;
-    padding: 15px 10px;
+    padding: 10px 5px;
     text-align: center;
     border: 1px solid var(--secondary-color);
     border-radius: 8px;
@@ -179,28 +179,29 @@ a:hover {
 
 .detail-item h3 {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     color: var(--primary-color);
+    font-size: 18px;
 }
 
 .detail-item p {
-    margin: 3px 0;
-    font-size: 16px;
+    margin: 2px 0;
+    font-size: 14px;
 }
 
 /* RSVP Button Section */
 .rsvp-button-section {
     text-align: center;
-    padding: 15px 0 5px;
-    margin-top: 10px;
+    padding: 10px 0 5px;
+    margin-top: 5px;
 }
 
 .rsvp-button {
     display: inline-block;
-    padding: 12px 35px;
+    padding: 10px 30px;
     background-color: var(--primary-color);
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     border-radius: 50px;
     border: none;
@@ -208,7 +209,7 @@ a:hover {
     transition: background-color 0.3s, transform 0.3s;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-top: 20px;
+    margin-top: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -379,13 +380,17 @@ input[type="radio"] {
 footer {
     text-align: center;
     padding: 10px 0 0;
-    border-top: 1px solid var(--secondary-color);
-    margin-top: 15px;
+    margin-top: 10px;
     color: var(--primary-color);
 }
 
 footer a {
     font-weight: 600;
+}
+
+footer p {
+    font-size: 14px;
+    margin-bottom: 0;
 }
 
 /* Responsive Styles */
