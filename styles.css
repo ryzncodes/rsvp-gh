@@ -1,4 +1,8 @@
 /* Reset and Base Styles */
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -37,6 +41,17 @@ body {
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
+}
+
+/* Override container styles for home page to fit 100vh */
+.home-container.container {
+    margin: 0 auto; /* Remove top/bottom margins */
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0; /* Remove border radius for full-height design */
+    box-sizing: border-box; /* Ensure padding is included in height calculation */
 }
 
 /* Typography */
@@ -83,12 +98,26 @@ a:hover {
 .home-container {
     text-align: center;
     max-width: 700px;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto; /* Remove top/bottom margin */
+    padding: 20px;
 }
 
 .home-header {
-    padding: 20px 0;
+    padding: 20px 0 10px;
     border-bottom: 1px solid var(--secondary-color);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+/* Adjust main content to take available space */
+#main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .tagline {
@@ -110,7 +139,7 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 auto 25px;
+    margin: 0 auto;
     max-width: 700px;
 }
 
@@ -144,7 +173,8 @@ a:hover {
 /* RSVP Button Section */
 .rsvp-button-section {
     text-align: center;
-    padding: 15px 0 30px;
+    padding: 10px 0;
+    margin-top: auto; /* Push to the bottom of available space */
 }
 
 .rsvp-button {
@@ -330,9 +360,9 @@ input[type="radio"] {
 /* Footer */
 footer {
     text-align: center;
-    padding: 30px 0;
+    padding: 15px 0;
     border-top: 1px solid var(--secondary-color);
-    margin-top: 40px;
+    margin-top: 20px;
     color: var(--primary-color);
 }
 
