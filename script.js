@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to submit form data to Google Sheets
         function submitToGoogleSheets(formData, callback) {
             // Google Apps Script Web App URL - we'll create this in the next step
-            const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzwUrium00Orojj-0IcIAwPfDAbXeheZnQHyoFHUtI_xOWCUIdODE0mRx6-oTnq8PdY/exec';
             
             // Convert form data to URL parameters
             const formDataParams = new URLSearchParams(formData).toString();
