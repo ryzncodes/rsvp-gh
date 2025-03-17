@@ -23,7 +23,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    font-size: 18px;
+    font-size: 16px;
     background-image: url('https://images.unsplash.com/photo-1501139083538-0139583c060f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
     background-size: cover;
     background-attachment: fixed;
@@ -31,9 +31,9 @@ body {
 }
 
 .container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 30px;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
@@ -46,27 +46,27 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    font-size: 38px;
+    margin-bottom: 5px;
     text-align: center;
     font-weight: 700;
 }
 
 h2 {
-    font-size: 32px;
-    margin: 30px 0 20px;
+    font-size: 26px;
+    margin: 20px 0 15px;
     text-align: center;
 }
 
 h3 {
-    font-size: 24px;
-    margin-bottom: 15px;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 p {
-    margin-bottom: 20px;
-    font-size: 20px;
-    line-height: 1.7;
+    margin-bottom: 15px;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 a {
@@ -82,27 +82,27 @@ a:hover {
 /* Home Page Styles */
 .home-container {
     text-align: center;
-    max-width: 800px;
+    max-width: 700px;
 }
 
 .home-header {
-    padding: 30px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--secondary-color);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .tagline {
     font-family: var(--font-heading);
     font-style: italic;
-    font-size: 24px;
+    font-size: 20px;
     color: var(--accent-color);
-    margin: 10px 0 30px;
+    margin: 5px 0 20px;
 }
 
 .date, .location {
-    font-size: 22px;
+    font-size: 18px;
     color: var(--primary-color);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 /* Details Section */
@@ -110,48 +110,49 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 auto 30px;
-    max-width: 800px;
+    margin: 0 auto 25px;
+    max-width: 700px;
 }
 
 .detail-item {
-    flex: 0 0 calc(33.333% - 20px);
-    padding: 20px;
+    flex: 0 0 calc(33.333% - 15px);
+    padding: 15px;
     text-align: center;
     border: 1px solid var(--secondary-color);
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     background-color: white;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .detail-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .detail-item h3 {
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: var(--primary-color);
 }
 
 .detail-item p {
-    margin: 5px 0;
+    margin: 3px 0;
+    font-size: 16px;
 }
 
 /* RSVP Button Section */
 .rsvp-button-section {
     text-align: center;
-    padding: 20px 0 40px;
+    padding: 15px 0 30px;
 }
 
 .rsvp-button {
     display: inline-block;
-    padding: 15px 40px;
+    padding: 12px 35px;
     background-color: var(--primary-color);
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     border-radius: 50px;
     border: none;
@@ -159,13 +160,13 @@ a:hover {
     transition: background-color 0.3s, transform 0.3s;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-top: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .rsvp-button:hover {
     background-color: var(--accent-color);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     color: white;
 }
 
@@ -198,14 +199,14 @@ a:hover {
 
 /* Form Styles */
 .form-group {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 label, .radio-group-label {
     display: block;
     font-weight: 600;
-    margin-bottom: 10px;
-    font-size: 22px;
+    margin-bottom: 5px;
+    font-size: 16px;
     color: var(--primary-color);
 }
 
@@ -215,10 +216,10 @@ input[type="tel"],
 select,
 textarea {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 16px;
     color: var(--text-color);
     background-color: #f9f9f9;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -236,13 +237,13 @@ textarea:focus {
 .radio-options {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .radio-option {
     display: flex;
     align-items: center;
-    padding: 12px 15px;
+    padding: 8px 12px;
     background-color: #f9f9f9;
     border-radius: 8px;
     transition: background-color 0.3s;
@@ -253,16 +254,16 @@ textarea:focus {
 }
 
 input[type="radio"] {
-    margin-right: 15px;
-    width: 22px;
-    height: 22px;
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
     accent-color: var(--primary-color);
 }
 
 .radio-option label {
     margin-bottom: 0;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .button-group {
@@ -270,7 +271,7 @@ input[type="radio"] {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
 }
 
 .back-button {
@@ -294,19 +295,19 @@ input[type="radio"] {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 15px 30px;
-    font-size: 20px;
+    padding: 12px 25px;
+    font-size: 18px;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
     display: inline-block;
     transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn:hover {
     background-color: var(--accent-color);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .submit-btn:focus {
@@ -317,7 +318,7 @@ input[type="radio"] {
 /* Confirmation Section */
 #confirmation {
     text-align: center;
-    padding: 40px;
+    padding: 30px;
     background-color: rgba(245, 228, 221, 0.3);
     border-radius: 10px;
 }
@@ -458,14 +459,14 @@ footer a {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
+    max-width: 550px;
+    max-height: 85vh;
     overflow-y: auto;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    padding: 30px;
+    padding: 25px;
 }
 
 .modal-overlay {
@@ -481,9 +482,9 @@ footer a {
 
 .close-modal {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 30px;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
     font-weight: bold;
     color: #aaa;
     cursor: pointer;
@@ -496,9 +497,9 @@ footer a {
 
 .modal .rsvp-header {
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     border-bottom: 1px solid var(--secondary-color);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .modal .rsvp-header h2 {
