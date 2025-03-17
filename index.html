@@ -39,7 +39,7 @@
             </div>
             
             <section class="rsvp-button-section">
-                <a href="rsvp.html" class="rsvp-button">RSVP Now</a>
+                <button id="open-rsvp-modal" class="rsvp-button">RSVP Now</button>
             </section>
         </main>
         
@@ -47,5 +47,75 @@
             <p>If you have any questions, please contact us at <a href="mailto:sarahandmichael@example.com">sarahandmichael@example.com</a></p>
         </footer>
     </div>
+
+    <!-- RSVP Modal -->
+    <div id="rsvp-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="rsvp-header">
+                <h2>RSVP</h2>
+                <p class="instructions">Please respond by August 15, 2023</p>
+            </div>
+            
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <p class="radio-group-label">Will you be attending?</p>
+                    <div class="radio-options">
+                        <div class="radio-option">
+                            <input type="radio" id="attending-yes" name="attending" value="Yes" required aria-required="true">
+                            <label for="attending-yes">Yes, I will attend</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="attending-no" name="attending" value="No">
+                            <label for="attending-no">No, I cannot attend</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="guestsGroup">
+                    <label for="guests">Number of Guests (including yourself):</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dietary">Dietary Restrictions:</label>
+                    <textarea id="dietary" name="dietary" rows="3" placeholder="Please list any dietary restrictions or allergies"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Submit RSVP</button>
+                </div>
+            </form>
+            
+            <div id="confirmation" class="hidden">
+                <h2>Thank You!</h2>
+                <p>Your RSVP has been submitted successfully.</p>
+                <button id="close-confirmation" class="submit-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Background Overlay -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
 </body>
 </html> 

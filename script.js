@@ -1,17 +1,64 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on the RSVP page by looking for the rsvpForm element
+    // Modal elements
+    const openModalBtn = document.getElementById('open-rsvp-modal');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const modal = document.getElementById('rsvp-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
     const rsvpForm = document.getElementById('rsvpForm');
+    const confirmation = document.getElementById('confirmation');
+    const closeConfirmationBtn = document.getElementById('close-confirmation');
     
+    // Modal functionality
+    if (openModalBtn) {
+        openModalBtn.addEventListener('click', function() {
+            modal.classList.remove('hidden');
+            modal.classList.add('show');
+            modalOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+        });
+    }
+    
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+    
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
+    
+    if (closeConfirmationBtn) {
+        closeConfirmationBtn.addEventListener('click', function() {
+            confirmation.classList.add('hidden');
+            closeModal();
+            
+            // Reset form
+            if (rsvpForm) {
+                rsvpForm.reset();
+                rsvpForm.classList.remove('hidden');
+            }
+        });
+    }
+    
+    function closeModal() {
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('show');
+        }
+        if (modalOverlay) {
+            modalOverlay.classList.add('hidden');
+        }
+        document.body.style.overflow = ''; // Re-enable scrolling
+    }
+    
+    // RSVP Form functionality
     if (rsvpForm) {
-        const confirmation = document.getElementById('confirmation');
         const guestsGroup = document.getElementById('guestsGroup');
         const attendingYes = document.getElementById('attending-yes');
         const attendingNo = document.getElementById('attending-no');
-        const newRsvpButton = document.getElementById('newRsvp');
     
         // Show/hide guests dropdown based on attendance
         function toggleGuestsVisibility() {
-            if (attendingYes.checked) {
+            if (attendingYes && attendingYes.checked) {
                 guestsGroup.style.display = 'block';
             } else {
                 guestsGroup.style.display = 'none';
@@ -22,8 +69,12 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleGuestsVisibility();
         
         // Toggle guests visibility when attendance selection changes
-        attendingYes.addEventListener('change', toggleGuestsVisibility);
-        attendingNo.addEventListener('change', toggleGuestsVisibility);
+        if (attendingYes) {
+            attendingYes.addEventListener('change', toggleGuestsVisibility);
+        }
+        if (attendingNo) {
+            attendingNo.addEventListener('change', toggleGuestsVisibility);
+        }
     
         // Handle form submission
         rsvpForm.addEventListener('submit', function(e) {
@@ -52,29 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset button
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
-                
-                // Scroll to confirmation
-                confirmation.scrollIntoView({ behavior: 'smooth' });
             });
         });
         
-        // Reset form and show new RSVP form
-        if (newRsvpButton) {
-            newRsvpButton.addEventListener('click', function() {
-                rsvpForm.reset();
-                confirmation.classList.add('hidden');
-                rsvpForm.classList.remove('hidden');
-                toggleGuestsVisibility();
-                
-                // Scroll back to top of form
-                rsvpForm.scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-        
         // Function to submit form data to Google Sheets
         function submitToGoogleSheets(formData, callback) {
-            // Google Apps Script Web App URL - we'll create this in the next step
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzwUrium00Orojj-0IcIAwPfDAbXeheZnQHyoFHUtI_xOWCUIdODE0mRx6-oTnq8PdY/exec';
+            // Google Apps Script Web App URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzULnmCrfMKLZkDNj80YH1uJq2XKuLTUcKUVMbP/exec';
             
             // Convert form data to URL parameters
             const formDataParams = new URLSearchParams(formData).toString();
@@ -127,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Add animations for the home page if we're on it
+    // Add animations for the home page
     const homeContainer = document.querySelector('.home-container');
     if (homeContainer) {
         // Add fade-in animation to elements
@@ -145,4 +180,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100 * index);
         });
     }
+    
+    // Keyboard accessibility for modal
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
 }); 
