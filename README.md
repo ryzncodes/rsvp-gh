@@ -1,15 +1,32 @@
 # Simple Wedding RSVP Website
 
-A simple, accessible wedding RSVP website designed with senior citizens in mind. The website includes a landing page with wedding information and an RSVP form that submits responses to a Google Sheet.
+A beautiful, accessible wedding RSVP website designed with senior citizens in mind. The website includes a welcoming home page with wedding information and a separate RSVP form page that submits responses to a Google Sheet.
 
 ## Features
 
-- Simple, clean design with large text and high contrast
-- Responsive layout that works on desktop and mobile devices
+- Elegant design with large text and high contrast
+- Two-page layout with dedicated home and RSVP pages
+- Modern styling with custom fonts and subtle animations
+- Responsive design that works beautifully on all devices
 - Accessible form with proper ARIA attributes
 - Form validation to prevent errors
 - Google Sheets integration for collecting responses
 - Easy to customize for your event
+
+## Pages
+
+1. **Home Page (index.html)**
+   - Wedding couple introduction
+   - Date and venue details
+   - Event schedule information
+   - Link to RSVP page
+
+2. **RSVP Page (rsvp.html)**
+   - Simple, focused RSVP form
+   - Name, email, and attendance information
+   - Dietary restrictions field
+   - Confirmation message after submission
+   - Link back to main page
 
 ## Setup Instructions
 
@@ -86,7 +103,16 @@ This website includes several features to make it accessible to senior citizens:
 
 ## Customization Tips
 
-- To change colors, edit the CSS variables at the top of `styles.css`
+- Change colors by editing the CSS variables at the top of `styles.css`:
+  ```css
+  :root {
+      --primary-color: #6b8e92; /* Elegant teal */
+      --secondary-color: #f5e4dd; /* Soft peach */
+      --accent-color: #d4b08c; /* Warm gold */
+      /* other variables */
+  }
+  ```
+- Replace the background image by changing the URL in the `body` style in CSS
 - Add wedding photos by inserting `<img>` tags in the HTML
 - Add more form fields by following the same pattern in the HTML form
 - Change the confirmation message in the HTML
