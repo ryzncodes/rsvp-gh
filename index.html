@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding RSVP</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sarah & Michael's Wedding</h1>
+            <p class="date">September 15, 2023 • 4:00 PM</p>
+            <p class="location">Willow Creek Gardens • 123 Blossom Lane, Springfield</p>
+        </header>
+
+        <section class="intro">
+            <h2>You're Invited!</h2>
+            <p>We are delighted to invite you to celebrate our special day with us. Please let us know if you can attend by filling out the RSVP form below.</p>
+        </section>
+
+        <section class="rsvp-section">
+            <h2>RSVP</h2>
+            <p class="instructions">Please respond by August 15, 2023</p>
+            
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <p class="radio-group-label">Will you be attending?</p>
+                    <div class="radio-options">
+                        <div class="radio-option">
+                            <input type="radio" id="attending-yes" name="attending" value="Yes" required aria-required="true">
+                            <label for="attending-yes">Yes, I will attend</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="attending-no" name="attending" value="No">
+                            <label for="attending-no">No, I cannot attend</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="guestsGroup">
+                    <label for="guests">Number of Guests (including yourself):</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dietary">Dietary Restrictions:</label>
+                    <textarea id="dietary" name="dietary" rows="3" placeholder="Please list any dietary restrictions or allergies"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Submit RSVP</button>
+                </div>
+            </form>
+            
+            <div id="confirmation" class="hidden">
+                <h2>Thank You!</h2>
+                <p>Your RSVP has been submitted successfully.</p>
+                <button id="newRsvp" class="submit-btn">Submit Another RSVP</button>
+            </div>
+        </section>
+        
+        <footer>
+            <p>If you have any questions, please contact us at <a href="mailto:sarahandmichael@example.com">sarahandmichael@example.com</a></p>
+        </footer>
+    </div>
+</body>
+</html> 
