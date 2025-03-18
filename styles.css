@@ -35,6 +35,12 @@ body {
   background-color: #f8f7f3;
 }
 
+/* Fix Opacity Issues - ensure everything is visible */
+body *, h1, h2, h3, p, div, button, input, select, textarea, 
+.detail-item, .detail-item *, .rsvp-button, .names-title {
+  opacity: 1 !important;
+}
+
 /* Names Title */
 .names-title {
   font-family: var(--font-script);
@@ -76,11 +82,17 @@ body {
 }
 
 .detail-item h2 {
-  color: var(--gold-dark);
+  color: var(--gold-dark) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
 }
 
 .detail-item p {
-  color: #666;
+  color: #666 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
 }
 
 /* Animation Support */

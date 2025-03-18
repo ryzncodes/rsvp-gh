@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure all elements are visible at load
+    document.querySelectorAll('.detail-item, .detail-item h2, .detail-item p').forEach(function(el) {
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+    });
+    
     // Environment variables are loaded from config.js
     // CONFIG should be defined in config.js which is loaded before this script
     
@@ -17,6 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Save language preference
             localStorage.setItem('preferredLanguage', currentLang);
+            
+            // Ensure detail items remain visible after language change
+            setTimeout(function() {
+                document.querySelectorAll('.detail-item, .detail-item h2, .detail-item p').forEach(function(el) {
+                    el.style.opacity = '1';
+                    el.style.visibility = 'visible';
+                });
+            }, 10);
         });
     }
     
