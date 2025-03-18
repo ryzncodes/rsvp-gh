@@ -448,4 +448,146 @@ button[type="submit"]:hover {
   .arabic-translation {
     font-size: 0.875rem;
   }
+}
+
+@media (min-width: 1024px) {
+  .home-container {
+    max-width: 90% !important;
+    width: 90% !important;
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .book-page {
+    width: 50%;
+    padding: 2rem;
+  }
+  
+  .book-page-left {
+    border-right: 1px solid rgba(74, 134, 232, 0.2);
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .book-page-right {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
+  .home-header {
+    padding: 0;
+    padding-bottom: 1.5rem;
+  }
+  
+  #main-content {
+    padding: 0;
+  }
+  
+  .book-page-left .arabic-blessing {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+  
+  .book-page-left .names-title {
+    font-size: 4rem !important;
+  }
+  
+  .book-page-left .bismillah {
+    font-size: 2.5rem;
+  }
+  
+  .book-page-left .full-names {
+    max-width: 80%;
+  }
+  
+  .details-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .detail-item {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  /* Book binding effect */
+  .book-page-left::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    background: linear-gradient(to right, rgba(0,0,0,0.01), rgba(0,0,0,0.05));
+    pointer-events: none;
+  }
+  
+  .book-page-right::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 15px;
+    background: linear-gradient(to left, rgba(0,0,0,0.01), rgba(0,0,0,0.05));
+    pointer-events: none;
+  }
+}
+
+/* For extra large screens */
+@media (min-width: 1536px) {
+  .home-container {
+    max-width: 80% !important;
+    width: 80% !important;
+  }
+  
+  .book-page {
+    padding: 3rem;
+  }
+  
+  .book-page-left .names-title {
+    font-size: 5rem !important;
+  }
+  
+  .book-page-left .bismillah {
+    font-size: 3rem;
+  }
+}
+
+/* Mobile-first layout - single column */
+@media (max-width: 1023px) {
+  .book-page {
+    width: 100%;
+  }
+  
+  .book-page-left, .book-page-right {
+    padding: 1.5rem;
+  }
+  
+  .book-page-right {
+    padding-top: 0;
+  }
+}
+
+/* Additional responsive tweaks */
+@media (max-width: 640px) {
+  .home-container {
+    border-radius: 0.5rem;
+  }
+  
+  .book-page {
+    padding: 1rem;
+  }
+  
+  .bismillah {
+    font-size: 1.5rem;
+  }
+  
+  .names-title {
+    font-size: 2.5rem !important;
+  }
 } 

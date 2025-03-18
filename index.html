@@ -66,7 +66,8 @@
 <body class="bg-gray-50 text-gray-900 font-sans">
     <div class="min-h-screen w-full flex items-center justify-center p-4">
         <div class="container home-container max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden">
-            <header class="home-header p-8 pb-0 text-center">
+            <!-- Left Page - Header information -->
+            <div class="book-page book-page-left relative">
                 <!-- Language Selector -->
                 <div class="language-selector absolute top-4 right-4">
                     <button id="lang-toggle" class="inline-flex items-center justify-center h-8 w-8 rounded-md bg-white border border-gray-200 text-sm font-medium" aria-label="Toggle Language">
@@ -82,13 +83,15 @@
                 <h1 class="names-title text-4xl md:text-5xl mb-2" data-lang="title">Faiz & Dini</h1>
                 <p class="tagline text-md md:text-lg text-gray-600 italic mb-4" data-lang="tagline">are getting married</p>
                 <p class="full-names text-sm md:text-base text-gray-700 mb-5" data-lang="full-names">Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria</p>
+                
                 <div class="date-badge inline-flex items-center justify-center px-4 py-2 rounded-full bg-rose-50 text-rose-600 font-medium mb-4">
                     <p class="date" data-lang="garden-attire">June 21, 2025</p>
                 </div>
-                <p class="location text-sm md:text-base text-gray-600 max-w-lg mx-auto mb-2" data-lang="location">Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi</p>
+                
+                <p class="location text-sm md:text-base text-gray-600 max-w-lg mx-auto mb-5" data-lang="location">Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi</p>
                 
                 <!-- Map Toggle Button -->
-                <button id="map-toggle" class="map-toggle-btn inline-flex items-center justify-center px-4 py-2 mt-2 mb-4 rounded-md bg-amber-50 text-amber-800 border border-amber-200 text-sm font-medium hover:bg-amber-100 transition-colors">
+                <button id="map-toggle" class="map-toggle-btn inline-flex items-center justify-center px-4 py-2 mt-2 mb-4 rounded-md bg-blue-50 text-blue-800 border border-blue-200 text-sm font-medium hover:bg-blue-100 transition-colors">
                     <span data-lang="view-map">View Map</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 map-icon-down" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -109,44 +112,51 @@
                         </a>
                     </div>
                 </div>
-            </header>
-
-            <main id="main-content" class="p-6 pt-0">
-                <div class="details-section grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div class="detail-item p-4 bg-white rounded-lg border border-blue-200 shadow" style="opacity: 1 !important; visibility: visible !important;">
-                        <div class="flex flex-col items-center justify-center h-full">
-                            <h2 class="text-xl font-medium text-blue-800 mb-2" data-lang="ceremony" style="opacity: 1 !important; visibility: visible !important;">Reception</h2>
-                            <p class="text-gray-700" data-lang="garden-pavilion" style="opacity: 1 !important; visibility: visible !important;">Starts at 11:00 AM</p>
-                        </div>
-                    </div>
-                    
-                    <div class="detail-item p-4 bg-white rounded-lg border border-blue-200 shadow" style="opacity: 1 !important; visibility: visible !important;">
-                        <div class="flex flex-col items-center justify-center h-full">
-                            <h2 class="text-xl font-medium text-blue-800 mb-2" data-lang="reception" style="opacity: 1 !important; visibility: visible !important;">Arrival of Bride & Groom</h2>
-                            <p class="text-gray-700" data-lang="grand-ballroom" style="opacity: 1 !important; visibility: visible !important;">1:00 PM</p>
-                        </div>
-                    </div>
-                    
-                    <div class="detail-item p-4 bg-white rounded-lg border border-blue-200 shadow" style="opacity: 1 !important; visibility: visible !important;">
-                        <div class="flex flex-col items-center justify-center h-full">
-                            <h2 class="text-xl font-medium text-blue-800 mb-2" data-lang="dress-code" style="opacity: 1 !important; visibility: visible !important;">Event Ends</h2>
-                            <p class="text-gray-700" data-lang="semi-formal" style="opacity: 1 !important; visibility: visible !important;">4:00 PM</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <section class="rsvp-button-section text-center py-6 border-t border-gray-100">
-                    <p class="rsvp-deadline text-sm text-gray-600 italic mb-4" data-lang="rsvp-deadline">Please respond before the end of May 2025</p>
-                    <button id="open-rsvp-modal" class="rsvp-button px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500" data-lang="rsvp-button">RSVP</button>
-                </section>
-            </main>
+            </div>
             
-            <footer class="bg-gray-50 p-6 text-center border-t border-gray-100">
-                <p class="text-sm text-gray-600 mb-1" data-lang="contact-us">If you have any questions, please contact</p>
-                <p class="text-sm font-medium text-gray-800" data-lang="contact-details">Dini: 01156369249 | Mama: 0124636238</p>
-                <!-- Hidden connection status indicator - only visible in dev mode -->
-                <div id="connection-status" class="hidden text-xs text-gray-400 mt-3 p-1"></div>
-            </footer>
+            <!-- Right Page - Event details and RSVP -->
+            <div class="book-page book-page-right relative">
+                <header class="home-header text-center">
+                    <h2 class="text-2xl font-medium text-blue-800 mb-6">Wedding Details</h2>
+                </header>
+
+                <main id="main-content">
+                    <div class="details-section mb-10">
+                        <div class="detail-item p-4 bg-white rounded-lg border border-blue-200 shadow" style="opacity: 1 !important; visibility: visible !important;">
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <h2 class="text-xl font-medium text-blue-800 mb-2" data-lang="ceremony" style="opacity: 1 !important; visibility: visible !important;">Reception</h2>
+                                <p class="text-gray-700" data-lang="garden-pavilion" style="opacity: 1 !important; visibility: visible !important;">Starts at 11:00 AM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item p-4 bg-white rounded-lg border border-blue-200 shadow" style="opacity: 1 !important; visibility: visible !important;">
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <h2 class="text-xl font-medium text-blue-800 mb-2" data-lang="reception" style="opacity: 1 !important; visibility: visible !important;">Arrival of Bride & Groom</h2>
+                                <p class="text-gray-700" data-lang="grand-ballroom" style="opacity: 1 !important; visibility: visible !important;">1:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item p-4 bg-white rounded-lg border border-blue-200 shadow" style="opacity: 1 !important; visibility: visible !important;">
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <h2 class="text-xl font-medium text-blue-800 mb-2" data-lang="dress-code" style="opacity: 1 !important; visibility: visible !important;">Event Ends</h2>
+                                <p class="text-gray-700" data-lang="semi-formal" style="opacity: 1 !important; visibility: visible !important;">4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <section class="rsvp-button-section text-center py-4 border-t border-gray-100">
+                        <p class="rsvp-deadline text-sm text-gray-600 italic mb-4" data-lang="rsvp-deadline">Please respond before the end of May 2025</p>
+                        <button id="open-rsvp-modal" class="rsvp-button px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" data-lang="rsvp-button">RSVP</button>
+                    </section>
+                </main>
+                
+                <footer class="bg-gray-50 p-4 text-center border-t border-gray-100 mt-4">
+                    <p class="text-sm text-gray-600 mb-1" data-lang="contact-us">If you have any questions, please contact</p>
+                    <p class="text-sm font-medium text-gray-800" data-lang="contact-details">Dini: 01156369249 | Mama: 0124636238</p>
+                    <!-- Hidden connection status indicator - only visible in dev mode -->
+                    <div id="connection-status" class="hidden text-xs text-gray-400 mt-3 p-1"></div>
+                </footer>
+            </div>
         </div>
     </div>
 
