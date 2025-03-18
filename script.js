@@ -172,9 +172,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // RSVP Form functionality
     if (rsvpForm) {
+        const attendingRadios = document.getElementsByName('attending');
+        const guestsGroup = document.getElementById('guestsGroup');
+
         // Show/hide guests dropdown based on attendance
         function toggleGuestsVisibility() {
-            if (attendingRadios[0].checked) {
+            const selectedRadio = document.querySelector('input[name="attending"]:checked');
+            if (selectedRadio && selectedRadio.value === 'Ya') {
                 guestsGroup.style.display = 'block';
             } else {
                 guestsGroup.style.display = 'none';
@@ -191,9 +195,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Handle form submission
         rsvpForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
             console.log('Form submission started');
             
-            // No need to prevent default - let the form submit to the iframe
+            // Validate form
+            if (!validateForm()) {
+                return false;
+            }
             
             // Show a loading indicator
             const submitBtn = rsvpForm.querySelector('button[type="submit"]');
@@ -201,24 +209,42 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = TRANSLATIONS[currentLang]['submitting'] || 'Submitting...';
             submitBtn.disabled = true;
             
-            // Log the form data for debugging
+            // Get form data
             const formData = new FormData(rsvpForm);
             const data = Object.fromEntries(formData.entries());
             console.log('Form data:', data);
             
-            // Show confirmation after a delay - this assumes the form submission worked
-            setTimeout(() => {
-                // Reset button state
+            // Create URL with parameters
+            const params = new URLSearchParams();
+            for (let [key, value] of Object.entries(data)) {
+                params.append(key, value.trim());
+            }
+            
+            // Log the full URL for debugging
+            const url = `${CONFIG.GOOGLE_SCRIPT_URL}?${params.toString()}`;
+            console.log('Submitting to URL:', url);
+            
+            // Submit to Google Sheets
+            fetch(url, {
+                method: 'GET',
+                mode: 'no-cors',
+                cache: 'no-cache'
+            })
+            .then(response => {
+                console.log('Response received');
+                // Show success message
+                openConfirmationModal();
+                rsvpForm.reset();
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
-                
-                // Open the confirmation modal instead of showing it within the RSVP modal
-                openConfirmationModal();
-                
                 console.log('RSVP confirmation shown');
-            }, 1500);
-            
-            // No need to prevent the default submission - we let it go to the hidden iframe
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                alert('Error submitting form. Please try again.');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
         });
         
         // Add form validation for accessibility
@@ -231,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add styling for error state
                 if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-message')) {
                     const errorMessage = document.createElement('p');
-                    errorMessage.className = 'error-message';
+                    errorMessage.className = 'error-message text-red-500 text-sm mt-1';
                     errorMessage.textContent = input.validationMessage;
                     input.parentNode.insertBefore(errorMessage, input.nextSibling);
                 }

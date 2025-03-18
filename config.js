@@ -3,7 +3,7 @@
 
 const CONFIG = {
     // Production Google Script URL - VERIFY THIS IS CORRECT
-    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzwUrium00Orojj-0IcIAwPfDAbXeheZnQHyoFHUtI_xOWCUIdODE0mRx6-oTnq8PdY/exec',
+    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwtlp0O-JRvefpdonwHS-phmqAfVfmY-LnOpoiCOyTCoz3iVzmsCuzR4pkJao85H0ml/exec',
     // Debug mode (will show connection status on screen)
     DEBUG: true
 };

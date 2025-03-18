@@ -9,16 +9,16 @@
 // 7. Copy the web app URL and paste it in your script.js file where it says 'YOUR_GOOGLE_SCRIPT_URL'
 
 function doGet(e) {
-  // Set CORS headers for all responses
+  // Create text output with CORS headers
   var output = ContentService.createTextOutput();
-  output.setHeader('Access-Control-Allow-Origin', '*');
   
   // Debug: Log all incoming parameters
   Logger.log("Received request with parameters: " + JSON.stringify(e.parameter));
   
   // Handle ping requests for connection testing
   if (e.parameter.ping) {
-    return output.setContent('Connected').setMimeType(ContentService.MimeType.TEXT);
+    output.setMimeType(ContentService.MimeType.TEXT);
+    return output.setContent('Connected');
   }
   
   try {
@@ -29,38 +29,22 @@ function doGet(e) {
     Logger.log("Processing parameters: " + JSON.stringify(params));
     
     // Check if we received key data
-    if (!params.name && !params.email) {
+    if (!params.name || !params.phone) {
       Logger.log("Error: Missing required parameters");
-      return output.setContent('Error: Missing required name or email').setMimeType(ContentService.MimeType.TEXT);
+      output.setMimeType(ContentService.MimeType.TEXT);
+      return output.setContent('Error: Missing required parameters');
     }
     
     // Get the active spreadsheet
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     if (!ss) {
       Logger.log("Error: Could not access spreadsheet");
-      return output.setContent('Error: Could not access spreadsheet').setMimeType(ContentService.MimeType.TEXT);
+      output.setMimeType(ContentService.MimeType.TEXT);
+      return output.setContent('Error: Could not access spreadsheet');
     }
     
-    var sheet = ss.getSheetByName('RSVP Responses');
-    if (!sheet) {
-      // Create the sheet if it doesn't exist
-      Logger.log("Creating new RSVP Responses sheet");
-      sheet = ss.insertSheet('RSVP Responses');
-    }
-    
-    // Check if the headers are set
-    var headers = sheet.getRange(1, 1, 1, 7).getValues()[0];
-    if (headers[0] === '') {
-      // Set the headers
-      Logger.log("Setting up sheet headers");
-      sheet.getRange(1, 1, 1, 7).setValues([
-        ['Name', 'Email', 'Phone', 'Attending', 'Number of Guests', 'Dietary Restrictions', 'Timestamp']
-      ]);
-      sheet.setFrozenRows(1);
-    }
-    
-    // Get the last row with data
-    var lastRow = Math.max(sheet.getLastRow(), 1);
+    // Get or create the sheet
+    var sheet = setupSheet();
     
     // Format the data for insertion
     var rowData = [
@@ -68,40 +52,95 @@ function doGet(e) {
       params.email || '',
       params.phone || '',
       params.attending || '',
-      params.guests || '',
+      params.guests || '1',
       params.dietary || '',
-      new Date().toLocaleString()
+      params.wishes || '',
+      new Date().toLocaleString('en-MY')
     ];
     
     Logger.log("Adding row: " + JSON.stringify(rowData));
     
-    // Append the new response
-    sheet.getRange(lastRow + 1, 1, 1, 7).setValues([rowData]);
+    // Get the last row and append new data
+    var lastRow = Math.max(sheet.getLastRow(), 1);
+    var newRange = sheet.getRange(lastRow + 1, 1, 1, rowData.length);
+    newRange.setValues([rowData]);
     
-    // Return a success response
-    return output.setContent('Success: RSVP recorded').setMimeType(ContentService.MimeType.TEXT);
+    // Auto-resize columns after adding new data
+    sheet.autoResizeColumns(1, rowData.length);
+    
+    // Return success response
+    output.setMimeType(ContentService.MimeType.TEXT);
+    return output.setContent('Success: RSVP recorded');
     
   } catch (error) {
     // Log the detailed error
     Logger.log("Error in doGet: " + error.toString());
     Logger.log("Stack trace: " + error.stack);
     
-    // Return a detailed error message
-    return output.setContent('Error: ' + error.message).setMimeType(ContentService.MimeType.TEXT);
+    // Return error response
+    output.setMimeType(ContentService.MimeType.TEXT);
+    return output.setContent('Error: ' + error.message);
   }
+}
+
+// Function to set up the sheet with correct headers
+function setupSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('RSVP Responses');
+  
+  // If sheet exists, clear it instead of deleting
+  if (sheet) {
+    sheet.clear();
+  } else {
+    // Create a new sheet if it doesn't exist
+    sheet = ss.insertSheet('RSVP Responses');
+  }
+  
+  // Set up headers and format them
+  var headers = [
+    'Name',
+    'Email',
+    'Phone',
+    'Attending',
+    'Number of Guests',
+    'Dietary Restrictions',
+    'Wishes',
+    'Timestamp'
+  ];
+  
+  // Set headers
+  var headerRange = sheet.getRange(1, 1, 1, headers.length);
+  headerRange.setValues([headers]);
+  
+  // Format headers
+  headerRange.setBackground('#f3f4f6');
+  headerRange.setFontWeight('bold');
+  headerRange.setHorizontalAlignment('center');
+  
+  // Freeze the header row
+  sheet.setFrozenRows(1);
+  
+  // Auto-resize columns
+  sheet.autoResizeColumns(1, headers.length);
+  
+  return sheet;
 }
 
 // Optional: Add a function to test the script
 function testDoGet() {
+  // First, reset the sheet
+  setupSheet();
+  
   // Create a mock event object
   var mockEvent = {
     parameter: {
       name: 'Test User',
       email: 'test@example.com',
       phone: '123-456-7890',
-      attending: 'Yes',
+      attending: 'Ya',
       guests: '2',
-      dietary: 'No nuts please'
+      dietary: 'No nuts please',
+      wishes: 'Congratulations and best wishes!'
     }
   };
   
@@ -121,4 +160,15 @@ function clearTestData() {
     sheet.deleteRows(2, sheet.getLastRow() - 1);
     Logger.log("Test data cleared");
   }
+}
+
+// Function to reset everything and test
+function resetAndTest() {
+  // Set up fresh sheet
+  setupSheet();
+  
+  // Run test
+  testDoGet();
+  
+  Logger.log("Sheet reset and test completed");
 } 

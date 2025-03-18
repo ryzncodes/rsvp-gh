@@ -171,72 +171,105 @@
     <!-- RSVP Modal -->
     <div id="rsvp-modal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
         <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto overflow-hidden border border-amber-200">
-            <div class="p-6">
+            <div class="modal-content p-6 rounded-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-semibold text-amber-800" data-lang="rsvp-heading" style="opacity: 1 !important; visibility: visible !important;">RSVP for Our Wedding</h2>
-                    <button class="close-modal text-gray-400 hover:text-gray-500 transition duration-150 ease-in-out">
+                    <h2 class="text-2xl font-semibold text-amber-800">RSVP untuk Majlis Perkahwinan Kami</h2>
+                    <button class="close-modal text-gray-400 hover:text-gray-500">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
                 
-                <p class="text-sm text-gray-600 italic mb-6" data-lang="rsvp-deadline" style="opacity: 1 !important; visibility: visible !important;">Please respond before the end of May 2025</p>
+                <p class="text-sm text-gray-600 mb-6">Sila beri maklum balas sebelum akhir Mei 2025</p>
                 
-                <form id="rsvpForm" class="space-y-4" style="opacity: 1 !important; visibility: visible !important; display: block !important;" method="GET" action="https://script.google.com/macros/s/AKfycbzwUrium00Orojj-0IcIAwPfDAbXeheZnQHyoFHUtI_xOWCUIdODE0mRx6-oTnq8PdY/exec" target="hidden-iframe">
+                <form id="rsvpForm" class="space-y-6" onsubmit="return validateForm()">
                     <div class="form-group">
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-lang="name-label" style="opacity: 1 !important; visibility: visible !important;">Name</label>
-                        <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500" placeholder="Enter your full name" data-lang-placeholder="name-placeholder">
+                        <label for="name">
+                            <span class="text-gray-700">Nama</span>
+                            <span class="text-red-500 ml-1">*</span>
+                        </label>
+                        <input type="text" id="name" name="name" required 
+                            placeholder="Masukkan nama penuh anda"
+                            maxlength="100"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-lang="email-label" style="opacity: 1 !important; visibility: visible !important;">Email</label>
-                        <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500" placeholder="Enter your email address" data-lang-placeholder="email-placeholder">
+                        <label for="phone">
+                            <span class="text-gray-700">Telefon</span>
+                            <span class="text-red-500 ml-1">*</span>
+                        </label>
+                        <input type="tel" id="phone" name="phone" required 
+                            placeholder="Contoh: 0123456789"
+                            maxlength="15"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1" data-lang="phone-label" style="opacity: 1 !important; visibility: visible !important;">Phone</label>
-                        <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500" placeholder="Enter your phone number" data-lang-placeholder="phone-placeholder">
+                        <label for="email">
+                            <span class="text-gray-700">Emel</span>
+                            <span class="text-gray-400 text-sm ml-2">(Pilihan)</span>
+                        </label>
+                        <input type="email" id="email" name="email" 
+                            placeholder="Masukkan alamat emel anda"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label class="block text-sm font-medium text-gray-700 mb-2" data-lang="attending-label" style="opacity: 1 !important; visibility: visible !important;">Will you be attending?</label>
-                        <div class="flex space-x-4">
-                            <div class="flex items-center">
-                                <input type="radio" id="attending-yes" name="attending" value="Yes" required class="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300">
-                                <label for="attending-yes" class="ml-2 text-sm text-gray-700" data-lang="yes" style="opacity: 1 !important; visibility: visible !important;">Yes</label>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <input type="radio" id="attending-no" name="attending" value="No" class="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300">
-                                <label for="attending-no" class="ml-2 text-sm text-gray-700" data-lang="no" style="opacity: 1 !important; visibility: visible !important;">No</label>
-                            </div>
+                        <label>
+                            <span class="text-gray-700">Adakah anda akan hadir?</span>
+                            <span class="text-red-500 ml-1">*</span>
+                        </label>
+                        <div class="flex gap-6 mt-2">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="attending" value="Ya" required class="w-4 h-4 text-blue-600">
+                                <span class="ml-2">Ya</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="attending" value="Tidak" required class="w-4 h-4 text-blue-600">
+                                <span class="ml-2">Tidak</span>
+                            </label>
                         </div>
                     </div>
-                    
-                    <div class="form-group" id="guestsGroup">
-                        <label for="guests" class="block text-sm font-medium text-gray-700 mb-1" data-lang="guests-label" style="opacity: 1 !important; visibility: visible !important;">Number of Guests</label>
-                        <select id="guests" name="guests" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+
+                    <div id="guestsGroup" class="form-group" style="display: none;">
+                        <label for="guests">
+                            <span class="text-gray-700">Bilangan Tetamu</span>
+                            <span class="text-red-500 ml-1">*</span>
+                        </label>
+                        <select id="guests" name="guests" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="1">1 orang</option>
+                            <option value="2">2 orang</option>
+                            <option value="3">3 orang</option>
+                            <option value="4">4 orang</option>
+                            <option value="5">5 orang</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="dietary" class="block text-sm font-medium text-gray-700 mb-1" data-lang="dietary-label" style="opacity: 1 !important; visibility: visible !important;">Dietary Restrictions</label>
-                        <textarea id="dietary" name="dietary" placeholder="Please list any dietary restrictions or allergies" data-lang-placeholder="dietary-placeholder" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 h-24"></textarea>
+                        <label for="dietary">
+                            <span class="text-gray-700">Sekatan Pemakanan</span>
+                            <span class="text-gray-400 text-sm ml-2">(Pilihan)</span>
+                        </label>
+                        <textarea id="dietary" name="dietary" 
+                            placeholder="Sila senaraikan sebarang sekatan pemakanan atau alahan"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[80px]"></textarea>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="wishes" class="block text-sm font-medium text-gray-700 mb-1" data-lang="wishes-label" style="opacity: 1 !important; visibility: visible !important;">Wishes & Doa</label>
-                        <textarea id="wishes" name="wishes" placeholder="Tuliskan ucapan dan doa anda untuk pengantin" data-lang-placeholder="wishes-placeholder" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 h-24"></textarea>
+                        <label for="wishes">
+                            <span class="text-gray-700">Ucapan & Doa</span>
+                            <span class="text-gray-400 text-sm ml-2">(Pilihan)</span>
+                        </label>
+                        <textarea id="wishes" name="wishes" 
+                            placeholder="Tuliskan ucapan dan doa anda untuk pengantin"
+                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[100px]"></textarea>
                     </div>
-                    
-                    <div class="mt-6">
-                        <button type="submit" style="width: 100%; padding: 0.5rem 1rem; background-color: #d97706; color: white; border-radius: 0.375rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 150ms ease-in-out; opacity: 1 !important; visibility: visible !important; display: block !important;" data-lang="submit-rsvp">Hantar RSVP</button>
-                    </div>
+
+                    <button type="submit" class="submit-button w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded-lg transition duration-150 ease-in-out">
+                        Hantar RSVP
+                    </button>
                 </form>
             </div>
         </div>
@@ -262,5 +295,52 @@
 
     <!-- Add hidden iframe for submission without page redirect -->
     <iframe name="hidden-iframe" style="display:none;"></iframe>
+
+    <script>
+    function validateForm() {
+        // Get form elements
+        const name = document.getElementById('name');
+        const phone = document.getElementById('phone');
+        const email = document.getElementById('email');
+        
+        // Basic validation for required fields
+        if (!name.value.trim()) {
+            alert('Sila masukkan nama anda');
+            name.focus();
+            return false;
+        }
+        
+        if (!phone.value.trim()) {
+            alert('Sila masukkan nombor telefon anda');
+            phone.focus();
+            return false;
+        }
+        
+        // Phone number validation
+        const phoneRegex = /^[0-9+\-\s]+$/;
+        if (!phoneRegex.test(phone.value.trim())) {
+            alert('Sila masukkan nombor telefon yang sah');
+            phone.focus();
+            return false;
+        }
+        
+        // Email validation (only if provided)
+        if (email.value.trim()) {
+            const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(email.value.trim())) {
+                alert('Sila masukkan alamat emel yang sah');
+                email.focus();
+                return false;
+            }
+        }
+        
+        // Clean up the data before submission
+        name.value = name.value.trim();
+        phone.value = phone.value.trim();
+        if (email.value) email.value = email.value.trim();
+        
+        return true;
+    }
+    </script>
 </body>
 </html> 
