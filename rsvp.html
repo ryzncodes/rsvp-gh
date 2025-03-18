@@ -4,59 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSVP - Faiz & Dini's Wedding</title>
-    <style>
-        /* Ensure content is visible during initial load */
-        body, div, header, main, p, h1, h2, h3 {
-            opacity: 1 !important;
-        }
-        
-        /* Force body to display properly */
-        body {
-            height: 100vh !important;
-            overflow: hidden !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-        
-        /* Ensure container displays properly */
-        .container {
-            width: 90% !important;
-            margin: 0 auto !important;
-            max-width: 750px !important;
-            max-height: 98vh !important;
-            overflow-y: auto !important;
-        }
-        
-        /* Make form elements display properly */
-        .rsvp-section {
-            background-color: white !important;
-            padding: 30px !important;
-            margin: 0 !important;
-        }
-        
-        /* Form groups */
-        .form-group {
-            margin-bottom: 15px !important;
-        }
-        
-        /* More compact text */
-        h1 {
-            font-size: 2.2rem !important;
-            margin-bottom: 5px !important;
-        }
-        
-        .full-names, .date {
-            margin: 5px 0 !important;
-        }
-        
-        footer {
-            margin-top: 15px !important;
-            padding: 15px !important;
-        }
-    </style>
+    <!-- Modern CSS Reset -->
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <!-- Tailwind-like utility classes -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Inter font for clean UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Our custom styles -->
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico">
     <!-- Animation Library -->
@@ -66,90 +22,105 @@
     <script src="config.js"></script>
     <script src="script.js" defer></script>
 </head>
-<body>
-    <a href="#main-content" class="skip-to-content">Skip to main content</a>
-    <div class="container rsvp-container">
-        <header class="home-header">
-            <!-- Language Selector -->
-            <div class="language-selector">
-                <button id="lang-toggle" aria-label="Toggle Language">
-                    <span id="current-lang">EN</span>
-                </button>
-            </div>
-            
-            <!-- Floral Decorations -->
-            <div class="floral-decoration floral-top-left"></div>
-            <div class="floral-decoration floral-top-right"></div>
-            
-            <h1 class="names-title" data-lang="rsvp-page-title">RSVP</h1>
-            <p class="tagline" data-lang="rsvp-page-subtitle">for Faiz & Dini's Wedding</p>
-            <p class="full-names" data-lang="full-names">Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria</p>
-            <p class="date" data-lang="garden-attire">June 21, 2025</p>
-            <a href="index.html" class="back-link" data-lang="back-to-home">← Back to Home</a>
-        </header>
-
-        <main id="main-content">
-            <div class="rsvp-section">
-                <h2 data-lang="rsvp-heading">RSVP for Our Wedding</h2>
-                <p class="rsvp-deadline" data-lang="rsvp-deadline">Please respond before the end of May 2025</p>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <div class="min-h-screen w-full flex items-center justify-center p-4">
+        <div class="container rsvp-container max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden">
+            <header class="home-header p-8 text-center border-b border-gray-100">
+                <!-- Language Selector -->
+                <div class="language-selector absolute top-4 right-4">
+                    <button id="lang-toggle" class="inline-flex items-center justify-center h-8 w-8 rounded-md bg-white border border-gray-200 text-sm font-medium" aria-label="Toggle Language">
+                        <span id="current-lang">EN</span>
+                    </button>
+                </div>
                 
-                <form id="rsvpForm" class="rsvp-form standalone">
-                    <div class="form-group">
-                        <label for="name" data-lang="name-label">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
+                <h1 class="names-title text-4xl md:text-5xl mb-2" data-lang="rsvp-page-title">RSVP</h1>
+                <p class="tagline text-md md:text-lg text-gray-600 italic mb-4" data-lang="rsvp-page-subtitle">for Faiz & Dini's Wedding</p>
+                <p class="full-names text-sm md:text-base text-gray-700 mb-5" data-lang="full-names">Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria</p>
+                <div class="date-badge inline-flex items-center justify-center px-4 py-2 rounded-full bg-rose-50 text-rose-600 font-medium mb-4">
+                    <p class="date" data-lang="garden-attire">June 21, 2025</p>
+                </div>
+                <a href="index.html" class="back-link inline-flex items-center text-sm text-rose-600 hover:text-rose-800 transition-colors" data-lang="back-to-home">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Home
+                </a>
+            </header>
+
+            <main id="main-content" class="p-6">
+                <div class="rsvp-section bg-white rounded-lg">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center" data-lang="rsvp-heading">RSVP for Our Wedding</h2>
+                    <p class="text-sm text-gray-600 italic mb-6 text-center" data-lang="rsvp-deadline">Please respond before the end of May 2025</p>
                     
-                    <div class="form-group">
-                        <label for="email" data-lang="email-label">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
+                    <form id="rsvpForm" class="rsvp-form standalone space-y-4">
+                        <div class="form-group">
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-lang="name-label">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-lang="email-label">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1" data-lang="phone-label">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-lang="attending-label">Will you be attending?</label>
+                            <div class="flex space-x-4">
+                                <div class="flex items-center">
+                                    <input type="radio" id="attending-yes" name="attending" value="Yes" required class="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300">
+                                    <label for="attending-yes" class="ml-2 text-sm text-gray-700" data-lang="yes">Yes</label>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <input type="radio" id="attending-no" name="attending" value="No" class="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300">
+                                    <label for="attending-no" class="ml-2 text-sm text-gray-700" data-lang="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="guestsGroup">
+                            <label for="guests" class="block text-sm font-medium text-gray-700 mb-1" data-lang="guests-label">Number of Guests</label>
+                            <select id="guests" name="guests" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dietary" class="block text-sm font-medium text-gray-700 mb-1" data-lang="dietary-label">Dietary Restrictions</label>
+                            <textarea id="dietary" name="dietary" placeholder="" data-lang-attr="placeholder" data-lang-placeholder="dietary-placeholder" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 h-24"></textarea>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button type="submit" class="w-full px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500" data-lang="submit-rsvp">Submit RSVP</button>
+                        </div>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="phone" data-lang="phone-label">Phone</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label data-lang="attending-label">Will you be attending?</label>
-                        <div class="radio-group">
-                            <input type="radio" id="attending-yes" name="attending" value="Yes" required>
-                            <label for="attending-yes" data-lang="yes">Yes</label>
-                            
-                            <input type="radio" id="attending-no" name="attending" value="No">
-                            <label for="attending-no" data-lang="no">No</label>
+                    <div id="confirmation" class="confirmation hidden text-center py-8">
+                        <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <h3 class="mt-2 text-xl font-semibold text-gray-900" data-lang="thank-you">Thank You!</h3>
+                        <p class="mt-2 text-sm text-gray-600" data-lang="confirmation-message">Your RSVP has been received. We look forward to celebrating with you!</p>
+                        <div class="mt-6">
+                            <a href="index.html" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md transition duration-150 ease-in-out inline-block" data-lang="back-to-home">Back to Home</a>
                         </div>
                     </div>
-                    
-                    <div class="form-group" id="guestsGroup">
-                        <label for="guests" data-lang="guests-label">Number of Guests</label>
-                        <select id="guests" name="guests">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="dietary" data-lang="dietary-label">Dietary Restrictions</label>
-                        <textarea id="dietary" name="dietary" placeholder="" data-lang-attr="placeholder" data-lang-placeholder="dietary-placeholder"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" data-lang="submit-rsvp">Submit RSVP</button>
-                </form>
-                
-                <div id="confirmation" class="confirmation hidden">
-                    <h3 data-lang="thank-you">Thank You!</h3>
-                    <p data-lang="confirmation-message">Your RSVP has been received. We look forward to celebrating with you!</p>
-                    <a href="index.html" class="back-btn" data-lang="back-to-home">Back to Home</a>
                 </div>
-            </div>
-        </main>
-        
-        <footer>
-            <p data-lang="contact-us">If you have any questions, please contact</p>
-            <p data-lang="contact-details">Dini: 01156369249 | Mama: 0124636238</p>
-        </footer>
+            </main>
+            
+            <footer class="bg-gray-50 p-6 text-center border-t border-gray-100">
+                <p class="text-sm text-gray-600 mb-1" data-lang="contact-us">If you have any questions, please contact</p>
+                <p class="text-sm font-medium text-gray-800" data-lang="contact-details">Dini: 01156369249 | Mama: 0124636238</p>
+            </footer>
+        </div>
     </div>
 </body>
 </html> 

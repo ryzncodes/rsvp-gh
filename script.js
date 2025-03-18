@@ -17,16 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Save language preference
             localStorage.setItem('preferredLanguage', currentLang);
-            
-            // Update display with animation
-            const langSpan = document.getElementById('current-lang');
-            anime({
-                targets: langSpan,
-                opacity: [0, 1],
-                translateY: [10, 0],
-                duration: 500,
-                easing: 'easeOutQuad'
-            });
         });
     }
     
@@ -34,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const openModalBtn = document.getElementById('open-rsvp-modal');
     const closeModalBtn = document.querySelector('.close-modal');
     const modal = document.getElementById('rsvp-modal');
-    const modalOverlay = document.getElementById('modal-overlay');
     const rsvpForm = document.getElementById('rsvpForm');
     const confirmation = document.getElementById('confirmation');
     const closeConfirmationBtn = document.getElementById('close-confirmation');
@@ -42,19 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Modal functionality
     if (openModalBtn) {
         openModalBtn.addEventListener('click', function() {
+            // Make modal visible (Tailwind display)
             modal.classList.remove('hidden');
-            modal.classList.add('show');
-            modalOverlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
-            
-            // Animate modal opening
-            anime({
-                targets: '.modal-content',
-                opacity: [0, 1],
-                scale: [0.9, 1],
-                duration: 400,
-                easing: 'easeOutQuad'
-            });
+            modal.classList.add('visible');
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
         });
     }
     
@@ -62,8 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         closeModalBtn.addEventListener('click', closeModal);
     }
     
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', closeModal);
+    // Close modal when clicking outside content
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
     }
     
     if (closeConfirmationBtn) {
@@ -81,22 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function closeModal() {
         if (modal) {
-            // Animate modal closing
-            anime({
-                targets: '.modal-content',
-                opacity: [1, 0],
-                scale: [1, 0.9],
-                duration: 300,
-                easing: 'easeInQuad',
-                complete: function() {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('show');
-                    if (modalOverlay) {
-                        modalOverlay.classList.add('hidden');
-                    }
-                    document.body.style.overflow = ''; // Re-enable scrolling
-                }
-            });
+            modal.classList.add('hidden');
+            modal.classList.remove('visible');
+            document.body.style.overflow = '';
         }
     }
     
@@ -110,26 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
         function toggleGuestsVisibility() {
             if (attendingYes && attendingYes.checked) {
                 guestsGroup.style.display = 'block';
-                // Animate the appearance of the guests dropdown
-                anime({
-                    targets: guestsGroup,
-                    opacity: [0, 1],
-                    translateY: [10, 0],
-                    duration: 500,
-                    easing: 'easeOutQuad'
-                });
             } else {
-                // Animate the disappearance of the guests dropdown
-                anime({
-                    targets: guestsGroup,
-                    opacity: [1, 0],
-                    translateY: [0, 10],
-                    duration: 300,
-                    easing: 'easeInQuad',
-                    complete: function() {
-                        guestsGroup.style.display = 'none';
-                    }
-                });
+                guestsGroup.style.display = 'none';
             }
         }
     
@@ -149,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             // Show a loading indicator
-            const submitBtn = rsvpForm.querySelector('.submit-btn');
+            const submitBtn = rsvpForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
             submitBtn.textContent = TRANSLATIONS[currentLang]['submitting'] || 'Submitting...';
             submitBtn.disabled = true;
@@ -165,27 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Send form data to Google Sheets
             submitToGoogleSheets(formDataObj, function() {
                 // Hide form and show confirmation
-                // Animate form out
-                anime({
-                    targets: rsvpForm,
-                    opacity: [1, 0],
-                    translateX: [0, -20],
-                    duration: 300,
-                    easing: 'easeInQuad',
-                    complete: function() {
-                        rsvpForm.classList.add('hidden');
-                        confirmation.classList.remove('hidden');
-                        
-                        // Animate confirmation in
-                        anime({
-                            targets: confirmation,
-                            opacity: [0, 1],
-                            translateX: [20, 0],
-                            duration: 500,
-                            easing: 'easeOutQuad'
-                        });
-                    }
-                });
+                rsvpForm.classList.add('hidden');
+                confirmation.classList.remove('hidden');
                 
                 // Reset button
                 submitBtn.textContent = originalBtnText;
@@ -214,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error!', error.message);
                 alert(TRANSLATIONS[currentLang]['submission-error'] || 'There was an error submitting your RSVP. Please try again or contact us directly.');
                 
-                const submitBtn = rsvpForm.querySelector('.submit-btn');
+                const submitBtn = rsvpForm.querySelector('button[type="submit"]');
                 submitBtn.textContent = TRANSLATIONS[currentLang]['submit-rsvp'] || 'Submit RSVP';
                 submitBtn.disabled = false;
             });
