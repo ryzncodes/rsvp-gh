@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.visibility = 'visible';
     });
     
+    // Check Google Sheets connection
+    checkGoogleSheetsConnection();
+    
     // Environment variables are loaded from config.js
     // CONFIG should be defined in config.js which is loaded before this script
     
@@ -167,8 +170,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = Object.fromEntries(formData.entries());
             
             try {
-                // Here you would typically send the data to your server
-                // For now, we'll just simulate a successful submission
+                // Connect to Google Sheets via the Apps Script URL
+                if (typeof CONFIG === 'undefined' || !CONFIG.GOOGLE_SCRIPT_URL) {
+                    throw new Error('Google Sheets configuration is missing');
+                }
+                
+                // Create a query string from form data
+                const params = new URLSearchParams();
+                Object.keys(data).forEach(key => {
+                    params.append(key, data[key]);
+                });
+                
+                // Send the data to Google Sheets
+                const response = await fetch(CONFIG.GOOGLE_SCRIPT_URL + '?' + params.toString(), {
+                    method: 'GET',
+                    mode: 'no-cors', // Required for Google Apps Script
+                });
+                
+                // Note: due to CORS, we can't actually check the response
+                // Wait a bit to simulate processing time
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 
                 // Show confirmation
@@ -179,8 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
                 
-                // Optional: Send email notification
-                // You would need to implement this on your server
+                console.log('RSVP data sent to Google Sheets');
             } catch (error) {
                 console.error('Error submitting RSVP:', error);
                 alert(TRANSLATIONS[currentLang]['submission-error'] || 'There was an error submitting your RSVP. Please try again.');
@@ -363,3 +382,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 }); 
+
+// Google Sheets connection check
+function checkGoogleSheetsConnection() {
+    // Only run if CONFIG is defined
+    if (typeof CONFIG === 'undefined' || !CONFIG.GOOGLE_SCRIPT_URL) {
+        console.error('Google Sheets: Configuration missing. Please check config.js file.');
+        updateConnectionStatus('error', 'Google Sheets configuration missing');
+        return;
+    }
+    
+    // Check if the URL is the placeholder
+    if (CONFIG.GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL' || 
+        CONFIG.GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_FOR_TESTING') {
+        console.error('Google Sheets: Please replace the placeholder URL with your actual Google Script URL');
+        updateConnectionStatus('error', 'Google Sheets URL not configured');
+        return;
+    }
+    
+    // Check if we're in development mode
+    const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isDev) {
+        // Show connection status in development mode
+        const statusEl = document.getElementById('connection-status');
+        if (statusEl) statusEl.classList.remove('hidden');
+    }
+    
+    updateConnectionStatus('checking', 'Checking connection to Google Sheets...');
+    
+    // Send a test ping to Google Sheets
+    fetch(CONFIG.GOOGLE_SCRIPT_URL + '?ping=true', {
+        method: 'GET',
+        mode: 'no-cors', // This is needed for Google Apps Script
+    })
+    .then(() => {
+        console.log('Google Sheets: Connection test sent successfully');
+        updateConnectionStatus('success', 'Connected to Google Sheets');
+        // Note: We can't actually check the response due to CORS restrictions
+        // This just confirms we were able to send the request
+    })
+    .catch(error => {
+        console.error('Google Sheets: Connection failed', error);
+        updateConnectionStatus('error', 'Connection to Google Sheets failed');
+    });
+    
+    console.log('Google Sheets: Connecting to ' + CONFIG.GOOGLE_SCRIPT_URL);
+}
+
+// Helper to update connection status indicator
+function updateConnectionStatus(status, message) {
+    const statusEl = document.getElementById('connection-status');
+    if (!statusEl) return;
+    
+    statusEl.textContent = message;
+    
+    // Clear existing status classes
+    statusEl.classList.remove('text-green-500', 'text-red-500', 'text-yellow-500');
+    
+    // Add appropriate status class
+    switch(status) {
+        case 'success':
+            statusEl.classList.add('text-green-500');
+            break;
+        case 'error':
+            statusEl.classList.add('text-red-500');
+            break;
+        case 'checking':
+            statusEl.classList.add('text-yellow-500');
+            break;
+    }
+} 

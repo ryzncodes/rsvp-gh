@@ -9,6 +9,11 @@
 // 7. Copy the web app URL and paste it in your script.js file where it says 'YOUR_GOOGLE_SCRIPT_URL'
 
 function doGet(e) {
+  // Handle ping requests for connection testing
+  if (e.parameter.ping) {
+    return ContentService.createTextOutput('Connected').setMimeType(ContentService.MimeType.TEXT);
+  }
+  
   // Get parameters from the URL
   var params = e.parameter;
   
