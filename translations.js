@@ -3,23 +3,25 @@ const TRANSLATIONS = {
     // English translations
     'en': {
         // Common elements
-        'title': 'Sarah & Michael',
+        'title': 'Faiz & Dini',
         'tagline': 'are getting married',
-        'location': 'Willow Creek Gardens • 123 Blossom Lane, Springfield',
-        'ceremony': 'Ceremony',
-        'garden-pavilion': 'Garden Pavilion',
-        'reception': 'Reception',
-        'grand-ballroom': 'Grand Ballroom',
-        'dress-code': 'Dress Code',
-        'semi-formal': 'Semi-Formal',
-        'garden-attire': 'Garden Attire',
+        'location': 'Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
+        'ceremony': 'Reception',
+        'garden-pavilion': 'Starts at 11:00 AM',
+        'reception': 'Arrival of Bride & Groom',
+        'grand-ballroom': '1:00 PM',
+        'dress-code': 'Event Ends',
+        'semi-formal': '4:00 PM',
+        'garden-attire': 'June 21, 2025',
         'rsvp-button': 'RSVP NOW',
-        'contact-us': 'If you have any questions, please contact us at',
+        'contact-us': 'If you have any questions, please contact',
+        'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
         
         // RSVP form
         'rsvp-heading': 'RSVP for Our Wedding',
         'rsvp-page-title': 'RSVP',
-        'rsvp-page-subtitle': 'for Sarah & Michael\'s Wedding',
+        'rsvp-page-subtitle': 'for Faiz & Dini\'s Wedding',
+        'rsvp-deadline': 'Please respond before the end of May 2025',
         'name-label': 'Name',
         'email-label': 'Email',
         'phone-label': 'Phone',
@@ -35,29 +37,32 @@ const TRANSLATIONS = {
         'thank-you': 'Thank You!',
         'confirmation-message': 'Your RSVP has been received. We look forward to celebrating with you!',
         'close': 'Close',
-        'back-to-home': '← Back to Home'
+        'back-to-home': '← Back to Home',
+        'full-names': 'Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria'
     },
     
     // Bahasa Melayu translations
     'bm': {
         // Common elements
-        'title': 'Sarah & Michael',
+        'title': 'Faiz & Dini',
         'tagline': 'akan berkahwin',
-        'location': 'Willow Creek Gardens • 123 Blossom Lane, Springfield',
-        'ceremony': 'Majlis Akad',
-        'garden-pavilion': 'Pavilion Taman',
-        'reception': 'Majlis Resepsi',
-        'grand-ballroom': 'Dewan Utama',
-        'dress-code': 'Kod Pakaian',
-        'semi-formal': 'Separa Formal',
-        'garden-attire': 'Pakaian Taman',
+        'location': 'Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
+        'ceremony': 'Majlis Bermula',
+        'garden-pavilion': '11:00 Pagi',
+        'reception': 'Ketibaan Pengantin',
+        'grand-ballroom': '1:00 Petang',
+        'dress-code': 'Majlis Berakhir',
+        'semi-formal': '4:00 Petang',
+        'garden-attire': '21 Jun 2025',
         'rsvp-button': 'RSVP SEKARANG',
-        'contact-us': 'Jika anda mempunyai sebarang pertanyaan, sila hubungi kami di',
+        'contact-us': 'Jika ada sebarang pertanyaan, sila hubungi',
+        'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
         
         // RSVP form
         'rsvp-heading': 'RSVP untuk Majlis Perkahwinan Kami',
         'rsvp-page-title': 'RSVP',
-        'rsvp-page-subtitle': 'untuk Majlis Perkahwinan Sarah & Michael',
+        'rsvp-page-subtitle': 'untuk Majlis Perkahwinan Faiz & Dini',
+        'rsvp-deadline': 'Sila beri maklum balas sebelum akhir Mei 2025',
         'name-label': 'Nama',
         'email-label': 'Emel',
         'phone-label': 'Telefon',
@@ -73,6 +78,7 @@ const TRANSLATIONS = {
         'thank-you': 'Terima Kasih!',
         'confirmation-message': 'RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!',
         'close': 'Tutup',
-        'back-to-home': '← Kembali ke Laman Utama'
+        'back-to-home': '← Kembali ke Laman Utama',
+        'full-names': 'Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria'
     }
 };
