@@ -152,3 +152,18 @@ For local development, the application loads configuration from `config.js`. For
 ## License
 
 This project is free to use and modify for personal use.
+
+## Deployment
+
+### GitHub Pages
+
+To deploy this website on GitHub Pages:
+
+1. Push your code to a GitHub repository
+2. Go to your repository settings
+3. Scroll down to the "GitHub Pages" section (or click "Pages" in the sidebar)
+4. Under "Source", select the "main" branch
+5. Click "Save"
+6. Your site will be published at `https://yourusername.github.io/repository-name/`
+
+**Note:** Before deploying, update the `config.js` file with your actual Google Script URL.
