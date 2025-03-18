@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Environment variables are loaded from config.js
+    // CONFIG should be defined in config.js which is loaded before this script
+    
     // Modal elements
     const openModalBtn = document.getElementById('open-rsvp-modal');
     const closeModalBtn = document.querySelector('.close-modal');
@@ -108,8 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Function to submit form data to Google Sheets
         function submitToGoogleSheets(formData, callback) {
-            // Google Apps Script Web App URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzULnmCrfMKLZkDNj80YH1uJq2XKuLTUcKUVMbP/exec';
+            // Google Apps Script Web App URL from config
+            const scriptURL = CONFIG.GOOGLE_SCRIPT_URL || 'YOUR_GOOGLE_SCRIPT_URL';
             
             // Convert form data to URL parameters
             const formDataParams = new URLSearchParams(formData).toString();

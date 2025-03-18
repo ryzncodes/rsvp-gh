@@ -16,6 +16,7 @@ A beautiful, accessible wedding RSVP website designed with senior citizens in mi
 ## Pages
 
 1. **Home Page (index.html)**
+
    - Wedding couple introduction
    - Date and venue details
    - Event schedule information
@@ -53,6 +54,7 @@ A beautiful, accessible wedding RSVP website designed with senior citizens in mi
 ### 3. Customize the Website
 
 1. Open `index.html` and update the wedding details:
+
    - Names of the couple
    - Date and time
    - Venue name and address
@@ -106,10 +108,10 @@ This website includes several features to make it accessible to senior citizens:
 - Change colors by editing the CSS variables at the top of `styles.css`:
   ```css
   :root {
-      --primary-color: #6b8e92; /* Elegant teal */
-      --secondary-color: #f5e4dd; /* Soft peach */
-      --accent-color: #d4b08c; /* Warm gold */
-      /* other variables */
+    --primary-color: #6b8e92; /* Elegant teal */
+    --secondary-color: #f5e4dd; /* Soft peach */
+    --accent-color: #d4b08c; /* Warm gold */
+    /* other variables */
   }
   ```
 - Replace the background image by changing the URL in the `body` style in CSS
@@ -120,14 +122,33 @@ This website includes several features to make it accessible to senior citizens:
 ## Troubleshooting
 
 **Form submissions not appearing in Google Sheet:**
+
 - Verify the Google Script URL is correctly pasted in script.js
 - Check that the Google Sheet has a sheet named "RSVP Responses"
 - Make sure the web app is deployed with the correct permissions
 
 **Form validation errors:**
+
 - Check console for JavaScript errors
 - Verify that all form field IDs match what's referenced in the JavaScript
 
+## Setup and Configuration
+
+### Environment Variables
+
+This project uses environment variables to handle sensitive configuration like API URLs securely:
+
+1. Copy `.env.example` to `.env`
+2. Update the values in `.env` with your actual configuration
+3. Make sure `.env` is listed in `.gitignore` to prevent committing sensitive data
+
+For local development, the application loads configuration from `config.js`. For production deployment:
+
+1. Use a build process to replace placeholders in `config.js` with actual values from your environment variables
+2. Alternatively, modify `config.js` manually before deployment (but don't commit these changes)
+
+**Important:** Never commit sensitive information like API keys or URLs to the repository!
+
 ## License
 
-This project is free to use and modify for personal use. 
+This project is free to use and modify for personal use.
