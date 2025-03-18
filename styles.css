@@ -336,26 +336,35 @@ footer {
 }
 
 /* Submit Button */
+.modal-content form button[type="submit"],
+.modal-content #rsvpForm button[type="submit"],
+button[type="submit"].submit-btn,
 #rsvpForm button[type="submit"] {
-    width: 100%;
-    padding: 8px 20px;
+    width: 100% !important;
+    padding: 8px 20px !important;
     background: #4a86e8 !important;
     background-color: #4a86e8 !important;
+    background-image: none !important;
     color: white !important;
     border: none !important;
-    border-radius: 0.75rem;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    margin-top: 2rem;
+    border-radius: 0.75rem !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    margin-top: 2rem !important;
+    box-shadow: none !important;
 }
 
+.modal-content form button[type="submit"]:hover,
+.modal-content #rsvpForm button[type="submit"]:hover,
+button[type="submit"].submit-btn:hover,
 #rsvpForm button[type="submit"]:hover {
     background: #2c5aa0 !important;
     background-color: #2c5aa0 !important;
-    transform: translateY(-5px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-image: none !important;
+    transform: translateY(-5px) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Textarea height */
