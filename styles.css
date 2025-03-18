@@ -10,18 +10,20 @@ html {
 }
 
 :root {
-    --primary-color: #91B396; /* Soft, light green */
-    --primary-dark: #5A7A5C;  /* Darker sage green */
-    --primary-light: #B8D1BA; /* Very light sage green */
-    --accent-color: #F9F7F4;  /* Off-white cream */
-    --accent-dark: #E6DFD7;   /* Darker cream */
-    --text-color: #2C2C2C;    /* Almost black */
-    --heading-color: #20392E; /* Deep forest green */
+    --primary-color: #d4af37; /* Gold */
+    --primary-dark: #b8860b;  /* Darker gold */
+    --primary-light: #f1e5b9; /* Light gold/cream */
+    --accent-color: #fff9f1;  /* Off-white cream */
+    --accent-pink: #f5c3c5;   /* Soft pink for flowers */
+    --accent-purple: #9a7197; /* Soft purple for flowers */
+    --accent-green: #7c8c6e;  /* Sage green for leaves */
+    --text-color: #3a3a3a;    /* Dark gray */
+    --heading-color: #b8860b; /* Gold for headings */
     --light-text: #6A6A6A;
     --white: #FFFFFF;
     --off-white: #F8F9FA;
     --error-color: #D8000C;
-    --font-heading: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'Montserrat', 'Raleway', Arial, sans-serif;
     --font-script: 'Great Vibes', 'Tangerine', cursive;
 }
@@ -33,10 +35,10 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-color);
-    background-color: var(--off-white);
+    background-color: var(--accent-pink);
     line-height: 1.6;
     font-size: 16px;
-    background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-image: url('https://images.unsplash.com/photo-1515513284606-88c6dca4f624?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -52,31 +54,42 @@ body {
     margin: 0 auto;
     padding: 40px;
     background-color: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     border-radius: 3px;
     max-height: 98vh;
     overflow-y: auto;
-    border: 1px solid rgba(184, 209, 186, 0.3);
+    border: 1px solid var(--primary-color);
+    position: relative;
 }
 
 /* Override container styles for home page */
 .home-container.container {
     margin: 0 auto;
-    padding: 40px;
+    padding: 0;
     height: auto;
     max-height: 98vh;
     width: 90%;
     max-width: 900px;
     display: flex;
     flex-direction: column;
-    border-radius: 3px;
+    border-radius: 0;
     box-sizing: border-box;
     position: relative;
     overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.97);
+    background-color: var(--white);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(184, 209, 186, 0.3);
+    border: 10px solid var(--primary-light);
+}
+
+.home-container.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid var(--primary-color);
+    pointer-events: none;
 }
 
 /* Typography */
@@ -88,7 +101,7 @@ h1, h2, h3 {
 
 h1 {
     margin: 0 0 10px;
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     font-weight: 500;
     letter-spacing: 0.5px;
 }
@@ -121,10 +134,10 @@ a {
 }
 
 a:hover {
-    color: var(--primary-dark);
+    color: var(--primary-color);
 }
 
-/* Home Page Styles */
+/* Home Page Styles with floral theme */
 .home-container {
     text-align: center;
     margin: 0 auto;
@@ -133,34 +146,44 @@ a:hover {
 
 .home-header {
     text-align: center;
-    padding: 20px 30px;
-    margin-bottom: 20px;
-    border-radius: 2px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(184, 209, 186, 0.2);
+    padding: 40px 30px 30px;
     position: relative;
     overflow: hidden;
+    background-color: var(--white);
 }
 
-.home-header::before {
-    content: "";
+.floral-decoration {
     position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: url('https://images.unsplash.com/photo-1464982326920-664e5207e2a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') center/cover;
-    opacity: 0.07;
-    z-index: -1;
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.floral-top-left {
+    top: 0;
+    left: 0;
+    background-image: url('https://images.unsplash.com/photo-1528756514091-dee5ecaa3278?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+    transform: rotate(180deg);
+}
+
+.floral-top-right {
+    top: 0;
+    right: 0;
+    background-image: url('https://images.unsplash.com/photo-1528756514091-dee5ecaa3278?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
 }
 
 .names-title {
     font-family: var(--font-script);
-    font-size: 3.2rem;
+    font-size: 3.8rem;
     color: var(--heading-color);
-    margin: 0 0 10px;
+    margin: 0 0 5px;
     font-weight: 400;
     line-height: 1.2;
+    position: relative;
+    z-index: 1;
 }
 
 .tagline {
@@ -170,6 +193,8 @@ a:hover {
     color: var(--primary-dark);
     font-weight: 400;
     letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
 }
 
 .full-names {
@@ -178,67 +203,54 @@ a:hover {
     font-weight: 400;
     color: var(--primary-dark);
     letter-spacing: 0.3px;
+    position: relative;
+    z-index: 1;
 }
 
 .date {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     margin: 15px 0 10px;
     font-weight: 500;
     color: var(--primary-dark);
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
 }
 
 .location {
     font-size: 0.95rem;
-    margin: 5px 0 10px;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 5px 30px 20px;
     color: var(--light-text);
     line-height: 1.5;
     font-weight: 300;
+    position: relative;
+    z-index: 1;
 }
 
-/* Details Section - elegant card design */
+/* Details Section - elegant gold card design */
 .details-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 25px;
-    margin: 30px auto;
+    margin: 15px auto;
     max-width: 100%;
     position: relative;
+    padding: 0 20px;
+    z-index: 1;
 }
 
 .detail-item {
     text-align: center;
-    padding: 25px 20px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 2px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    padding: 20px 15px;
+    background-color: var(--white);
     flex: 1;
     min-width: 160px;
     width: 100%;
     transition: all 0.3s ease;
-    border: 1px solid rgba(184, 209, 186, 0.4);
+    border-bottom: 1px solid var(--primary-color);
     position: relative;
     overflow: hidden;
-}
-
-.detail-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: var(--primary-light);
-    opacity: 0.7;
-}
-
-.detail-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 .detail-item h2 {
@@ -253,7 +265,7 @@ a:hover {
 
 .detail-item p {
     margin: 8px 0;
-    color: var(--light-text);
+    color: var(--text-color);
     font-size: 0.95rem;
     font-weight: 300;
 }
@@ -261,7 +273,11 @@ a:hover {
 /* RSVP Button Section */
 .rsvp-button-section {
     text-align: center;
-    margin: 35px 0 25px;
+    margin: 25px 0;
+    position: relative;
+    z-index: 1;
+    padding: 0 20px 30px;
+    background-color: var(--white);
 }
 
 .rsvp-deadline {
@@ -275,14 +291,13 @@ a:hover {
 .rsvp-button {
     background-color: var(--primary-color);
     color: white;
-    border: 1px solid var(--primary-light);
+    border: none;
     padding: 12px 35px;
     font-size: 0.95rem;
-    border-radius: 2px;
+    border-radius: 0;
     cursor: pointer;
     font-weight: 400;
     letter-spacing: 1.5px;
-    box-shadow: 0 3px 8px rgba(90, 122, 92, 0.15);
     transition: all 0.3s ease;
     text-transform: uppercase;
     position: relative;
@@ -292,7 +307,6 @@ a:hover {
 .rsvp-button:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(90, 122, 92, 0.2);
 }
 
 /* RSVP Page Styles */
@@ -466,22 +480,21 @@ input[type="radio"] {
     display: none;
 }
 
-/* Footer - elegant and minimal */
+/* Footer - elegant with gold accent */
 footer {
     text-align: center;
-    padding: 25px 20px;
-    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
     color: var(--text-color);
-    margin-top: 25px;
-    border-radius: 2px;
-    border: 1px solid rgba(184, 209, 186, 0.2);
+    background-color: var(--accent-color);
+    position: relative;
+    z-index: 1;
 }
 
 footer p {
     margin: 4px 0;
     font-size: 0.9rem;
     font-weight: 300;
-    color: var(--light-text);
+    color: var(--text-color);
 }
 
 /* Language Selector - elegant and minimal */
