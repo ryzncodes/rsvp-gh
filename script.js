@@ -14,6 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize language
     updateLanguage(currentLang);
     
+    // Map Drawer Functionality
+    const mapToggle = document.getElementById('map-toggle');
+    const mapDrawer = document.getElementById('map-drawer');
+    const mapIconDown = document.querySelector('.map-icon-down');
+    const mapIconUp = document.querySelector('.map-icon-up');
+    
+    if (mapToggle && mapDrawer) {
+        mapToggle.addEventListener('click', function() {
+            // Toggle the active class on the drawer
+            mapDrawer.classList.toggle('hidden');
+            setTimeout(() => {
+                mapDrawer.classList.toggle('active');
+            }, 10);
+            
+            // Toggle the arrow icons
+            mapIconDown.classList.toggle('hidden');
+            mapIconUp.classList.toggle('hidden');
+        });
+    }
+    
     // Force set placeholders for form fields based on the current language
     const setFormPlaceholders = (lang) => {
         document.getElementById('name').setAttribute('placeholder', TRANSLATIONS[lang]['name-placeholder']);

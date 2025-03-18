@@ -16,6 +16,7 @@ const TRANSLATIONS = {
         'rsvp-button': 'RSVP',
         'contact-us': 'If you have any questions, please contact',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
+        'view-map': 'View Map',
         
         // RSVP form
         'rsvp-heading': 'RSVP for Our Wedding',
@@ -60,6 +61,7 @@ const TRANSLATIONS = {
         'rsvp-button': 'RSVP',
         'contact-us': 'Jika ada sebarang pertanyaan, sila hubungi',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
+        'view-map': 'Lihat Peta',
         
         // RSVP form
         'rsvp-heading': 'RSVP untuk Majlis Perkahwinan Kami',
