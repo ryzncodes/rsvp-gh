@@ -17,6 +17,7 @@ const TRANSLATIONS = {
         'contact-us': 'If you have any questions, please contact',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
         'view-map': 'View Map',
+        'arabic-blessing': 'Bismillah-ir-Rahman-ir-Raheem',
         
         // RSVP form
         'rsvp-heading': 'RSVP for Our Wedding',
@@ -62,6 +63,7 @@ const TRANSLATIONS = {
         'contact-us': 'Jika ada sebarang pertanyaan, sila hubungi',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
         'view-map': 'Lihat Peta',
+        'arabic-blessing': 'Dengan nama Allah Yang Maha Pemurah lagi Maha Penyayang',
         
         // RSVP form
         'rsvp-heading': 'RSVP untuk Majlis Perkahwinan Kami',

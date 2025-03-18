@@ -410,4 +410,42 @@ button[type="submit"]:hover {
 
 .map-container iframe {
     display: block;
+}
+
+/* Import Arabic font */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap');
+
+/* Arabic Blessing Styles */
+.arabic-blessing {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.bismillah {
+  font-family: 'Scheherazade New', serif;
+  font-size: 1.75rem;
+  line-height: 1.5;
+  color: var(--gold-dark);
+  direction: rtl;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.arabic-translation {
+  font-family: var(--font-sans);
+  font-style: italic;
+  color: rgba(44, 90, 160, 0.7);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .bismillah {
+    font-size: 2.25rem;
+  }
+  
+  .arabic-translation {
+    font-size: 0.875rem;
+  }
 } 
