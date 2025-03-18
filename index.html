@@ -6,8 +6,42 @@
     <title>Faiz & Dini's Wedding</title>
     <style>
         /* Ensure content is visible during initial load */
-        body, div, header, main, p, h1, h2, h3 {
+        body, div, header, main, p, h1, h2, h3, .details-section, .detail-item {
             opacity: 1 !important;
+        }
+        
+        /* Force body to display properly */
+        body {
+            height: auto !important;
+            min-height: 100vh !important;
+            overflow: auto !important;
+        }
+        
+        /* Ensure container displays properly */
+        .container {
+            width: 90% !important;
+            margin: 40px auto !important;
+            max-width: 900px !important;
+        }
+        
+        /* Make details section display properly */
+        .details-section {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 20px !important;
+            margin: 20px auto !important;
+        }
+        
+        /* Make detail items visible */
+        .detail-item {
+            flex: 1 1 200px !important;
+            min-width: 200px !important;
+            padding: 20px !important;
+            background: white !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+            border: 1px solid #7D9D7F !important;
+            border-radius: 10px !important;
+            margin-bottom: 20px !important;
         }
     </style>
     <link rel="stylesheet" href="styles.css">
