@@ -25,11 +25,16 @@
   --input: 213 76.2% 90%;
   --ring: 213 76.2% 60.3%;
   --radius: 0.5rem;
+  --line-height-normal: 1.5;
+  --line-height-heading: 1.2;
+  --font-size-base: 16px;
 }
 
 /* Base Font Styles */
 body {
   font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f7f3;
@@ -46,8 +51,12 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
 /* Names Title */
 .names-title {
   font-family: var(--font-script);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: var(--line-height-heading);
   font-weight: 400;
   color: var(--gold-dark);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 /* Container Styles */
@@ -159,9 +168,11 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
 
 .rsvp-note {
   font-style: italic;
-  color: #666;
+  color: #4a5568;
+  font-size: 0.9375rem;
+  line-height: 1.6;
   margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  letter-spacing: 0.01em;
 }
 
 .rsvp-button {
@@ -398,33 +409,37 @@ button[type="submit"]:hover {
 .map-container .map-overlay {
   position: absolute;
   inset: 0;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  opacity: 1;
   transition: all 0.3s ease;
+  transform: translateY(0);
 }
 
 .map-container:hover .map-overlay {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(2px);
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .map-container .map-overlay span {
   background: white;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 2rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--gold-dark);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-80px);
   transition: all 0.3s ease;
+  font-weight: 500;
+  border: 1px solid var(--gold-light);
 }
 
 .map-container:hover .map-overlay span {
-  transform: translateY(0);
+  transform: translateY(-85px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background: white;
+  border: 1px solid var(--gold);
 }
 
 /* Import Arabic font */
@@ -438,21 +453,23 @@ button[type="submit"]:hover {
 
 .bismillah {
   font-family: 'Scheherazade New', serif;
-  font-size: 1.75rem;
-  line-height: 1.5;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.8;
   color: var(--gold-dark);
   direction: rtl;
   font-weight: 400;
-  letter-spacing: 0.03em;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .arabic-translation {
   font-family: var(--font-sans);
   font-style: italic;
-  color: rgba(44, 90, 160, 0.7);
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
+  color: rgba(44, 90, 160, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+  letter-spacing: 0.01em;
 }
 
 @media (min-width: 768px) {
@@ -596,22 +613,24 @@ button[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 1rem;
 }
 
 .wedding-details-title {
-  text-align: center;
   font-family: var(--font-script);
+  font-size: clamp(2rem, 4vw, 2.5rem);
   color: var(--gold-dark);
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  line-height: var(--line-height-heading);
+  margin-bottom: 2rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 /* Timeline Container */
 .timeline-container {
   position: relative;
   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .timeline-container::before {
@@ -623,8 +642,8 @@ button[type="submit"]:hover {
   width: 2px;
   background: linear-gradient(to bottom, 
     transparent,
-    var(--gold-light) 10%,
-    var(--gold-light) 90%,
+    var(--gold-light) 5%,
+    var(--gold-light) 95%,
     transparent
   );
 }
@@ -633,12 +652,8 @@ button[type="submit"]:hover {
 .timeline-item {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
   position: relative;
-}
-
-.timeline-item:last-child {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .time-badge {
@@ -653,32 +668,42 @@ button[type="submit"]:hover {
   font-family: var(--font-sans);
   font-weight: 600;
   color: var(--gold-dark);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 20px rgba(74, 134, 232, 0.1);
+  box-shadow: 0 4px 20px rgba(74, 134, 232, 0.15);
+  letter-spacing: -0.02em;
 }
 
 .timeline-content {
   flex: 1;
   margin-left: 1.5rem;
   background: white;
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 15px rgba(74, 134, 232, 0.1);
   border: 1px solid var(--gold-light);
+  transition: transform 0.2s ease;
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(74, 134, 232, 0.15);
 }
 
 .timeline-content h3 {
   color: var(--gold-dark);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  line-height: var(--line-height-heading);
+  margin-bottom: 0.375rem;
+  letter-spacing: -0.01em;
 }
 
 .timeline-content p {
-  color: #666;
-  font-size: 0.95rem;
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: var(--line-height-normal);
 }
 
 /* Contact Footer */
@@ -694,9 +719,11 @@ button[type="submit"]:hover {
 
 .contact-text {
   color: var(--gold-dark);
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
   font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-bottom: 1.25rem;
 }
 
 .contact-details {
@@ -716,7 +743,9 @@ button[type="submit"]:hover {
   transition: all 0.2s ease;
   color: var(--gold-dark);
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .contact-link:hover {
@@ -783,4 +812,35 @@ button[type="submit"]:hover {
   justify-content: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+/* Ensure proper line length for readability */
+.timeline-content, 
+.rsvp-note, 
+.contact-text {
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Modal Typography */
+.modal-content h2 {
+  font-size: 1.75rem;
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+  color: var(--gold-dark);
+  letter-spacing: -0.01em;
+}
+
+.modal-content label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #4a5568;
+  letter-spacing: 0.01em;
+}
+
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+  color: #a0aec0;
+  font-size: 0.9375rem;
 } 

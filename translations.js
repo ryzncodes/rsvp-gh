@@ -18,6 +18,8 @@ const TRANSLATIONS = {
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
         'view-map': 'View Map',
         'arabic-blessing': 'Bismillah-ir-Rahman-ir-Raheem',
+        'wishes-label': 'Wishes & Prayers',
+        'wishes-placeholder': 'Write your wishes and prayers for the newlyweds',
         
         // RSVP form
         'rsvp-heading': 'RSVP for Our Wedding',
@@ -64,6 +66,8 @@ const TRANSLATIONS = {
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
         'view-map': 'Lihat Peta',
         'arabic-blessing': 'Dengan nama Allah Yang Maha Pemurah lagi Maha Penyayang',
+        'wishes-label': 'Ucapan & Doa',
+        'wishes-placeholder': 'Tuliskan ucapan dan doa anda untuk pengantin',
         
         // RSVP form
         'rsvp-heading': 'RSVP untuk Majlis Perkahwinan Kami',
