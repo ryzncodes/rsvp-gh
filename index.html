@@ -101,10 +101,10 @@
 
     <!-- RSVP Modal -->
     <div id="rsvp-modal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto overflow-hidden">
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto overflow-hidden border border-amber-200">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-semibold text-gray-800" data-lang="rsvp-heading">RSVP for Our Wedding</h2>
+                    <h2 class="text-2xl font-semibold text-amber-800" data-lang="rsvp-heading" style="opacity: 1 !important; visibility: visible !important;">RSVP for Our Wedding</h2>
                     <button class="close-modal text-gray-400 hover:text-gray-500 transition duration-150 ease-in-out">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -112,42 +112,42 @@
                     </button>
                 </div>
                 
-                <p class="text-sm text-gray-600 italic mb-6" data-lang="rsvp-deadline">Please respond before the end of May 2025</p>
+                <p class="text-sm text-gray-600 italic mb-6" data-lang="rsvp-deadline" style="opacity: 1 !important; visibility: visible !important;">Please respond before the end of May 2025</p>
                 
                 <form id="rsvpForm" class="space-y-4">
                     <div class="form-group">
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-lang="name-label">Name</label>
-                        <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-lang="name-label" style="opacity: 1 !important; visibility: visible !important;">Name</label>
+                        <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
                     </div>
                     
                     <div class="form-group">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-lang="email-label">Email</label>
-                        <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-lang="email-label" style="opacity: 1 !important; visibility: visible !important;">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1" data-lang="phone-label">Phone</label>
-                        <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1" data-lang="phone-label" style="opacity: 1 !important; visibility: visible !important;">Phone</label>
+                        <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
                     </div>
                     
                     <div class="form-group">
-                        <label class="block text-sm font-medium text-gray-700 mb-2" data-lang="attending-label">Will you be attending?</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-lang="attending-label" style="opacity: 1 !important; visibility: visible !important;">Will you be attending?</label>
                         <div class="flex space-x-4">
                             <div class="flex items-center">
-                                <input type="radio" id="attending-yes" name="attending" value="Yes" required class="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300">
-                                <label for="attending-yes" class="ml-2 text-sm text-gray-700" data-lang="yes">Yes</label>
+                                <input type="radio" id="attending-yes" name="attending" value="Yes" required class="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300">
+                                <label for="attending-yes" class="ml-2 text-sm text-gray-700" data-lang="yes" style="opacity: 1 !important; visibility: visible !important;">Yes</label>
                             </div>
                             
                             <div class="flex items-center">
-                                <input type="radio" id="attending-no" name="attending" value="No" class="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300">
-                                <label for="attending-no" class="ml-2 text-sm text-gray-700" data-lang="no">No</label>
+                                <input type="radio" id="attending-no" name="attending" value="No" class="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300">
+                                <label for="attending-no" class="ml-2 text-sm text-gray-700" data-lang="no" style="opacity: 1 !important; visibility: visible !important;">No</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group" id="guestsGroup">
-                        <label for="guests" class="block text-sm font-medium text-gray-700 mb-1" data-lang="guests-label">Number of Guests</label>
-                        <select id="guests" name="guests" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500">
+                        <label for="guests" class="block text-sm font-medium text-gray-700 mb-1" data-lang="guests-label" style="opacity: 1 !important; visibility: visible !important;">Number of Guests</label>
+                        <select id="guests" name="guests" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -156,23 +156,23 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="dietary" class="block text-sm font-medium text-gray-700 mb-1" data-lang="dietary-label">Dietary Restrictions</label>
-                        <textarea id="dietary" name="dietary" placeholder="" data-lang-attr="placeholder" data-lang-placeholder="dietary-placeholder" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 h-24"></textarea>
+                        <label for="dietary" class="block text-sm font-medium text-gray-700 mb-1" data-lang="dietary-label" style="opacity: 1 !important; visibility: visible !important;">Dietary Restrictions</label>
+                        <textarea id="dietary" name="dietary" placeholder="" data-lang-attr="placeholder" data-lang-placeholder="dietary-placeholder" class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 h-24"></textarea>
                     </div>
                     
                     <div class="mt-6">
-                        <button type="submit" class="w-full px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500" data-lang="submit-rsvp">Submit RSVP</button>
+                        <button type="submit" class="w-full px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500" data-lang="submit-rsvp" style="opacity: 1 !important; visibility: visible !important;">Submit RSVP</button>
                     </div>
                 </form>
                 
                 <div id="confirmation" class="confirmation hidden text-center py-8">
-                    <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 1 !important; visibility: visible !important;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <h3 class="mt-2 text-xl font-semibold text-gray-900" data-lang="thank-you">Thank You!</h3>
-                    <p class="mt-2 text-sm text-gray-600" data-lang="confirmation-message">Your RSVP has been received. We look forward to celebrating with you!</p>
+                    <h3 class="mt-2 text-xl font-semibold text-gray-900" data-lang="thank-you" style="opacity: 1 !important; visibility: visible !important;">Thank You!</h3>
+                    <p class="mt-2 text-sm text-gray-600" data-lang="confirmation-message" style="opacity: 1 !important; visibility: visible !important;">Your RSVP has been received. We look forward to celebrating with you!</p>
                     <div class="mt-6">
-                        <button id="close-confirmation" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md transition duration-150 ease-in-out" data-lang="close">Close</button>
+                        <button id="close-confirmation" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-md transition duration-150 ease-in-out" data-lang="close" style="opacity: 1 !important; visibility: visible !important;">Close</button>
                     </div>
                 </div>
             </div>
