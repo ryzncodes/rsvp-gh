@@ -252,38 +252,59 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add animations for the home page
     const homeContainer = document.querySelector('.home-container');
     if (homeContainer) {
-        // Add fade-in animation to elements
+        // Add fade-in animation to elements with a fallback
         const elements = homeContainer.querySelectorAll('h1, .tagline, .date, .location, h2, p, .detail-item, .rsvp-button');
         
-        // Setup the animation with anime.js
-        anime.timeline({
-            easing: 'easeOutQuad',
-            duration: 800
-        })
-        .add({
-            targets: 'header h1',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            delay: 300
-        })
-        .add({
-            targets: 'header .tagline, header .date, header .location',
-            opacity: [0, 1],
-            translateY: [15, 0],
-            delay: anime.stagger(150)
-        }, '-=500')
-        .add({
-            targets: '.detail-item',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            delay: anime.stagger(200)
-        }, '-=400')
-        .add({
-            targets: '.rsvp-button',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            scale: [0.9, 1]
-        }, '-=200');
+        // Set initial opacity to ensure everything is visible even if animation fails
+        elements.forEach(el => {
+            el.style.opacity = "1";
+        });
+        
+        // Setup the animation with anime.js with error handling
+        try {
+            const timeline = anime.timeline({
+                easing: 'easeOutQuad',
+                duration: 800,
+                begin: function() {
+                    // Make sure elements are visible when animation begins
+                    elements.forEach(el => {
+                        el.style.opacity = "0";
+                    });
+                }
+            });
+            
+            timeline.add({
+                targets: 'header h1',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                delay: 300
+            })
+            .add({
+                targets: 'header .tagline, header .date, header .location, .full-names',
+                opacity: [0, 1],
+                translateY: [15, 0],
+                delay: anime.stagger(150)
+            }, '-=500')
+            .add({
+                targets: '.detail-item',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                delay: anime.stagger(200)
+            }, '-=400')
+            .add({
+                targets: '.rsvp-button, .rsvp-deadline',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                scale: [0.9, 1]
+            }, '-=200');
+        } catch (error) {
+            console.error("Animation error:", error);
+            // If animation fails, make sure all elements are visible
+            elements.forEach(el => {
+                el.style.opacity = "1";
+                el.style.transform = "translateY(0)";
+            });
+        }
     }
     
     // Keyboard accessibility for modal

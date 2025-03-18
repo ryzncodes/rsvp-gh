@@ -37,11 +37,12 @@ body {
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    height: 100vh;
+    min-height: 100vh; /* Changed from height: 100vh */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Prevent scrolling on the body */
+    overflow-x: hidden; /* Only prevent horizontal scrolling */
+    overflow-y: auto; /* Allow vertical scrolling */
 }
 
 .container {
@@ -55,21 +56,19 @@ body {
 
 /* Override container styles for home page to fit 100vh */
 .home-container.container {
-    margin: auto;
+    margin: 40px auto; /* Changed from margin: auto */
     padding: 25px;
     height: auto;
     min-height: auto; /* Remove minimum height */
     max-height: none; /* Remove maximum height constraint */
-    max-width: 550px;
+    max-width: 800px; /* Increased from 550px */
     width: 90%;
     display: flex;
     flex-direction: column;
     border-radius: 12px;
     box-sizing: border-box;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; /* Changed from absolute */
+    transform: none; /* Removed transform that was causing misalignment */
     overflow: visible; /* Prevent scrolling */
 }
 
@@ -709,7 +708,7 @@ footer a:hover {
 .home-container .rsvp-button,
 .modal-content,
 #confirmation {
-    opacity: 0;
+    opacity: 1;
 }
 
 /* Fade in animations */
