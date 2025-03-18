@@ -150,18 +150,61 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
 }
 
 /* RSVP Button */
+.rsvp-section {
+  text-align: center;
+  margin-top: auto;
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.rsvp-note {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
 .rsvp-button {
-  background: rgba(74, 134, 232, 0.9) !important;
-  backdrop-filter: blur(5px) !important;
-  -webkit-backdrop-filter: blur(5px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 4px 15px rgba(44, 90, 160, 0.2) !important;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: white;
+  padding: 1rem 6rem;
+  font-size: 1.1rem;
+  border-radius: 3rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 20px rgba(74, 134, 232, 0.3),
+              0 0 0 4px rgba(74, 134, 232, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.rsvp-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+  transition: transform 0.3s ease;
 }
 
 .rsvp-button:hover {
-  background-color: var(--gold-dark) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(44, 90, 160, 0.3) !important;
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 25px rgba(74, 134, 232, 0.4),
+              0 0 0 4px rgba(74, 134, 232, 0.2);
+}
+
+.rsvp-button:hover::before {
+  transform: translateX(100%);
+}
+
+.rsvp-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(74, 134, 232, 0.3);
 }
 
 /* Form Elements Focus States */
@@ -310,106 +353,78 @@ button[type="submit"]:hover {
 }
 
 /* Map Container */
-.map-container {
-    border: 2px solid var(--gold-light);
-    border-radius: 0.5rem;
-    position: relative;
-    cursor: pointer;
-}
-
-.map-container a {
-    text-decoration: none;
-    color: #333;
-}
-
-.map-container .absolute {
-    z-index: 10;
-}
-
-.map-container span {
-    transition: transform 0.2s ease;
-}
-
-.map-container:hover span {
-    transform: translateY(-2px);
-}
-
-.map-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    box-shadow: inset 0 0 0 1px rgba(44, 90, 160, 0.2);
-    border-radius: 0.5rem;
-}
-
 .map-drawer {
-    max-height: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-10px);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  transition: all 0.3s ease;
 }
 
-.map-drawer.active {
-    max-height: 300px;
-    margin-bottom: 1rem;
-    opacity: 1;
-    transform: translateY(0);
+.map-drawer.hidden {
+  height: 0;
+  opacity: 0;
 }
 
-.map-toggle-btn {
-    transition: all 0.2s ease-in-out;
+.map-drawer:not(.hidden) {
+  height: auto;
+  opacity: 1;
 }
 
-.map-toggle-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(44, 90, 160, 0.1);
-}
-
-.map-toggle-btn:active {
-    transform: translateY(0);
-}
-
-/* Add specific styles for confirmation modal */
-#confirmation-modal.visible {
-    display: flex !important;
-}
-
-#confirmation-modal.hidden {
-    display: none !important;
-}
-
-#confirmation-modal .modal-content {
-    animation: modalFadeIn 0.3s ease forwards;
-}
-
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Make sure the button has proper styling */
-#close-confirmation {
-    background-color: #4a86e8 !important;
-    color: white !important;
-    padding: 0.5rem 1rem !important;
-    width: 100% !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: 1rem 0;
+  border: 1px solid var(--gold-light);
+  box-shadow: 0 4px 20px rgba(74, 134, 232, 0.1);
 }
 
 .map-container iframe {
-    display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.map-container a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-container .map-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.map-container:hover .map-overlay {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  opacity: 1;
+}
+
+.map-container .map-overlay span {
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  color: var(--gold-dark);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.map-container:hover .map-overlay span {
+  transform: translateY(0);
 }
 
 /* Import Arabic font */
@@ -454,18 +469,17 @@ button[type="submit"]:hover {
   .home-container {
     max-width: 90% !important;
     width: 90% !important;
+    height: 90vh !important;
     display: flex;
     flex-direction: row;
     border-radius: 0.5rem;
     overflow: hidden;
   }
   
-  .book-page {
-    width: 50%;
-    padding: 2rem;
-  }
-  
   .book-page-left {
+    width: 60%;
+    padding: 2rem;
+    height: 100%;
     border-right: 1px solid rgba(74, 134, 232, 0.2);
     background: rgba(255, 255, 255, 0.3);
     display: flex;
@@ -475,66 +489,45 @@ button[type="submit"]:hover {
   }
   
   .book-page-right {
+    width: 40%;
+    padding: 2rem;
+    height: 100%;
     background: rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
-  .home-header {
+  /* Right page content layout */
+  .book-page-right .home-header {
     padding: 0;
-    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   
-  #main-content {
-    padding: 0;
+  .book-page-right #main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
   }
   
-  .book-page-left .arabic-blessing {
-    margin-top: 0;
-    margin-bottom: 2rem;
+  .book-page-right .details-section {
+    gap: 1rem;
+    margin: 0;
   }
   
-  .book-page-left .names-title {
-    font-size: 4rem !important;
+  .book-page-right .detail-item {
+    padding: 1.25rem 1rem !important;
   }
   
-  .book-page-left .bismillah {
-    font-size: 2.5rem;
+  .book-page-right .rsvp-button-section {
+    margin-top: auto;
+    padding-top: 2rem;
   }
   
-  .book-page-left .full-names {
-    max-width: 80%;
-  }
-  
-  .details-section {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .detail-item {
-    padding: 1.5rem 1rem !important;
-  }
-  
-  /* Book binding effect */
-  .book-page-left::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 15px;
-    background: linear-gradient(to right, rgba(0,0,0,0.01), rgba(0,0,0,0.05));
-    pointer-events: none;
-  }
-  
-  .book-page-right::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 15px;
-    background: linear-gradient(to left, rgba(0,0,0,0.01), rgba(0,0,0,0.05));
-    pointer-events: none;
+  .book-page-right footer {
+    margin-top: auto;
+    padding: 1rem;
   }
 }
 
@@ -543,10 +536,15 @@ button[type="submit"]:hover {
   .home-container {
     max-width: 80% !important;
     width: 80% !important;
+    height: 90vh !important;
   }
   
-  .book-page {
+  .book-page-left {
     padding: 3rem;
+  }
+  
+  .book-page-right {
+    padding: 2.5rem;
   }
   
   .book-page-left .names-title {
@@ -590,4 +588,199 @@ button[type="submit"]:hover {
   .names-title {
     font-size: 2.5rem !important;
   }
+}
+
+/* Right Page Styles */
+.right-page-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.wedding-details-title {
+  text-align: center;
+  font-family: var(--font-script);
+  color: var(--gold-dark);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Timeline Container */
+.timeline-container {
+  position: relative;
+  padding: 0 1rem;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 3.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, 
+    transparent,
+    var(--gold-light) 10%,
+    var(--gold-light) 90%,
+    transparent
+  );
+}
+
+/* Timeline Items */
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.time-badge {
+  width: 4.5rem;
+  height: 4.5rem;
+  background: white;
+  border: 2px solid var(--gold-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--gold-dark);
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(74, 134, 232, 0.1);
+}
+
+.timeline-content {
+  flex: 1;
+  margin-left: 1.5rem;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(74, 134, 232, 0.1);
+  border: 1px solid var(--gold-light);
+}
+
+.timeline-content h3 {
+  color: var(--gold-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Contact Footer */
+.contact-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 25px rgba(74, 134, 232, 0.15);
+  border: 1px solid var(--gold-light);
+}
+
+.contact-text {
+  color: var(--gold-dark);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.contact-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  background: rgba(74, 134, 232, 0.05);
+  border: 1px solid var(--gold-light);
+  transition: all 0.2s ease;
+  color: var(--gold-dark);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.contact-link:hover {
+  background: rgba(74, 134, 232, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 134, 232, 0.2);
+}
+
+.contact-link svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #25D366;  /* WhatsApp brand color */
+  margin-right: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.contact-link:hover svg {
+  transform: scale(1.1);
+}
+
+.contact-name {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.contact-number {
+  color: var(--gold);
+}
+
+#connection-status {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #4CAF50;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--gold-dark);
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  background: rgba(74, 134, 232, 0.1);
+  color: var(--gold);
+}
+
+.contact-link svg {
+  color: #25D366;  /* WhatsApp brand color */
+  margin-right: 0.375rem;
+  transition: transform 0.2s ease;
+}
+
+.contact-link:hover svg {
+  transform: scale(1.1);
+}
+
+.contact-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 } 

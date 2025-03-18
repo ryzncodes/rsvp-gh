@@ -4,7 +4,7 @@ const TRANSLATIONS = {
     'en': {
         // Common elements
         'title': 'Faiz & Dini',
-        'tagline': 'are getting married',
+        'tagline': 'WALIMATUL URUS',
         'location': 'Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Reception',
         'garden-pavilion': 'Starts at 11:00 AM',
@@ -50,7 +50,7 @@ const TRANSLATIONS = {
     'bm': {
         // Common elements
         'title': 'Faiz & Dini',
-        'tagline': 'akan berkahwin',
+        'tagline': 'WALIMATUL URUS',
         'location': 'Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Majlis Bermula',
         'garden-pavilion': '11:00 Pagi',
