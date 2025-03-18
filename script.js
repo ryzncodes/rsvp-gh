@@ -14,12 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize language
     updateLanguage(currentLang);
     
+    // Force set placeholders for form fields based on the current language
+    const setFormPlaceholders = (lang) => {
+        document.getElementById('name').setAttribute('placeholder', TRANSLATIONS[lang]['name-placeholder']);
+        document.getElementById('email').setAttribute('placeholder', TRANSLATIONS[lang]['email-placeholder']);
+        document.getElementById('phone').setAttribute('placeholder', TRANSLATIONS[lang]['phone-placeholder']);
+        document.getElementById('dietary').setAttribute('placeholder', TRANSLATIONS[lang]['dietary-placeholder']);
+    };
+    
+    // Set initial placeholders
+    setFormPlaceholders(currentLang);
+    
     // Language toggle functionality
     const langToggle = document.getElementById('lang-toggle');
     if (langToggle) {
         langToggle.addEventListener('click', function() {
             currentLang = currentLang === 'en' ? 'bm' : 'en';
             updateLanguage(currentLang);
+            
+            // Update form placeholders with the new language
+            setFormPlaceholders(currentLang);
             
             // Save language preference
             localStorage.setItem('preferredLanguage', currentLang);
@@ -275,12 +289,46 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Update placeholder attributes
-        const placeholderElements = document.querySelectorAll('[data-lang-attr="placeholder"][data-lang-placeholder]');
+        // Update placeholder attributes - modified to handle both ways of specifying placeholders
+        const placeholderElements = document.querySelectorAll('[data-lang-placeholder]');
         placeholderElements.forEach(el => {
             const key = el.getAttribute('data-lang-placeholder');
             if (TRANSLATIONS[lang][key]) {
                 el.setAttribute('placeholder', TRANSLATIONS[lang][key]);
+            }
+        });
+    }
+
+    // Language switching function
+    function switchLanguage(lang) {
+        const currentLang = lang || (localStorage.getItem('wedding-lang') || 'en');
+        localStorage.setItem('wedding-lang', currentLang);
+        
+        // Update language toggle button
+        document.getElementById('current-lang').textContent = currentLang.toUpperCase();
+        
+        // Update all translatable elements
+        document.querySelectorAll('[data-lang]').forEach(el => {
+            const key = el.getAttribute('data-lang');
+            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
+                el.innerHTML = TRANSLATIONS[currentLang][key];
+            }
+        });
+        
+        // Update all placeholder attributes
+        document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-lang-placeholder');
+            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
+                el.setAttribute('placeholder', TRANSLATIONS[currentLang][key]);
+            }
+        });
+        
+        // Update all other data-lang-attr attributes
+        document.querySelectorAll('[data-lang-attr]').forEach(el => {
+            const attrName = el.getAttribute('data-lang-attr');
+            const attrKey = el.getAttribute('data-lang-' + attrName);
+            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][attrKey]) {
+                el.setAttribute(attrName, TRANSLATIONS[currentLang][attrKey]);
             }
         });
     }

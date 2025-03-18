@@ -38,7 +38,10 @@ const TRANSLATIONS = {
         'confirmation-message': 'Your RSVP has been received. We look forward to celebrating with you!',
         'close': 'Close',
         'back-to-home': '← Back to Home',
-        'full-names': 'Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria'
+        'full-names': 'Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria',
+        'name-placeholder': 'Enter your full name',
+        'email-placeholder': 'Enter your email address',
+        'phone-placeholder': 'Enter your phone number',
     },
     
     // Bahasa Melayu translations
@@ -79,6 +82,9 @@ const TRANSLATIONS = {
         'confirmation-message': 'RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!',
         'close': 'Tutup',
         'back-to-home': '← Kembali ke Laman Utama',
-        'full-names': 'Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria'
+        'full-names': 'Muhammad Faiz bin Kasman & Nur Dini Binti Zakaria',
+        'name-placeholder': 'Masukkan nama penuh anda',
+        'email-placeholder': 'Masukkan alamat emel anda',
+        'phone-placeholder': 'Masukkan nombor telefon anda',
     }
 };
