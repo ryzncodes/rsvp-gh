@@ -2,11 +2,19 @@
 // This file is configured for deployment to GitHub Pages
 
 const CONFIG = {
-    // Production Google Script URL
-    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzULnmCrfMKLZkDNj80YH1uJq2XKuLTUcKUVMbP/exec',
+    // Production Google Script URL - VERIFY THIS IS CORRECT
+    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzwUrium00Orojj-0IcIAwPfDAbXeheZnQHyoFHUtI_xOWCUIdODE0mRx6-oTnq8PdY/exec',
+    // Debug mode (will show connection status on screen)
+    DEBUG: true
 };
 
-// For local development, you can override with test values
+// For local development, enable debug mode
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    CONFIG.GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_FOR_TESTING';
+    CONFIG.DEBUG = true;
+    
+    // Uncomment and replace with your test URL if you have one
+    // CONFIG.GOOGLE_SCRIPT_URL = 'YOUR_TESTING_GOOGLE_SCRIPT_URL';
 }
+
+// Add this line to enable console logging of important info about the form
+console.log('Using Google Script URL:', CONFIG.GOOGLE_SCRIPT_URL);

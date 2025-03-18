@@ -156,8 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     
         // Handle form submission
-        rsvpForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        rsvpForm.addEventListener('submit', function(e) {
+            console.log('Form submission started');
+            
+            // No need to prevent default - let the form submit to the iframe
             
             // Show a loading indicator
             const submitBtn = rsvpForm.querySelector('button[type="submit"]');
@@ -165,48 +167,24 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = TRANSLATIONS[currentLang]['submitting'] || 'Submitting...';
             submitBtn.disabled = true;
             
-            // Get form data
+            // Log the form data for debugging
             const formData = new FormData(rsvpForm);
             const data = Object.fromEntries(formData.entries());
+            console.log('Form data:', data);
             
-            try {
-                // Connect to Google Sheets via the Apps Script URL
-                if (typeof CONFIG === 'undefined' || !CONFIG.GOOGLE_SCRIPT_URL) {
-                    throw new Error('Google Sheets configuration is missing');
-                }
-                
-                // Create a query string from form data
-                const params = new URLSearchParams();
-                Object.keys(data).forEach(key => {
-                    params.append(key, data[key]);
-                });
-                
-                // Send the data to Google Sheets
-                const response = await fetch(CONFIG.GOOGLE_SCRIPT_URL + '?' + params.toString(), {
-                    method: 'GET',
-                    mode: 'no-cors', // Required for Google Apps Script
-                });
-                
-                // Note: due to CORS, we can't actually check the response
-                // Wait a bit to simulate processing time
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // Show confirmation
+            // Show confirmation after a delay - this assumes the form submission worked
+            setTimeout(() => {
                 rsvpForm.classList.add('hidden');
                 confirmation.classList.remove('hidden');
                 
-                // Reset button
+                // Reset button state
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
                 
-                console.log('RSVP data sent to Google Sheets');
-            } catch (error) {
-                console.error('Error submitting RSVP:', error);
-                alert(TRANSLATIONS[currentLang]['submission-error'] || 'There was an error submitting your RSVP. Please try again.');
-                
-                submitBtn.textContent = TRANSLATIONS[currentLang]['submit-rsvp'] || 'Submit RSVP';
-                submitBtn.disabled = false;
-            }
+                console.log('RSVP confirmation shown');
+            }, 1500);
+            
+            // No need to prevent the default submission - we let it go to the hidden iframe
         });
         
         // Add form validation for accessibility

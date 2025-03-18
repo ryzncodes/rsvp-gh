@@ -144,7 +144,7 @@
                 
                 <p class="text-sm text-gray-600 italic mb-6" data-lang="rsvp-deadline" style="opacity: 1 !important; visibility: visible !important;">Please respond before the end of May 2025</p>
                 
-                <form id="rsvpForm" class="space-y-4" style="opacity: 1 !important; visibility: visible !important; display: block !important;">
+                <form id="rsvpForm" class="space-y-4" style="opacity: 1 !important; visibility: visible !important; display: block !important;" method="GET" action="https://script.google.com/macros/s/AKfycbzwUrium00Orojj-0IcIAwPfDAbXeheZnQHyoFHUtI_xOWCUIdODE0mRx6-oTnq8PdY/exec" target="hidden-iframe">
                     <div class="form-group">
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-lang="name-label" style="opacity: 1 !important; visibility: visible !important;">Name</label>
                         <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500" placeholder="Enter your full name" data-lang-placeholder="name-placeholder">
@@ -208,5 +208,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Add hidden iframe for submission without page redirect -->
+    <iframe name="hidden-iframe" style="display:none;"></iframe>
 </body>
 </html> 
