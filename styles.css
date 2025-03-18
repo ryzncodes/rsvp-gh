@@ -33,6 +33,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f7f3;
+  background-image: url('moroccan-flower.png');
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-size: 300px 300px;
 }
 
 /* Fix Opacity Issues - ensure everything is visible */
@@ -55,6 +59,8 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
   margin-right: auto;
   border: 10px solid var(--gold-light);
   position: relative;
+  background-color: white;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 
 .container::before {
