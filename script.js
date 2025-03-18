@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModalBtn = document.querySelector('.close-modal');
     const modal = document.getElementById('rsvp-modal');
     const rsvpForm = document.getElementById('rsvpForm');
+    const confirmationModal = document.getElementById('confirmation-modal');
     const confirmation = document.getElementById('confirmation');
     const closeConfirmationBtn = document.getElementById('close-confirmation');
     const attendingRadios = document.getElementsByName('attending');
@@ -115,10 +116,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Close confirmation modal when clicking outside content
+    if (confirmationModal) {
+        confirmationModal.addEventListener('click', function(e) {
+            if (e.target === confirmationModal) {
+                closeConfirmationModal();
+                
+                // Reset form
+                if (rsvpForm) {
+                    rsvpForm.reset();
+                }
+            }
+        });
+    }
+    
     if (closeConfirmationBtn) {
         closeConfirmationBtn.addEventListener('click', function() {
-            confirmation.classList.add('hidden');
-            closeModal();
+            closeConfirmationModal();
             
             // Reset form
             if (rsvpForm) {
@@ -132,6 +146,26 @@ document.addEventListener('DOMContentLoaded', function() {
         if (modal) {
             modal.classList.add('hidden');
             modal.classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    function openConfirmationModal() {
+        // Close the RSVP modal first
+        closeModal();
+        
+        // Open confirmation modal
+        if (confirmationModal) {
+            confirmationModal.classList.remove('hidden');
+            confirmationModal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeConfirmationModal() {
+        if (confirmationModal) {
+            confirmationModal.classList.add('hidden');
+            confirmationModal.classList.remove('visible');
             document.body.style.overflow = '';
         }
     }
@@ -174,12 +208,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show confirmation after a delay - this assumes the form submission worked
             setTimeout(() => {
-                rsvpForm.classList.add('hidden');
-                confirmation.classList.remove('hidden');
-                
                 // Reset button state
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+                
+                // Open the confirmation modal instead of showing it within the RSVP modal
+                openConfirmationModal();
                 
                 console.log('RSVP confirmation shown');
             }, 1500);
@@ -276,8 +310,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Keyboard accessibility for modal
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-            closeModal();
+        if (e.key === 'Escape') {
+            // Close RSVP modal if open
+            if (modal && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+            
+            // Close confirmation modal if open
+            if (confirmationModal && !confirmationModal.classList.contains('hidden')) {
+                closeConfirmationModal();
+                
+                // Reset form
+                if (rsvpForm) {
+                    rsvpForm.reset();
+                }
+            }
         }
     });
     

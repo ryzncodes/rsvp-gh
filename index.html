@@ -194,15 +194,22 @@
                         <button type="submit" style="width: 100%; padding: 0.5rem 1rem; background-color: #d97706; color: white; border-radius: 0.375rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 150ms ease-in-out; opacity: 1 !important; visibility: visible !important; display: block !important;" data-lang="submit-rsvp">Hantar RSVP</button>
                     </div>
                 </form>
-                
-                <div id="confirmation" class="confirmation hidden text-center py-8">
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto overflow-hidden border border-amber-200">
+            <div class="p-6">
+                <div id="confirmation" class="confirmation text-center py-4">
                     <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 1 !important; visibility: visible !important;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <h3 class="mt-2 text-xl font-semibold text-gray-900" data-lang="thank-you" style="opacity: 1 !important; visibility: visible !important;">Thank You!</h3>
-                    <p class="mt-2 text-sm text-gray-600" data-lang="confirmation-message" style="opacity: 1 !important; visibility: visible !important;">Your RSVP has been received. We look forward to celebrating with you!</p>
+                    <h3 class="mt-2 text-xl font-semibold text-gray-900" data-lang="thank-you" style="opacity: 1 !important; visibility: visible !important;">Terima Kasih!</h3>
+                    <p class="mt-2 text-sm text-gray-600" data-lang="confirmation-message" style="opacity: 1 !important; visibility: visible !important;">RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!</p>
                     <div class="mt-6">
-                        <button id="close-confirmation" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-md transition duration-150 ease-in-out" data-lang="close" style="opacity: 1 !important; visibility: visible !important;">Close</button>
+                        <button id="close-confirmation" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-md transition duration-150 ease-in-out" data-lang="close" style="opacity: 1 !important; visibility: visible !important;">Tutup</button>
                     </div>
                 </div>
             </div>
