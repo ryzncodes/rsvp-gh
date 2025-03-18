@@ -37,36 +37,38 @@ body {
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    min-height: 100vh; /* Changed from height: 100vh */
+    height: 100vh; /* Ensure it's exactly 100vh */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: hidden; /* Only prevent horizontal scrolling */
-    overflow-y: auto; /* Allow vertical scrolling */
+    overflow: hidden; /* Prevent scrolling */
 }
 
 .container {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
+    max-height: 98vh; /* Allow some small margin */
+    overflow-y: auto; /* Enable scrolling within container if needed */
 }
 
-/* Override container styles for home page to fit 100vh */
+/* Override container styles for home page */
 .home-container.container {
-    margin: 40px auto;
+    margin: 0 auto;
     padding: 25px;
     height: auto;
-    width: 100%;
-    max-width: 900px;
+    max-height: 98vh;
+    width: 90%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     border-radius: 12px;
     box-sizing: border-box;
     position: relative;
-    overflow: visible;
+    overflow-y: auto; /* Allow scrolling within container if needed */
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
@@ -78,8 +80,8 @@ h1, h2, h3 {
 }
 
 h1 {
-    margin: 0 0 10px;
-    font-size: 3rem;
+    margin: 0 0 5px;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 
@@ -119,8 +121,8 @@ a:hover {
 
 .home-header {
     text-align: center;
-    padding: 30px 20px;
-    margin-bottom: 20px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -136,29 +138,29 @@ a:hover {
 }
 
 .tagline {
-    font-size: 1.5rem;
-    margin: 0 0 20px;
+    font-size: 1.2rem;
+    margin: 0 0 10px;
     font-style: italic;
     color: var(--primary-dark);
 }
 
 .full-names {
-    font-size: 1.2rem;
-    margin: 10px 0;
+    font-size: 1rem;
+    margin: 5px 0;
     font-weight: 500;
     color: var(--primary-dark);
 }
 
 .date {
-    font-size: 1.3rem;
-    margin: 20px 0 10px;
+    font-size: 1.1rem;
+    margin: 10px 0 5px;
     font-weight: 600;
     color: var(--primary-dark);
 }
 
 .location {
-    font-size: 1rem;
-    margin: 10px 0 30px;
+    font-size: 0.9rem;
+    margin: 5px 0 10px;
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -169,14 +171,14 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    margin: 30px auto;
+    gap: 15px;
+    margin: 15px auto;
     max-width: 100%;
 }
 
 .detail-item {
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     background-color: var(--white);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -195,24 +197,24 @@ a:hover {
 .detail-item h2 {
     color: var(--primary-dark);
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 .detail-item p {
-    margin: 8px 0;
+    margin: 5px 0;
     color: var(--light-text);
 }
 
 /* RSVP Button Section */
 .rsvp-button-section {
     text-align: center;
-    margin: 40px 0;
+    margin: 20px 0;
 }
 
 .rsvp-deadline {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
     color: var(--primary-dark);
     font-weight: 500;
 }
@@ -221,8 +223,8 @@ a:hover {
     background-color: var(--primary-color);
     color: var(--white);
     border: none;
-    padding: 15px 40px;
-    font-size: 1.1rem;
+    padding: 10px 30px;
+    font-size: 1rem;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 600;
@@ -394,18 +396,19 @@ input[type="radio"] {
     display: none;
 }
 
-/* Footer */
+/* Footer - more compact */
 footer {
     text-align: center;
-    padding: 30px 20px;
+    padding: 15px 20px;
     background-color: var(--primary-light);
     color: var(--text-color);
-    margin-top: 50px;
-    border-radius: 30px 30px 0 0;
+    margin-top: 15px;
+    border-radius: 10px 10px 0 0;
 }
 
 footer p {
-    margin: 5px 0;
+    margin: 3px 0;
+    font-size: 0.9rem;
 }
 
 footer a {
