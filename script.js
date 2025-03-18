@@ -22,11 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (mapToggle && mapDrawer) {
         mapToggle.addEventListener('click', function() {
-            // Toggle the active class on the drawer
-            mapDrawer.classList.toggle('hidden');
-            setTimeout(() => {
-                mapDrawer.classList.toggle('active');
-            }, 10);
+            // Toggle active class on the drawer
+            if (mapDrawer.classList.contains('active')) {
+                // For closing animation, first remove active class, then hide after transition
+                mapDrawer.classList.remove('active');
+                // Wait for the transition to complete before adding hidden class
+                setTimeout(() => {
+                    mapDrawer.classList.add('hidden');
+                }, 300); // Match this timing with the CSS transition duration
+            } else {
+                // For opening, first remove hidden, then add active after a small delay
+                mapDrawer.classList.remove('hidden');
+                setTimeout(() => {
+                    mapDrawer.classList.add('active');
+                }, 10);
+            }
             
             // Toggle the arrow icons
             mapIconDown.classList.toggle('hidden');
