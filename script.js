@@ -374,29 +374,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateLanguage(lang) {
-        // Update the language toggle button
-        const currentLangSpan = document.getElementById('current-lang');
-        if (currentLangSpan) {
-            currentLangSpan.textContent = lang.toUpperCase();
-        }
-        
         // Update all elements with data-lang attribute
-        const elements = document.querySelectorAll('[data-lang]');
-        elements.forEach(el => {
-            const key = el.getAttribute('data-lang');
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            const key = element.getAttribute('data-lang');
             if (TRANSLATIONS[lang][key]) {
-                el.textContent = TRANSLATIONS[lang][key];
+                element.textContent = TRANSLATIONS[lang][key];
             }
         });
-        
-        // Update placeholder attributes - modified to handle both ways of specifying placeholders
-        const placeholderElements = document.querySelectorAll('[data-lang-placeholder]');
-        placeholderElements.forEach(el => {
-            const key = el.getAttribute('data-lang-placeholder');
+
+        // Update placeholders for inputs and textareas
+        document.querySelectorAll('[data-placeholder]').forEach(element => {
+            const key = element.getAttribute('data-placeholder');
             if (TRANSLATIONS[lang][key]) {
-                el.setAttribute('placeholder', TRANSLATIONS[lang][key]);
+                element.placeholder = TRANSLATIONS[lang][key];
             }
         });
+
+        // Update radio button values based on language
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        if (attendanceRadios.length === 2) {
+            attendanceRadios[0].value = TRANSLATIONS[lang]['yes'];
+            attendanceRadios[1].value = TRANSLATIONS[lang]['no'];
+        }
+
+        currentLang = lang;
+        document.getElementById('current-lang').textContent = lang.toUpperCase();
     }
 
     // Language switching function
@@ -503,3 +505,93 @@ function updateConnectionStatus(status, message) {
             break;
     }
 } 
+
+// Form submission handling
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    if (!validateForm()) {
+        return;
+    }
+
+    const form = document.getElementById('rsvpForm');
+    const formData = new FormData(form);
+    const params = new URLSearchParams();
+
+    // Add form data to URL parameters
+    for (const [key, value] of formData.entries()) {
+        params.append(key, value);
+    }
+
+    try {
+        const response = await fetch(CONFIG.GOOGLE_SCRIPT_URL + '?' + params.toString());
+        const data = await response.text();
+        
+        // Close RSVP modal
+        document.getElementById('rsvp-modal').classList.add('hidden');
+        
+        // Show thank you modal
+        const thankYouModal = document.getElementById('thank-you-modal');
+        thankYouModal.classList.remove('hidden');
+        
+        // Reset form
+        form.reset();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error submitting your RSVP. Please try again.');
+    }
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Form submission
+    const rsvpForm = document.getElementById('rsvpForm');
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', handleFormSubmit);
+    }
+
+    // Modal handling
+    const openRsvpButton = document.getElementById('open-rsvp-modal');
+    const closeButtons = document.querySelectorAll('.close-modal');
+    const rsvpModal = document.getElementById('rsvp-modal');
+    const thankYouModal = document.getElementById('thank-you-modal');
+    const modalOverlays = document.querySelectorAll('.modal-overlay');
+
+    // Open RSVP modal
+    if (openRsvpButton) {
+        openRsvpButton.addEventListener('click', () => {
+            rsvpModal.classList.remove('hidden');
+        });
+    }
+
+    // Close modals
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            rsvpModal.classList.add('hidden');
+            thankYouModal.classList.add('hidden');
+        });
+    });
+
+    // Close on overlay click
+    modalOverlays.forEach(overlay => {
+        overlay.addEventListener('click', () => {
+            rsvpModal.classList.add('hidden');
+            thankYouModal.classList.add('hidden');
+        });
+    });
+
+    // Attendance radio button handling
+    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+    const guestsGroup = document.getElementById('guestsGroup');
+
+    attendanceRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'Ya') {
+                guestsGroup.style.display = 'block';
+            } else {
+                guestsGroup.style.display = 'none';
+            }
+        });
+    });
+}); 

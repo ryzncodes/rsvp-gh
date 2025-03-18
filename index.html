@@ -20,27 +20,18 @@
                     [data-lang="ceremony"], [data-lang="garden-pavilion"],
                     [data-lang="reception"], [data-lang="grand-ballroom"],
                     [data-lang="dress-code"], [data-lang="semi-formal"],
-                    #rsvpForm, #rsvpForm button[type="submit"] {
+                    #rsvpForm {
                         opacity: 1 !important;
                         visibility: visible !important;
                         display: block !important;
-                    }
-                    
-                    #rsvpForm button[type="submit"] {
-                        background-color: #d97706 !important; 
-                        color: white !important;
                     }
                 `;
                 document.head.appendChild(style);
                 
                 // Force opacity directly on elements
-                document.querySelectorAll('.detail-item, .detail-item h2, .detail-item p, #rsvpForm, #rsvpForm button[type="submit"]').forEach(function(el) {
+                document.querySelectorAll('.detail-item, .detail-item h2, .detail-item p, #rsvpForm').forEach(function(el) {
                     el.style.opacity = '1';
                     el.style.visibility = 'visible';
-                    if (el.tagName === 'BUTTON' && el.type === 'submit') {
-                        el.style.backgroundColor = '#d97706';
-                        el.style.color = 'white';
-                    }
                 });
             }, 0);
         });
@@ -173,7 +164,7 @@
         <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto overflow-hidden border border-amber-200">
             <div class="modal-content p-6 rounded-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-semibold text-amber-800">RSVP untuk Majlis Perkahwinan Kami</h2>
+                    <h2 class="text-2xl font-semibold text-amber-800" data-lang="rsvp-title">RSVP untuk Majlis Perkahwinan Kami</h2>
                     <button class="close-modal text-gray-400 hover:text-gray-500">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -181,93 +172,63 @@
                     </button>
                 </div>
                 
-                <p class="text-sm text-gray-600 mb-6">Sila beri maklum balas sebelum akhir Mei 2025</p>
+                <p class="text-sm text-gray-600 mb-6" data-lang="rsvp-deadline">Sila beri maklum balas sebelum akhir Mei 2025</p>
                 
-                <form id="rsvpForm" class="space-y-6" onsubmit="return validateForm()">
+                <form id="rsvpForm" class="space-y-6">
                     <div class="form-group">
-                        <label for="name">
-                            <span class="text-gray-700">Nama</span>
-                            <span class="text-red-500 ml-1">*</span>
-                        </label>
-                        <input type="text" id="name" name="name" required 
-                            placeholder="Masukkan nama penuh anda"
-                            maxlength="100"
-                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label for="name"><span data-lang="name">Nama</span> <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" name="name" data-placeholder="name-placeholder" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">
-                            <span class="text-gray-700">Telefon</span>
-                            <span class="text-red-500 ml-1">*</span>
-                        </label>
-                        <input type="tel" id="phone" name="phone" required 
-                            placeholder="Contoh: 0123456789"
-                            maxlength="15"
-                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label for="phone"><span data-lang="phone">Telefon</span> <span class="text-red-500">*</span></label>
+                        <input type="tel" id="phone" name="phone" data-placeholder="phone-placeholder" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">
-                            <span class="text-gray-700">Emel</span>
-                            <span class="text-gray-400 text-sm ml-2">(Pilihan)</span>
-                        </label>
-                        <input type="email" id="email" name="email" 
-                            placeholder="Masukkan alamat emel anda"
-                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label for="email"><span data-lang="email">Emel</span> <span class="text-gray-400" data-lang="email-optional">(Pilihan)</span></label>
+                        <input type="email" id="email" name="email" data-placeholder="email-placeholder">
                     </div>
 
                     <div class="form-group">
-                        <label>
-                            <span class="text-gray-700">Adakah anda akan hadir?</span>
-                            <span class="text-red-500 ml-1">*</span>
-                        </label>
-                        <div class="flex gap-6 mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="attending" value="Ya" required class="w-4 h-4 text-blue-600">
-                                <span class="ml-2">Ya</span>
+                        <label><span data-lang="will-attend">Adakah anda akan hadir?</span> <span class="text-red-500">*</span></label>
+                        <div class="radio-group">
+                            <label class="inline-flex">
+                                <input type="radio" name="attendance" value="Ya" required>
+                                <span data-lang="yes">Ya</span>
                             </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="attending" value="Tidak" required class="w-4 h-4 text-blue-600">
-                                <span class="ml-2">Tidak</span>
+                            <label class="inline-flex">
+                                <input type="radio" name="attendance" value="Tidak" required>
+                                <span data-lang="no">Tidak</span>
                             </label>
                         </div>
                     </div>
 
                     <div id="guestsGroup" class="form-group" style="display: none;">
                         <label for="guests">
-                            <span class="text-gray-700">Bilangan Tetamu</span>
-                            <span class="text-red-500 ml-1">*</span>
+                            <span data-lang="guests">Bilangan Tetamu</span>
+                            <span class="text-red-500">*</span>
                         </label>
                         <select id="guests" name="guests" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="1">1 orang</option>
-                            <option value="2">2 orang</option>
-                            <option value="3">3 orang</option>
-                            <option value="4">4 orang</option>
-                            <option value="5">5 orang</option>
+                            <option value="1" data-lang="guest-1">1 orang</option>
+                            <option value="2" data-lang="guest-2">2 orang</option>
+                            <option value="3" data-lang="guest-3">3 orang</option>
+                            <option value="4" data-lang="guest-4">4 orang</option>
+                            <option value="5" data-lang="guest-5">5 orang</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="dietary">
-                            <span class="text-gray-700">Sekatan Pemakanan</span>
-                            <span class="text-gray-400 text-sm ml-2">(Pilihan)</span>
-                        </label>
-                        <textarea id="dietary" name="dietary" 
-                            placeholder="Sila senaraikan sebarang sekatan pemakanan atau alahan"
-                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[80px]"></textarea>
+                        <label for="dietary"><span data-lang="dietary">Sekatan Pemakanan</span> <span class="text-gray-400" data-lang="dietary-optional">(Pilihan)</span></label>
+                        <textarea id="dietary" name="dietary" data-placeholder="dietary-placeholder"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="wishes">
-                            <span class="text-gray-700">Ucapan & Doa</span>
-                            <span class="text-gray-400 text-sm ml-2">(Pilihan)</span>
-                        </label>
-                        <textarea id="wishes" name="wishes" 
-                            placeholder="Tuliskan ucapan dan doa anda untuk pengantin"
-                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[100px]"></textarea>
+                        <label for="wishes"><span data-lang="wishes">Ucapan & Doa</span> <span class="text-gray-400" data-lang="wishes-optional">(Pilihan)</span></label>
+                        <textarea id="wishes" name="wishes" data-placeholder="wishes-placeholder"></textarea>
                     </div>
 
-                    <button type="submit" class="submit-button w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded-lg transition duration-150 ease-in-out">
+                    <button type="submit" class="submit-button w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded-lg transition duration-150 ease-in-out" data-lang="submit-rsvp">
                         Hantar RSVP
                     </button>
                 </form>
@@ -275,20 +236,19 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
-    <div id="confirmation-modal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto overflow-hidden border border-amber-200">
-            <div class="p-6">
-                <div id="confirmation" class="confirmation text-center py-4">
-                    <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 1 !important; visibility: visible !important;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <h3 class="mt-2 text-xl font-semibold text-gray-900" data-lang="thank-you" style="opacity: 1 !important; visibility: visible !important;">Terima Kasih!</h3>
-                    <p class="mt-2 text-sm text-gray-600" data-lang="confirmation-message" style="opacity: 1 !important; visibility: visible !important;">RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!</p>
-                    <div class="mt-6">
-                        <button id="close-confirmation" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-md transition duration-150 ease-in-out" data-lang="close" style="opacity: 1 !important; visibility: visible !important; background-color: #d97706 !important; color: white !important; width: 100% !important;">Tutup</button>
-                    </div>
-                </div>
+    <!-- Thank You Modal -->
+    <div id="thank-you-modal" class="modal thank-you-modal hidden fixed inset-0 z-50 overflow-auto flex items-center justify-center p-4">
+        <div class="modal-overlay"></div>
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto">
+            <div class="text-center p-6">
+                <div class="checkmark mb-4">✓</div>
+                <h2 class="text-2xl font-semibold mb-2" data-lang="thank-you">Terima Kasih!</h2>
+                <p class="text-gray-600 mb-6" data-lang="thank-you-message">
+                    RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!
+                </p>
+                <button class="close-modal px-6 py-2 rounded-lg" data-lang="close">
+                    Tutup
+                </button>
             </div>
         </div>
     </div>

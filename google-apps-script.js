@@ -9,77 +9,67 @@
 // 7. Copy the web app URL and paste it in your script.js file where it says 'YOUR_GOOGLE_SCRIPT_URL'
 
 function doGet(e) {
-  // Create text output with CORS headers
+  // Set CORS headers
   var output = ContentService.createTextOutput();
+  output.setMimeType(ContentService.MimeType.JSON);
   
-  // Debug: Log all incoming parameters
-  Logger.log("Received request with parameters: " + JSON.stringify(e.parameter));
-  
-  // Handle ping requests for connection testing
-  if (e.parameter.ping) {
-    output.setMimeType(ContentService.MimeType.TEXT);
-    return output.setContent('Connected');
-  }
+  // Log the incoming parameters for debugging
+  Logger.log("Received parameters:", e.parameter);
   
   try {
-    // Get parameters from the URL
-    var params = e.parameter;
+    // Get the active spreadsheet and sheet
+    var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = spreadsheet.getSheetByName("RSVP Responses");
     
-    // Debug log params received
-    Logger.log("Processing parameters: " + JSON.stringify(params));
-    
-    // Check if we received key data
-    if (!params.name || !params.phone) {
-      Logger.log("Error: Missing required parameters");
-      output.setMimeType(ContentService.MimeType.TEXT);
-      return output.setContent('Error: Missing required parameters');
+    // Create the sheet if it doesn't exist
+    if (!sheet) {
+      sheet = spreadsheet.insertSheet("RSVP Responses");
+      // Set up headers
+      var headers = ["Name", "Email", "Phone", "Attending", "Number of Guests", "Dietary Restrictions", "Wishes", "Timestamp"];
+      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+      sheet.getRange(1, 1, 1, headers.length).setBackground("#4a86e8").setFontColor("white").setFontWeight("bold");
+      sheet.setFrozenRows(1);
     }
     
-    // Get the active spreadsheet
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    if (!ss) {
-      Logger.log("Error: Could not access spreadsheet");
-      output.setMimeType(ContentService.MimeType.TEXT);
-      return output.setContent('Error: Could not access spreadsheet');
-    }
+    // Get form data from parameters
+    var name = e.parameter.name || "";
+    var email = e.parameter.email || "";
+    var phone = e.parameter.phone || "";
+    var attending = e.parameter.attendance || "";
+    var guests = e.parameter.guests || "";
+    var dietary = e.parameter.dietary || "";
+    var wishes = e.parameter.wishes || "";
+    var timestamp = new Date().toLocaleString("en-MY", {timeZone: "Asia/Kuala_Lumpur"});
     
-    // Get or create the sheet
-    var sheet = setupSheet();
+    // Create the new row data
+    var rowData = [name, email, phone, attending, guests, dietary, wishes, timestamp];
     
-    // Format the data for insertion
-    var rowData = [
-      params.name || '',
-      params.email || '',
-      params.phone || '',
-      params.attending || '',
-      params.guests || '1',
-      params.dietary || '',
-      params.wishes || '',
-      new Date().toLocaleString('en-MY')
-    ];
+    // Get the last row with content
+    var lastRow = sheet.getLastRow();
     
-    Logger.log("Adding row: " + JSON.stringify(rowData));
+    // Append the new row AFTER the last row
+    sheet.getRange(lastRow + 1, 1, 1, rowData.length).setValues([rowData]);
     
-    // Get the last row and append new data
-    var lastRow = Math.max(sheet.getLastRow(), 1);
-    var newRange = sheet.getRange(lastRow + 1, 1, 1, rowData.length);
-    newRange.setValues([rowData]);
-    
-    // Auto-resize columns after adding new data
+    // Auto-resize columns to fit content
     sheet.autoResizeColumns(1, rowData.length);
     
     // Return success response
-    output.setMimeType(ContentService.MimeType.TEXT);
-    return output.setContent('Success: RSVP recorded');
+    var response = {
+      "status": "success",
+      "message": "RSVP submitted successfully"
+    };
+    output.setContent(JSON.stringify(response));
+    return output;
     
-  } catch (error) {
-    // Log the detailed error
-    Logger.log("Error in doGet: " + error.toString());
-    Logger.log("Stack trace: " + error.stack);
-    
-    // Return error response
-    output.setMimeType(ContentService.MimeType.TEXT);
-    return output.setContent('Error: ' + error.message);
+  } catch(error) {
+    // Log the error and return error response
+    Logger.log("Error: " + error.toString());
+    var response = {
+      "status": "error",
+      "message": error.toString()
+    };
+    output.setContent(JSON.stringify(response));
+    return output;
   }
 }
 
@@ -128,9 +118,6 @@ function setupSheet() {
 
 // Optional: Add a function to test the script
 function testDoGet() {
-  // First, reset the sheet
-  setupSheet();
-  
   // Create a mock event object
   var mockEvent = {
     parameter: {
