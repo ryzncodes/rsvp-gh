@@ -6,54 +6,61 @@
     <title>RSVP - Sarah & Michael's Wedding</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico">
+    <!-- Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <!-- Language Scripts -->
+    <script src="translations.js"></script>
     <script src="config.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
     <div class="container rsvp-container">
-        <header class="rsvp-header">
-            <h1>RSVP</h1>
-            <p>Sarah & Michael's Wedding</p>
-            <p class="date">September 15, 2023</p>
+        <header>
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <button id="lang-toggle" aria-label="Toggle Language">
+                    <span id="current-lang">EN</span>
+                </button>
+            </div>
+            <h1 data-lang="rsvp-page-title">RSVP</h1>
+            <p data-lang="rsvp-page-subtitle">for Sarah & Michael's Wedding</p>
+            <a href="index.html" class="back-link" data-lang="back-to-home">← Back to Home</a>
         </header>
 
         <main id="main-content">
             <section class="rsvp-section">
                 <p class="instructions">Please respond by August 15, 2023</p>
                 
-                <form id="rsvpForm">
+                <form id="rsvpForm" class="rsvp-form standalone">
                     <div class="form-group">
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name" required aria-required="true">
+                        <label for="name" data-lang="name-label">Name</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">Email Address:</label>
-                        <input type="email" id="email" name="email" required aria-required="true">
+                        <label for="email" data-lang="email-label">Email</label>
+                        <input type="email" id="email" name="email" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone">Phone Number:</label>
+                        <label for="phone" data-lang="phone-label">Phone</label>
                         <input type="tel" id="phone" name="phone">
                     </div>
                     
                     <div class="form-group">
-                        <p class="radio-group-label">Will you be attending?</p>
-                        <div class="radio-options">
-                            <div class="radio-option">
-                                <input type="radio" id="attending-yes" name="attending" value="Yes" required aria-required="true">
-                                <label for="attending-yes">Yes, I will attend</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="attending-no" name="attending" value="No">
-                                <label for="attending-no">No, I cannot attend</label>
-                            </div>
+                        <label data-lang="attending-label">Will you be attending?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="attending-yes" name="attending" value="Yes" required>
+                            <label for="attending-yes" data-lang="yes">Yes</label>
+                            
+                            <input type="radio" id="attending-no" name="attending" value="No">
+                            <label for="attending-no" data-lang="no">No</label>
                         </div>
                     </div>
                     
                     <div class="form-group" id="guestsGroup">
-                        <label for="guests">Number of Guests (including yourself):</label>
+                        <label for="guests" data-lang="guests-label">Number of Guests</label>
                         <select id="guests" name="guests">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -63,21 +70,20 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="dietary">Dietary Restrictions:</label>
-                        <textarea id="dietary" name="dietary" rows="3" placeholder="Please list any dietary restrictions or allergies"></textarea>
+                        <label for="dietary" data-lang="dietary-label">Dietary Restrictions</label>
+                        <textarea id="dietary" name="dietary" placeholder="" data-lang-attr="placeholder" data-lang-placeholder="dietary-placeholder"></textarea>
                     </div>
                     
                     <div class="form-group button-group">
-                        <a href="index.html" class="back-button">Back to Details</a>
-                        <button type="submit" class="submit-btn">Submit RSVP</button>
+                        <button type="submit" class="submit-btn" data-lang="submit-rsvp">Submit RSVP</button>
                     </div>
                 </form>
                 
-                <div id="confirmation" class="hidden">
-                    <h2>Thank You!</h2>
-                    <p>Your RSVP has been submitted successfully.</p>
+                <div id="confirmation" class="confirmation hidden">
+                    <h3 data-lang="thank-you">Thank You!</h3>
+                    <p data-lang="confirmation-message">Your RSVP has been received. We look forward to celebrating with you!</p>
                     <div class="button-group">
-                        <a href="index.html" class="back-button">Back to Wedding Details</a>
+                        <a href="index.html" class="back-btn" data-lang="back-to-home">Back to Home</a>
                         <button id="newRsvp" class="submit-btn">Submit Another RSVP</button>
                     </div>
                 </div>
@@ -85,7 +91,8 @@
         </main>
         
         <footer>
-            <p>If you have any questions, please contact us at <a href="mailto:sarahandmichael@example.com">sarahandmichael@example.com</a></p>
+            <p data-lang="contact-us">If you have any questions, please contact us at</p>
+            <p><a href="mailto:sarahandmichael@example.com">sarahandmichael@example.com</a></p>
         </footer>
     </div>
 </body>

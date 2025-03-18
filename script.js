@@ -2,6 +2,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Environment variables are loaded from config.js
     // CONFIG should be defined in config.js which is loaded before this script
     
+    // Language Settings
+    let currentLang = getBrowserLanguage();
+    
+    // Initialize language
+    updateLanguage(currentLang);
+    
+    // Language toggle functionality
+    const langToggle = document.getElementById('lang-toggle');
+    if (langToggle) {
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'bm' : 'en';
+            updateLanguage(currentLang);
+            
+            // Save language preference
+            localStorage.setItem('preferredLanguage', currentLang);
+            
+            // Update display with animation
+            const langSpan = document.getElementById('current-lang');
+            anime({
+                targets: langSpan,
+                opacity: [0, 1],
+                translateY: [10, 0],
+                duration: 500,
+                easing: 'easeOutQuad'
+            });
+        });
+    }
+    
     // Modal elements
     const openModalBtn = document.getElementById('open-rsvp-modal');
     const closeModalBtn = document.querySelector('.close-modal');
@@ -18,6 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.classList.add('show');
             modalOverlay.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+            
+            // Animate modal opening
+            anime({
+                targets: '.modal-content',
+                opacity: [0, 1],
+                scale: [0.9, 1],
+                duration: 400,
+                easing: 'easeOutQuad'
+            });
         });
     }
     
@@ -44,13 +81,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function closeModal() {
         if (modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('show');
+            // Animate modal closing
+            anime({
+                targets: '.modal-content',
+                opacity: [1, 0],
+                scale: [1, 0.9],
+                duration: 300,
+                easing: 'easeInQuad',
+                complete: function() {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('show');
+                    if (modalOverlay) {
+                        modalOverlay.classList.add('hidden');
+                    }
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                }
+            });
         }
-        if (modalOverlay) {
-            modalOverlay.classList.add('hidden');
-        }
-        document.body.style.overflow = ''; // Re-enable scrolling
     }
     
     // RSVP Form functionality
@@ -63,8 +110,26 @@ document.addEventListener('DOMContentLoaded', function() {
         function toggleGuestsVisibility() {
             if (attendingYes && attendingYes.checked) {
                 guestsGroup.style.display = 'block';
+                // Animate the appearance of the guests dropdown
+                anime({
+                    targets: guestsGroup,
+                    opacity: [0, 1],
+                    translateY: [10, 0],
+                    duration: 500,
+                    easing: 'easeOutQuad'
+                });
             } else {
-                guestsGroup.style.display = 'none';
+                // Animate the disappearance of the guests dropdown
+                anime({
+                    targets: guestsGroup,
+                    opacity: [1, 0],
+                    translateY: [0, 10],
+                    duration: 300,
+                    easing: 'easeInQuad',
+                    complete: function() {
+                        guestsGroup.style.display = 'none';
+                    }
+                });
             }
         }
     
@@ -86,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show a loading indicator
             const submitBtn = rsvpForm.querySelector('.submit-btn');
             const originalBtnText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
+            submitBtn.textContent = TRANSLATIONS[currentLang]['submitting'] || 'Submitting...';
             submitBtn.disabled = true;
             
             // Get form data
@@ -100,8 +165,27 @@ document.addEventListener('DOMContentLoaded', function() {
             // Send form data to Google Sheets
             submitToGoogleSheets(formDataObj, function() {
                 // Hide form and show confirmation
-                rsvpForm.classList.add('hidden');
-                confirmation.classList.remove('hidden');
+                // Animate form out
+                anime({
+                    targets: rsvpForm,
+                    opacity: [1, 0],
+                    translateX: [0, -20],
+                    duration: 300,
+                    easing: 'easeInQuad',
+                    complete: function() {
+                        rsvpForm.classList.add('hidden');
+                        confirmation.classList.remove('hidden');
+                        
+                        // Animate confirmation in
+                        anime({
+                            targets: confirmation,
+                            opacity: [0, 1],
+                            translateX: [20, 0],
+                            duration: 500,
+                            easing: 'easeOutQuad'
+                        });
+                    }
+                });
                 
                 // Reset button
                 submitBtn.textContent = originalBtnText;
@@ -128,10 +212,10 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error!', error.message);
-                alert('There was an error submitting your RSVP. Please try again or contact us directly.');
+                alert(TRANSLATIONS[currentLang]['submission-error'] || 'There was an error submitting your RSVP. Please try again or contact us directly.');
                 
                 const submitBtn = rsvpForm.querySelector('.submit-btn');
-                submitBtn.textContent = 'Submit RSVP';
+                submitBtn.textContent = TRANSLATIONS[currentLang]['submit-rsvp'] || 'Submit RSVP';
                 submitBtn.disabled = false;
             });
         }
@@ -171,23 +255,86 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add fade-in animation to elements
         const elements = homeContainer.querySelectorAll('h1, .tagline, .date, .location, h2, p, .detail-item, .rsvp-button');
         
-        elements.forEach((element, index) => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px)';
-            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            
-            // Stagger the animations
-            setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, 100 * index);
-        });
+        // Setup the animation with anime.js
+        anime.timeline({
+            easing: 'easeOutQuad',
+            duration: 800
+        })
+        .add({
+            targets: 'header h1',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            delay: 300
+        })
+        .add({
+            targets: 'header .tagline, header .date, header .location',
+            opacity: [0, 1],
+            translateY: [15, 0],
+            delay: anime.stagger(150)
+        }, '-=500')
+        .add({
+            targets: '.detail-item',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            delay: anime.stagger(200)
+        }, '-=400')
+        .add({
+            targets: '.rsvp-button',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            scale: [0.9, 1]
+        }, '-=200');
     }
     
     // Keyboard accessibility for modal
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
             closeModal();
         }
     });
+    
+    // Language utility functions
+    function getBrowserLanguage() {
+        // Check if there's a saved preference
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang) {
+            return savedLang;
+        }
+        
+        // Check browser language
+        const browserLang = navigator.language || navigator.userLanguage;
+        // If browser language starts with 'ms' (Malay), use 'bm'
+        if (browserLang.startsWith('ms')) {
+            return 'bm';
+        }
+        
+        // Default to English
+        return 'en';
+    }
+    
+    function updateLanguage(lang) {
+        // Update the language toggle button
+        const currentLangSpan = document.getElementById('current-lang');
+        if (currentLangSpan) {
+            currentLangSpan.textContent = lang.toUpperCase();
+        }
+        
+        // Update all elements with data-lang attribute
+        const elements = document.querySelectorAll('[data-lang]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-lang');
+            if (TRANSLATIONS[lang][key]) {
+                el.textContent = TRANSLATIONS[lang][key];
+            }
+        });
+        
+        // Update placeholder attributes
+        const placeholderElements = document.querySelectorAll('[data-lang-attr="placeholder"][data-lang-placeholder]');
+        placeholderElements.forEach(el => {
+            const key = el.getAttribute('data-lang-placeholder');
+            if (TRANSLATIONS[lang][key]) {
+                el.setAttribute('placeholder', TRANSLATIONS[lang][key]);
+            }
+        });
+    }
 }); 

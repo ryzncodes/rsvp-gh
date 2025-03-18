@@ -661,4 +661,85 @@ footer p {
 /* Hide class */
 .hidden {
     display: none;
+}
+
+/* Language Selector */
+.language-selector {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+#lang-toggle {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#lang-toggle:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#current-lang {
+    font-weight: bold;
+}
+
+/* Animation related styles */
+.home-container h1,
+.home-container .tagline,
+.home-container .date,
+.home-container .location,
+.home-container h2,
+.home-container p,
+.home-container .detail-item,
+.home-container .rsvp-button,
+.modal-content,
+#confirmation {
+    opacity: 0;
+}
+
+/* Fade in animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal animations */
+.modal.show .modal-content {
+    animation: modalOpen 0.4s forwards;
+}
+
+@keyframes modalOpen {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Form group animations */
+#guestsGroup {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Confirmation animations */
+.confirmation {
+    transition: opacity 0.5s ease, transform 0.5s ease;
 } 

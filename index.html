@@ -6,6 +6,10 @@
     <title>Sarah & Michael's Wedding</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico">
+    <!-- Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <!-- Language Scripts -->
+    <script src="translations.js"></script>
     <script src="config.js"></script>
     <script src="script.js" defer></script>
 </head>
@@ -13,40 +17,47 @@
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
     <div class="container home-container">
         <header class="home-header">
-            <h1>Sarah & Michael</h1>
-            <p class="tagline">are getting married</p>
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <button id="lang-toggle" aria-label="Toggle Language">
+                    <span id="current-lang">EN</span>
+                </button>
+            </div>
+            <h1 data-lang="title">Sarah & Michael</h1>
+            <p class="tagline" data-lang="tagline">are getting married</p>
             <p class="date">September 15, 2023 • 4:00 PM</p>
-            <p class="location">Willow Creek Gardens • 123 Blossom Lane, Springfield</p>
+            <p class="location" data-lang="location">Willow Creek Gardens • 123 Blossom Lane, Springfield</p>
         </header>
 
         <main id="main-content">
             <div class="details-section">
                 <div class="detail-item">
-                    <h3>Ceremony</h3>
+                    <h2 data-lang="ceremony">Ceremony</h2>
                     <p>4:00 PM</p>
-                    <p>Garden Pavilion</p>
+                    <p data-lang="garden-pavilion">Garden Pavilion</p>
                 </div>
                 
                 <div class="detail-item">
-                    <h3>Reception</h3>
+                    <h2 data-lang="reception">Reception</h2>
                     <p>5:30 PM</p>
-                    <p>Grand Ballroom</p>
+                    <p data-lang="grand-ballroom">Grand Ballroom</p>
                 </div>
                 
                 <div class="detail-item">
-                    <h3>Dress Code</h3>
-                    <p>Semi-Formal</p>
-                    <p>Garden Attire</p>
+                    <h2 data-lang="dress-code">Dress Code</h2>
+                    <p data-lang="semi-formal">Semi-Formal</p>
+                    <p data-lang="garden-attire">Garden Attire</p>
                 </div>
             </div>
             
             <section class="rsvp-button-section">
-                <button id="open-rsvp-modal" class="rsvp-button">RSVP Now</button>
+                <button id="open-rsvp-modal" class="rsvp-button" data-lang="rsvp-button">RSVP NOW</button>
             </section>
         </main>
         
         <footer>
-            <p>If you have any questions, please contact us at <a href="mailto:sarahandmichael@example.com">sarahandmichael@example.com</a></p>
+            <p data-lang="contact-us">If you have any questions, please contact us at</p>
+            <p><a href="mailto:sarahandmichael@example.com">sarahandmichael@example.com</a></p>
         </footer>
     </div>
 
@@ -54,43 +65,37 @@
     <div id="rsvp-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div class="rsvp-header">
-                <h2>RSVP</h2>
-                <p class="instructions">Please respond by August 15, 2023</p>
-            </div>
+            <h2 data-lang="rsvp-heading">RSVP for Our Wedding</h2>
             
-            <form id="rsvpForm">
+            <form id="rsvpForm" class="rsvp-form">
                 <div class="form-group">
-                    <label for="name">Full Name:</label>
-                    <input type="text" id="name" name="name" required aria-required="true">
+                    <label for="name" data-lang="name-label">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email Address:</label>
-                    <input type="email" id="email" name="email" required aria-required="true">
+                    <label for="email" data-lang="email-label">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">Phone Number:</label>
+                    <label for="phone" data-lang="phone-label">Phone</label>
                     <input type="tel" id="phone" name="phone">
                 </div>
                 
                 <div class="form-group">
-                    <p class="radio-group-label">Will you be attending?</p>
-                    <div class="radio-options">
-                        <div class="radio-option">
-                            <input type="radio" id="attending-yes" name="attending" value="Yes" required aria-required="true">
-                            <label for="attending-yes">Yes, I will attend</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="attending-no" name="attending" value="No">
-                            <label for="attending-no">No, I cannot attend</label>
-                        </div>
+                    <label data-lang="attending-label">Will you be attending?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="attending-yes" name="attending" value="Yes" required>
+                        <label for="attending-yes" data-lang="yes">Yes</label>
+                        
+                        <input type="radio" id="attending-no" name="attending" value="No">
+                        <label for="attending-no" data-lang="no">No</label>
                     </div>
                 </div>
                 
                 <div class="form-group" id="guestsGroup">
-                    <label for="guests">Number of Guests (including yourself):</label>
+                    <label for="guests" data-lang="guests-label">Number of Guests</label>
                     <select id="guests" name="guests">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -100,19 +105,17 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="dietary">Dietary Restrictions:</label>
-                    <textarea id="dietary" name="dietary" rows="3" placeholder="Please list any dietary restrictions or allergies"></textarea>
+                    <label for="dietary" data-lang="dietary-label">Dietary Restrictions</label>
+                    <textarea id="dietary" name="dietary" placeholder="" data-lang-attr="placeholder" data-lang-placeholder="dietary-placeholder"></textarea>
                 </div>
                 
-                <div class="form-group">
-                    <button type="submit" class="submit-btn">Submit RSVP</button>
-                </div>
+                <button type="submit" class="submit-btn" data-lang="submit-rsvp">Submit RSVP</button>
             </form>
             
-            <div id="confirmation" class="hidden">
-                <h2>Thank You!</h2>
-                <p>Your RSVP has been submitted successfully.</p>
-                <button id="close-confirmation" class="submit-btn">Close</button>
+            <div id="confirmation" class="confirmation hidden">
+                <h3 data-lang="thank-you">Thank You!</h3>
+                <p data-lang="confirmation-message">Your RSVP has been received. We look forward to celebrating with you!</p>
+                <button id="close-confirmation" data-lang="close">Close</button>
             </div>
         </div>
     </div>
