@@ -314,4 +314,38 @@ button[type="submit"]:hover {
 
 .map-toggle-btn:active {
     transform: translateY(0);
+}
+
+/* Add specific styles for confirmation modal */
+#confirmation-modal.visible {
+    display: flex !important;
+}
+
+#confirmation-modal.hidden {
+    display: none !important;
+}
+
+#confirmation-modal .modal-content {
+    animation: modalFadeIn 0.3s ease forwards;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Make sure the button has proper styling */
+#close-confirmation {
+    background-color: #f59e0b !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 } 
