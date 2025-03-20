@@ -108,6 +108,19 @@ document.addEventListener('DOMContentLoaded', function() {
         closeModalBtn.addEventListener('click', closeModal);
     }
     
+    // Thank you modal close button
+    const closeThankYouBtn = document.querySelector('#thank-you-modal .close-modal');
+    if (closeThankYouBtn) {
+        closeThankYouBtn.addEventListener('click', function() {
+            const thankYouModal = document.getElementById('thank-you-modal');
+            if (thankYouModal) {
+                thankYouModal.classList.add('hidden');
+                thankYouModal.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
     // Close modal when clicking outside content
     if (modal) {
         modal.addEventListener('click', function(e) {
@@ -210,6 +223,15 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             console.log('Form submission started');
             
+            // Prevent double submissions
+            if (this.dataset.submitting === 'true') {
+                console.log('Preventing double submission');
+                return false;
+            }
+            
+            // Mark form as submitting
+            this.dataset.submitting = 'true';
+            
             // Show loading modal
             openLoadingModal();
             
@@ -224,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.phone.length < 10 || data.phone.length > 15) {
                 closeLoadingModal();
                 alert(TRANSLATIONS[currentLang]['invalid-phone'] || 'Please enter a valid phone number');
+                this.dataset.submitting = 'false';
                 return;
             }
             
@@ -245,17 +268,38 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 console.log('Response received');
-                // Close loading modal and show success message
+                // Close loading modal
                 closeLoadingModal();
-                openConfirmationModal();
+                
+                // Close RSVP modal if it's still open
+                closeModal();
+                
+                // Open thank you modal
+                const thankYouModal = document.getElementById('thank-you-modal');
+                if (thankYouModal) {
+                    thankYouModal.classList.remove('hidden');
+                    thankYouModal.classList.add('visible');
+                } else {
+                    console.error('Thank you modal element not found');
+                }
+                
+                // Reset form
                 rsvpForm.reset();
                 console.log('RSVP confirmation shown');
+                
+                // Reset submitting flag after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('rsvpForm').dataset.submitting = 'false';
+                }, 3000);
             })
             .catch(error => {
                 console.error('Error submitting form:', error);
                 // Close loading modal and show error
                 closeLoadingModal();
                 alert(TRANSLATIONS[currentLang]['submission-error'] || 'Error submitting form. Please try again.');
+                
+                // Reset submitting flag
+                document.getElementById('rsvpForm').dataset.submitting = 'false';
             });
         });
         
@@ -446,6 +490,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Add click handler for thank you modal overlay
+    const thankYouModal = document.getElementById('thank-you-modal');
+    if (thankYouModal) {
+        thankYouModal.addEventListener('click', function(e) {
+            if (e.target === thankYouModal) {
+                thankYouModal.classList.add('hidden');
+                thankYouModal.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        });
+    }
 }); 
 
 // Google Sheets connection check
@@ -517,93 +573,3 @@ function updateConnectionStatus(status, message) {
             break;
     }
 } 
-
-// Form submission handling
-async function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    if (!validateForm()) {
-        return;
-    }
-
-    const form = document.getElementById('rsvpForm');
-    const formData = new FormData(form);
-    const params = new URLSearchParams();
-
-    // Add form data to URL parameters
-    for (const [key, value] of formData.entries()) {
-        params.append(key, value);
-    }
-
-    try {
-        const response = await fetch(CONFIG.GOOGLE_SCRIPT_URL + '?' + params.toString());
-        const data = await response.text();
-        
-        // Close RSVP modal
-        document.getElementById('rsvp-modal').classList.add('hidden');
-        
-        // Show thank you modal
-        const thankYouModal = document.getElementById('thank-you-modal');
-        thankYouModal.classList.remove('hidden');
-        
-        // Reset form
-        form.reset();
-        
-    } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error submitting your RSVP. Please try again.');
-    }
-}
-
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // Form submission
-    const rsvpForm = document.getElementById('rsvpForm');
-    if (rsvpForm) {
-        rsvpForm.addEventListener('submit', handleFormSubmit);
-    }
-
-    // Modal handling
-    const openRsvpButton = document.getElementById('open-rsvp-modal');
-    const closeButtons = document.querySelectorAll('.close-modal');
-    const rsvpModal = document.getElementById('rsvp-modal');
-    const thankYouModal = document.getElementById('thank-you-modal');
-    const modalOverlays = document.querySelectorAll('.modal-overlay');
-
-    // Open RSVP modal
-    if (openRsvpButton) {
-        openRsvpButton.addEventListener('click', () => {
-            rsvpModal.classList.remove('hidden');
-        });
-    }
-
-    // Close modals
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            rsvpModal.classList.add('hidden');
-            thankYouModal.classList.add('hidden');
-        });
-    });
-
-    // Close on overlay click
-    modalOverlays.forEach(overlay => {
-        overlay.addEventListener('click', () => {
-            rsvpModal.classList.add('hidden');
-            thankYouModal.classList.add('hidden');
-        });
-    });
-
-    // Attendance radio button handling
-    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
-    const guestsGroup = document.getElementById('guestsGroup');
-
-    attendanceRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.value === 'Ya') {
-                guestsGroup.style.display = 'block';
-            } else {
-                guestsGroup.style.display = 'none';
-            }
-        });
-    });
-}); 

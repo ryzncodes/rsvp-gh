@@ -717,6 +717,230 @@ footer {
     align-items: center !important;
     padding: 0.5rem 0 !important;
   }
+
+  /* Hide scrollbars but maintain scrolling functionality */
+  html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  /* Improve container centering */
+  .container, .max-w-4xl, .mx-auto {
+    width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  /* Better header styling */
+  header {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Improve text centering and spacing */
+  .text-center {
+    text-align: center !important;
+  }
+  
+  /* Fix the main content area */
+  .main-content {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Adjust timeline circles and content alignment */
+  .timeline-item {
+    align-items: center !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .timeline-circle {
+    margin-right: 1rem !important;
+  }
+  
+  /* Improve wedding details section */
+  .wedding-details {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .detail-item {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Fix map view */
+  .map-container {
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    width: calc(100% + 2rem) !important;
+  }
+  
+  /* Improve RSVP button positioning */
+  .rsvp-button-container {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+    text-align: center !important;
+  }
+  
+  /* Modal improvements */
+  .modal-content {
+    width: calc(100% - 2rem) !important;
+    max-width: 100% !important;
+    margin: 1rem !important;
+    padding: 1.25rem !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  /* Footer adjustments */
+  footer {
+    padding: 1.5rem 1rem !important;
+    text-align: center !important;
+  }
+  
+  /* Date badge styling */
+  .date-badge {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Improve timeline layout */
+  .timeline {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 90% !important;
+  }
+  
+  /* Fix image display */
+  img {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  /* Constrain content width to prevent horizontal scroll */
+  p, h1, h2, h3, h4 {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Fix the location text spacing */
+  .location {
+    max-width: 100% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Fix the Bismillah text positioning */
+  .bismillah {
+    margin-bottom: 1.5rem !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  
+  /* Fix the wedding details heading */
+  .wedding-details-heading {
+    margin-top: 2rem !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 1.75rem !important;
+  }
+  
+  /* Ensure background elements don't cause overflow */
+  .bg-image, .overlay {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
+  }
+  
+  /* Fix scrolling issues with all containers */
+  .home-container {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Remove any fixed positioning that might cause issues */
+  .fixed {
+    position: absolute !important;
+  }
+  
+  /* Better button styling for mobile */
+  button, .button, .rsvp-button {
+    display: block !important;
+    width: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Fix mobile body and html to prevent overflow */
+  html, body {
+    overflow-x: hidden !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Fix any potential horizontal overflow */
+  body::after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+  }
+  
+  /* Fix modal positioning */
+  .modal {
+    padding: 0.5rem !important;
+  }
+  
+  /* Fix form field layout */
+  .form-group {
+    margin-bottom: 1rem !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure proper form input sizing */
+  input, select, textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Timeline item vertical spacing */
+  .timeline-item {
+    padding-bottom: 1rem !important;
+  }
+  
+  /* Fix map container */
+  #map, .map-container, .map-wrapper {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Adjust content width */
+  .max-w-lg, .max-w-xl, .max-w-2xl, .max-w-3xl, .max-w-4xl, .max-w-5xl {
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Ensure language selector doesn't overflow */
+  .lang-toggle-container {
+    position: absolute !important;
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+    z-index: 50 !important;
+  }
+  
+  /* Ensure title is centered and properly sized */
+  .title {
+    font-size: 2.25rem !important;
+    margin-top: 2rem !important;
+  }
 }
 
 /* Fix iOS specific issues */

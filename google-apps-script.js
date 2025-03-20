@@ -22,7 +22,7 @@ function doGet(e) {
     if (!sheet) {
       sheet = spreadsheet.insertSheet("RSVP Responses");
       // Set up headers
-      var headers = ["Name", "Phone", "Email", "Attending", "Number of Guests", "Dietary Restrictions", "Wishes", "Timestamp"];
+      var headers = ["Name", "Phone", "Email", "Attending", "Number of Guests", "Dietary Restrictions", "Wishes", "Timestamp", "Request ID"];
       sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
       sheet.getRange(1, 1, 1, headers.length).setBackground("#4a86e8").setFontColor("white").setFontWeight("bold");
       sheet.setFrozenRows(1);
@@ -41,18 +41,33 @@ function doGet(e) {
     if (phone.length < 10 || phone.length > 15) {
       throw new Error("Invalid phone number format");
     }
-
-    // Check for duplicate submissions in the last hour
+    
+    // Generate a unique request ID to track duplicates
+    var requestId = Utilities.getUuid();
+    
+    // Check for exact duplicate submissions within the last 10 seconds (prevents double form submission)
     var lastRow = sheet.getLastRow();
     if (lastRow > 1) {
-      var lastHourData = sheet.getRange(2, 1, lastRow - 1, 8).getValues();
+      var lastEntries = sheet.getRange(2, 1, lastRow - 1, 9).getValues();
       var now = new Date();
-      var oneHourAgo = new Date(now.getTime() - (60 * 60 * 1000));
+      var tenSecondsAgo = new Date(now.getTime() - (10 * 1000)); // 10 seconds ago
       
-      for (var i = 0; i < lastHourData.length; i++) {
-        if (lastHourData[i][1] === phone && // Check phone number
-            new Date(lastHourData[i][7]) > oneHourAgo) { // Check timestamp
-          throw new Error("Duplicate submission detected");
+      for (var i = 0; i < lastEntries.length; i++) {
+        // Skip empty rows
+        if (!lastEntries[i][0]) continue;
+        
+        // Check if this is a very recent duplicate (same phone within last 10 seconds)
+        if (lastEntries[i][1] === phone && 
+            new Date(lastEntries[i][7]) > tenSecondsAgo) {
+          Logger.log("Prevented duplicate submission within 10 seconds");
+          
+          // Return success anyway to prevent error messages to user
+          var response = {
+            "status": "success",
+            "message": "RSVP submitted successfully (duplicate prevented)"
+          };
+          output.setContent(JSON.stringify(response));
+          return output;
         }
       }
     }
@@ -67,7 +82,7 @@ function doGet(e) {
     var timestamp = new Date().toLocaleString("en-MY", {timeZone: "Asia/Kuala_Lumpur"});
     
     // Create the new row data
-    var rowData = [name, phone, email, attending, guests, dietary, wishes, timestamp];
+    var rowData = [name, phone, email, attending, guests, dietary, wishes, timestamp, requestId];
     
     // Append the new row
     sheet.getRange(sheet.getLastRow() + 1, 1, 1, rowData.length).setValues([rowData]);
