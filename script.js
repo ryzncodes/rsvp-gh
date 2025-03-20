@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('rsvp-modal');
     const rsvpForm = document.getElementById('rsvpForm');
     const confirmationModal = document.getElementById('confirmation-modal');
+    const loadingModal = document.getElementById('loading-modal');
     const confirmation = document.getElementById('confirmation');
     const closeConfirmationBtn = document.getElementById('close-confirmation');
     const attendingRadios = document.getElementsByName('attending');
@@ -150,23 +151,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function openConfirmationModal() {
+    function openLoadingModal() {
         // Close the RSVP modal first
         closeModal();
+        
+        // Open loading modal
+        if (loadingModal) {
+            loadingModal.classList.remove('hidden');
+            loadingModal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeLoadingModal() {
+        if (loadingModal) {
+            loadingModal.classList.add('hidden');
+            loadingModal.classList.remove('visible');
+        }
+    }
+    
+    function openConfirmationModal() {
+        // Close the loading modal first
+        closeLoadingModal();
         
         // Open confirmation modal
         if (confirmationModal) {
             confirmationModal.classList.remove('hidden');
             confirmationModal.classList.add('visible');
             document.body.style.overflow = 'hidden';
-        }
-    }
-    
-    function closeConfirmationModal() {
-        if (confirmationModal) {
-            confirmationModal.classList.add('hidden');
-            confirmationModal.classList.remove('visible');
-            document.body.style.overflow = '';
         }
     }
     
@@ -195,24 +207,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Handle form submission
         rsvpForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
+            e.preventDefault();
             console.log('Form submission started');
             
-            // Validate form
-            if (!validateForm()) {
-                return false;
-            }
-            
-            // Show a loading indicator
-            const submitBtn = rsvpForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.textContent;
-            submitBtn.textContent = TRANSLATIONS[currentLang]['submitting'] || 'Submitting...';
-            submitBtn.disabled = true;
+            // Show loading modal
+            openLoadingModal();
             
             // Get form data
             const formData = new FormData(rsvpForm);
             const data = Object.fromEntries(formData.entries());
-            console.log('Form data:', data);
+            
+            // Clean phone number
+            data.phone = data.phone.replace(/[^0-9+]/g, '');
+            
+            // Validate phone number
+            if (data.phone.length < 10 || data.phone.length > 15) {
+                closeLoadingModal();
+                alert(TRANSLATIONS[currentLang]['invalid-phone'] || 'Please enter a valid phone number');
+                return;
+            }
             
             // Create URL with parameters
             const params = new URLSearchParams();
@@ -232,18 +245,17 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 console.log('Response received');
-                // Show success message
+                // Close loading modal and show success message
+                closeLoadingModal();
                 openConfirmationModal();
                 rsvpForm.reset();
-                submitBtn.textContent = originalBtnText;
-                submitBtn.disabled = false;
                 console.log('RSVP confirmation shown');
             })
             .catch(error => {
                 console.error('Error submitting form:', error);
-                alert('Error submitting form. Please try again.');
-                submitBtn.textContent = originalBtnText;
-                submitBtn.disabled = false;
+                // Close loading modal and show error
+                closeLoadingModal();
+                alert(TRANSLATIONS[currentLang]['submission-error'] || 'Error submitting form. Please try again.');
             });
         });
         

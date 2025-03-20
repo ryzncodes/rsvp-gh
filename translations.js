@@ -5,14 +5,15 @@ const TRANSLATIONS = {
         // Common elements
         'title': 'Faiz & Dini',
         'tagline': 'WALIMATUL URUS',
-        'location': 'Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
+        'location-venue': 'Iris Hall Bangi',
+        'location-address': '22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Reception',
         'garden-pavilion': 'Starts at 11:00 AM',
         'reception': 'Arrival of Bride & Groom',
         'grand-ballroom': '1:00 PM',
         'dress-code': 'Event Ends',
         'semi-formal': '4:00 PM',
-        'garden-attire': 'June 21, 2025',
+        'garden-attire': 'June 21, 2025 • 11:00 AM - 4:00 PM',
         'rsvp-button': 'RSVP',
         'contact-us': 'If you have any questions, please contact',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
@@ -48,7 +49,13 @@ const TRANSLATIONS = {
         'email-placeholder': 'Enter your email address',
         "thank-you": "Thank You!",
         "thank-you-message": "Your RSVP has been received. We look forward to celebrating with you!",
-        "close": "Close"
+        "close": "Close",
+        'submitting': 'Submitting...',
+        'loading-title': 'Sending RSVP...',
+        'loading-message': 'Please wait while we process your response.',
+        'invalid-phone': 'Please enter a valid phone number (10-15 digits)',
+        'submission-error': 'Error submitting form. Please try again later.',
+        'duplicate-submission': 'You have already submitted an RSVP recently. Please wait before submitting again.'
     },
     
     // Bahasa Melayu translations
@@ -56,14 +63,15 @@ const TRANSLATIONS = {
         // Common elements
         'title': 'Faiz & Dini',
         'tagline': 'WALIMATUL URUS',
-        'location': 'Iris Hall Bangi • 22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
+        'location-venue': 'Iris Hall Bangi',
+        'location-address': '22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Majlis Bermula',
-        'garden-pavilion': '11:00 Pagi',
+        'garden-pavilion': '11:00 AM',
         'reception': 'Ketibaan Pengantin',
-        'grand-ballroom': '1:00 Petang',
+        'grand-ballroom': '1:00 PM',
         'dress-code': 'Majlis Berakhir',
-        'semi-formal': '4:00 Petang',
-        'garden-attire': '21 Jun 2025',
+        'semi-formal': '4:00 PM',
+        'garden-attire': '21 Jun 2025 • 11:00 AM - 4:00 PM',
         'rsvp-button': 'RSVP',
         'contact-us': 'Jika ada sebarang pertanyaan, sila hubungi',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
@@ -99,6 +107,12 @@ const TRANSLATIONS = {
         'email-placeholder': 'Masukkan alamat emel anda',
         "thank-you": "Terima Kasih!",
         "thank-you-message": "RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!",
-        "close": "Tutup"
+        "close": "Tutup",
+        'submitting': 'Menghantar...',
+        'loading-title': 'Menghantar RSVP...',
+        'loading-message': 'Sila tunggu sebentar.',
+        'invalid-phone': 'Sila masukkan nombor telefon yang sah (10-15 digit)',
+        'submission-error': 'Ralat menghantar borang. Sila cuba lagi.',
+        'duplicate-submission': 'Anda telah menghantar RSVP baru-baru ini. Sila tunggu sebentar sebelum menghantar lagi.'
     }
 };

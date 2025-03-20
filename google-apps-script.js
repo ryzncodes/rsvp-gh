@@ -13,9 +13,6 @@ function doGet(e) {
   var output = ContentService.createTextOutput();
   output.setMimeType(ContentService.MimeType.JSON);
   
-  // Log the incoming parameters for debugging
-  Logger.log("Received parameters:", e.parameter);
-  
   try {
     // Get the active spreadsheet and sheet
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -25,30 +22,55 @@ function doGet(e) {
     if (!sheet) {
       sheet = spreadsheet.insertSheet("RSVP Responses");
       // Set up headers
-      var headers = ["Name", "Email", "Phone", "Attending", "Number of Guests", "Dietary Restrictions", "Wishes", "Timestamp"];
+      var headers = ["Name", "Phone", "Email", "Attending", "Number of Guests", "Dietary Restrictions", "Wishes", "Timestamp"];
       sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
       sheet.getRange(1, 1, 1, headers.length).setBackground("#4a86e8").setFontColor("white").setFontWeight("bold");
       sheet.setFrozenRows(1);
     }
     
-    // Get form data from parameters
-    var name = e.parameter.name || "";
-    var email = e.parameter.email || "";
-    var phone = e.parameter.phone || "";
-    var attending = e.parameter.attendance || "";
-    var guests = e.parameter.guests || "";
-    var dietary = e.parameter.dietary || "";
-    var wishes = e.parameter.wishes || "";
+    // Log incoming parameters for debugging
+    Logger.log("Received parameters:", e.parameter);
+    
+    // Validate required fields
+    if (!e.parameter.name || !e.parameter.phone || !e.parameter.attendance) {
+      throw new Error("Missing required fields");
+    }
+
+    // Clean and validate phone number (remove spaces, dashes, etc)
+    var phone = e.parameter.phone.replace(/[^0-9+]/g, '');
+    if (phone.length < 10 || phone.length > 15) {
+      throw new Error("Invalid phone number format");
+    }
+
+    // Check for duplicate submissions in the last hour
+    var lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      var lastHourData = sheet.getRange(2, 1, lastRow - 1, 8).getValues();
+      var now = new Date();
+      var oneHourAgo = new Date(now.getTime() - (60 * 60 * 1000));
+      
+      for (var i = 0; i < lastHourData.length; i++) {
+        if (lastHourData[i][1] === phone && // Check phone number
+            new Date(lastHourData[i][7]) > oneHourAgo) { // Check timestamp
+          throw new Error("Duplicate submission detected");
+        }
+      }
+    }
+    
+    // Clean and prepare data
+    var name = e.parameter.name.trim();
+    var email = (e.parameter.email || "").trim();
+    var attending = e.parameter.attendance;
+    var guests = attending === "Ya" ? (e.parameter.guests || "1") : "0";
+    var dietary = (e.parameter.dietary || "").trim();
+    var wishes = (e.parameter.wishes || "").trim();
     var timestamp = new Date().toLocaleString("en-MY", {timeZone: "Asia/Kuala_Lumpur"});
     
     // Create the new row data
-    var rowData = [name, email, phone, attending, guests, dietary, wishes, timestamp];
+    var rowData = [name, phone, email, attending, guests, dietary, wishes, timestamp];
     
-    // Get the last row with content
-    var lastRow = sheet.getLastRow();
-    
-    // Append the new row AFTER the last row
-    sheet.getRange(lastRow + 1, 1, 1, rowData.length).setValues([rowData]);
+    // Append the new row
+    sheet.getRange(sheet.getLastRow() + 1, 1, 1, rowData.length).setValues([rowData]);
     
     // Auto-resize columns to fit content
     sheet.autoResizeColumns(1, rowData.length);
