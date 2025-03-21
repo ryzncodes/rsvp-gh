@@ -314,6 +314,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Show/hide guests dropdown based on attendance
         function toggleGuestsVisibility() {
+            // Add null check to prevent errors if guestsGroup doesn't exist
+            if (!guestsGroup) {
+                console.log("guestsGroup element not found in the DOM");
+                return;
+            }
+            
             const selectedRadio = document.querySelector('input[name="attendance"]:checked');
             if (selectedRadio && selectedRadio.value === 'Ya') {
                 guestsGroup.style.display = 'block';
@@ -322,8 +328,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     
-        // Initial setup
-        toggleGuestsVisibility();
+        // Initial setup - only call if guestsGroup exists
+        if (guestsGroup) {
+            toggleGuestsVisibility();
+        }
         
         // Toggle guests visibility when attendance selection changes
         attendanceRadios.forEach(radio => {

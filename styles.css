@@ -302,45 +302,155 @@ footer {
   border-top: 1px solid rgba(44, 90, 160, 0.1) !important;
 }
 
-/* RSVP Modal Styles - Scaled Down */
+/* RSVP Modal Styles - Elegant redesign */
 .modal {
-    transition: opacity 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal.hidden {
     display: none !important;
 }
 
-.modal-content {
+#rsvp-modal .modal-content {
     position: relative;
     z-index: 51;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.99), rgba(255, 255, 255, 0.96));
-    max-width: 600px;
+    background: white;
+    max-width: 480px;
     width: 95%;
-    margin: 10px auto;
-    padding: 16px 12px;
+    margin: 0 auto;
+    padding: 30px;
     overflow: visible;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border: none;
+    font-family: 'Inter', sans-serif;
 }
 
-.modal-content .close-modal {
+#rsvp-modal .modal-content h2 {
+    color: #4a86e8;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#rsvp-modal .modal-content p {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+#rsvp-modal .close-modal {
+    position: absolute;
+    top: 18px;
+    right: 18px;
     color: #94a3b8;
     transition: all 0.2s ease;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-.modal-content .close-modal:hover {
+#rsvp-modal .close-modal:hover {
     color: #475569;
+    background-color: #f3f4f6;
 }
 
-/* Form focus states */
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
+/* Form styling enhancements */
+#rsvp-modal .form-group {
+    margin-bottom: 20px;
+}
+
+#rsvp-modal .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+#rsvp-modal .form-group input[type="text"],
+#rsvp-modal .form-group input[type="email"],
+#rsvp-modal .form-group input[type="tel"],
+#rsvp-modal .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background: white;
+    height: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#rsvp-modal .form-group textarea {
+    min-height: 80px;
+    resize: none;
+}
+
+#rsvp-modal .form-group input:focus,
+#rsvp-modal .form-group textarea:focus {
     border-color: #4a86e8;
     box-shadow: 0 0 0 3px rgba(74, 134, 232, 0.15);
     outline: none;
+}
+
+/* Radio button enhancements */
+#rsvp-modal .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+#rsvp-modal .radio-group .inline-flex {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+#rsvp-modal .radio-group input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    accent-color: #4a86e8;
+}
+
+/* Submit button styling */
+#rsvp-modal button[type="submit"] {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #4a86e8;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin-top: 10px;
+    height: auto;
+    line-height: 1.5;
+    box-shadow: 0 2px 6px rgba(74, 134, 232, 0.3);
+}
+
+#rsvp-modal button[type="submit"]:hover {
+    background-color: #3a76d8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(74, 134, 232, 0.4);
 }
 
 /* Confirmation Modal */
@@ -475,99 +585,68 @@ footer {
 
 /* Map Container */
 .map-drawer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    width: 100%;
 }
 
 .map-drawer.expanded {
-  max-height: 300px;
+    max-height: 350px; /* Increased to accommodate the new map height */
 }
 
 .map-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  margin-bottom: 2rem;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  margin-left: auto;
-  margin-right: auto;
+    position: relative;
+    width: 100%;
+    height: 300px; /* Match the iframe height */
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .map-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: relative;
+    z-index: 1;
 }
 
-.map-container a {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* Full map clickable overlay */
+.map-link-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 15px;
+    box-sizing: border-box;
+    text-decoration: none;
 }
 
-.map-container .map-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+.google-maps-text {
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #4a86e8;
+    color: #4a86e8;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.map-container:hover .map-overlay {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.map-container .map-overlay span {
-  background: white;
-  color: var(--gold-dark);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transform: translateY(50px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  pointer-events: none;
-  visibility: hidden;
-}
-
-.map-container:hover .map-overlay span {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-}
-
-.map-container .map-overlay span.google-maps-text {
-  display: none;
-  background: white;
-  color: var(--gold-dark);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  opacity: 0;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  pointer-events: none;
-}
-
-.map-container:hover .map-overlay span.google-maps-text {
-  display: inline-block;
-  opacity: 1;
-  pointer-events: auto;
+.map-link-overlay:hover .google-maps-text {
+    background-color: #4a86e8;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 /* Import Arabic font */
@@ -753,7 +832,7 @@ footer {
   
   .date-badge {
     display: inline-flex;
-    margin: 0 auto 1rem;
+    /* margin: 0 auto 1rem; */
   }
   
   .timeline-item {
@@ -1189,29 +1268,51 @@ textarea {
 /* Thank you modal specific styles */
 .thank-you-modal .modal-content {
     text-align: center;
-    padding: 2rem;
+    padding: 1.5rem 1.25rem;
+    max-width: 320px;
+    border-radius: 8px;
+    background: white;
 }
 
 .thank-you-modal .checkmark {
     color: #4a86e8;
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.thank-you-modal h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+    color: var(--gold-dark);
+}
+
+.thank-you-modal p {
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 1rem !important;
+    color: #4b5563;
+}
+
+.thank-you-modal .button-container {
+    display: flex;
+    justify-content: center;
 }
 
 .thank-you-modal button {
     background-color: #4a86e8 !important;
     color: white !important;
     border: none !important;
-    padding: 0.75rem 2rem !important;
-    border-radius: 0.75rem !important;
+    padding: 0.4rem 1.5rem !important;
+    border-radius: 0.5rem !important;
     font-weight: 500 !important;
+    font-size: 0.85rem !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
+    display: inline-block !important;
 }
 
 .thank-you-modal button:hover {
     background-color: #2c5aa0 !important;
-    transform: translateY(-1px) !important;
 }
 
 /* Prevent accidental clicks */
@@ -1431,4 +1532,144 @@ button[type="submit"] {
   display: flex !important;
   align-items: center !important;
   padding: 0.5rem 0 !important;
+}
+
+/* Responsive styling for RSVP Modal - tablets and mobile */
+@media (max-width: 1023px) {
+    #rsvp-modal .modal-content {
+        max-width: 90%;
+        width: 90%;
+        padding: 24px 20px;
+        border-radius: 12px;
+    }
+    
+    #rsvp-modal .modal-content h2 {
+        font-size: 1.35rem;
+    }
+    
+    #rsvp-modal .form-group input[type="text"],
+    #rsvp-modal .form-group input[type="email"],
+    #rsvp-modal .form-group input[type="tel"],
+    #rsvp-modal .form-group textarea {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 767px) {
+    #rsvp-modal .modal-content {
+        max-width: 95%;
+        width: 95%;
+        padding: 20px 16px;
+        border-radius: 10px;
+    }
+    
+    #rsvp-modal .modal-content h2 {
+        font-size: 1.25rem;
+    }
+    
+    #rsvp-modal .form-group {
+        margin-bottom: 16px;
+    }
+    
+    #rsvp-modal .form-group label {
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+    }
+    
+    #rsvp-modal .form-group input[type="text"],
+    #rsvp-modal .form-group input[type="email"],
+    #rsvp-modal .form-group input[type="tel"],
+    #rsvp-modal .form-group textarea {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+    
+    #rsvp-modal .form-group textarea {
+        min-height: 70px;
+    }
+    
+    #rsvp-modal button[type="submit"] {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Thank you modal responsive styles */
+@media (max-width: 1023px) {
+    .thank-you-modal .modal-content {
+        max-width: 90%;
+        width: 90%; 
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .thank-you-modal .modal-content {
+        max-width: 300px;
+        padding: 20px 16px;
+    }
+    
+    .thank-you-modal .checkmark {
+        font-size: 1.75rem;
+    }
+    
+    .thank-you-modal h2 {
+        font-size: 1.1rem !important;
+    }
+    
+    .thank-you-modal p {
+        font-size: 0.85rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+}
+
+/* Center the main invitation elements */
+.names-title,
+.full-names,
+.tagline,
+.invitation-text,
+.date-badge,
+.map-toggle-btn {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: block;
+}
+
+/* Ensure date badge is centered properly */
+.date-badge {
+  display: inline-flex;
+  /* margin: 0 auto; */
+  justify-content: center;
+  width: unset;
+}
+
+/* Map toggle button centering */
+#map-toggle {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Additional centering for small screens */
+@media (max-width: 767px) {
+  .names-title,
+  .full-names,
+  .date-badge,
+  .invitation-text,
+  #map-toggle {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+  }
+  
+  .date-badge {
+    margin: 0 auto 1.5rem;
+  }
 } 
