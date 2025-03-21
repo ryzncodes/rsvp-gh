@@ -1267,30 +1267,33 @@ textarea {
 
 /* Thank you modal specific styles */
 .thank-you-modal .modal-content {
-    text-align: center;
-    padding: 1.5rem 1.25rem;
-    max-width: 320px;
-    border-radius: 8px;
-    background: white;
+    position: relative;
+    cursor: default; /* Prevents the modal from being clicked away */
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    z-index: 60 !important; /* Higher z-index for the content with !important */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .thank-you-modal .checkmark {
     color: #4a86e8;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .thank-you-modal h2 {
-    font-size: 1.25rem !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
     color: var(--gold-dark);
 }
 
 .thank-you-modal p {
-    font-size: 0.9rem !important;
+    font-size: 1rem !important;
     line-height: 1.4 !important;
-    margin-bottom: 1rem !important;
     color: #4b5563;
+    margin-bottom: 0 !important;
 }
 
 .thank-you-modal .button-container {
@@ -1299,16 +1302,18 @@ textarea {
 }
 
 .thank-you-modal button {
-    background-color: #4a86e8 !important;
+    background-color: white !important;
     color: white !important;
     border: none !important;
-    padding: 0.4rem 1.5rem !important;
+    /* padding: 0.4rem 1.5rem !important; */
     border-radius: 0.5rem !important;
     font-weight: 500 !important;
     font-size: 0.85rem !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
     display: inline-block !important;
+    position: relative;
+    z-index: 3; /* Highest z-index for the buttons */
 }
 
 .thank-you-modal button:hover {
@@ -1317,13 +1322,13 @@ textarea {
 
 /* Prevent accidental clicks */
 .modal-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
-    background: transparent;
-    z-index: 50;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1; /* Lower z-index for the overlay */
 }
 
 /* Form input styles from merge */
@@ -1491,9 +1496,22 @@ button[type="submit"] {
   margin-top: 1.5rem !important;
 }
 
-.loading-spinner .animate-spin {
-  height: 2.5rem !important;
-  width: 2.5rem !important;
+.loading-spinner .custom-spinner {
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
+  border-bottom-color: #4a86e8;
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .modal-content h2 {
@@ -1690,4 +1708,85 @@ button[type="submit"] {
   .date-badge {
     margin: 0 auto 1.5rem;
   }
+}
+
+/* Thank You Modal Close Button */
+.close-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  background-color: #4a86e8;
+  color: white;
+  border: none;
+  position: relative;
+  z-index: 5;
+}
+
+.close-icon-button:hover {
+  transform: scale(1.1);
+  background-color: #3a76d8;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.close-icon-button svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+/* Loading Modal Styles */
+.loading-modal .modal-content {
+  position: relative;
+  z-index: 80 !important; /* Highest z-index for the loading content */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 12px;
+  max-width: 350px;
+}
+
+.loading-modal {
+  z-index: 70 !important; /* Higher than thank-you modal */
+}
+
+.loading-modal .loading-spinner {
+  position: relative;
+  z-index: 85;
+}
+
+.loading-modal .modal-overlay {
+  z-index: 65; /* Lower than content but higher than other elements */
+  background-color: rgba(0, 0, 0, 0.5); /* Darker overlay for loading state */
+}
+
+.thank-you-modal .close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: #4a86e8;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 70;
+}
+
+.thank-you-modal .close-button:hover {
+  transform: scale(1.1);
+}
+
+.thank-you-modal .close-button svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke-width: 2.5;
+  stroke: #4a86e8;
 } 

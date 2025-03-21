@@ -205,17 +205,70 @@ document.addEventListener('DOMContentLoaded', function() {
         closeModalBtn.addEventListener('click', closeModal);
     }
     
-    // Thank you modal close button
-    const closeThankYouBtn = document.querySelector('#thank-you-modal .close-modal');
+    // Function to close the Thank You modal - Simplified for maximum reliability
+    function closeThankYouModal() {
+        console.log("Executing closeThankYouModal function");
+        const thankYouModal = document.getElementById('thank-you-modal');
+        if (thankYouModal) {
+            console.log("Closing Thank You modal, current classes:", thankYouModal.className);
+            console.log("Current display style:", thankYouModal.style.display);
+            
+            // Force hiding using multiple approaches
+            thankYouModal.classList.add('hidden');
+            thankYouModal.classList.remove('visible', 'flex');
+            thankYouModal.style.display = 'none';
+            thankYouModal.style.visibility = 'hidden';
+            thankYouModal.style.opacity = '0';
+            thankYouModal.style.pointerEvents = 'none';
+            document.body.style.overflow = '';
+            
+            console.log("After closing, classes:", thankYouModal.className);
+            return true;
+        } else {
+            console.error("Thank You modal element not found when trying to close");
+            return false;
+        }
+    }
+    
+    // Thank you modal close button - using specific ID for most reliable selection
+    const closeThankYouBtn = document.getElementById('close-thank-you-modal');
+    console.log("Thank you modal close button found by ID:", closeThankYouBtn ? "YES" : "NO");
+    
     if (closeThankYouBtn) {
-        closeThankYouBtn.addEventListener('click', function() {
-            const thankYouModal = document.getElementById('thank-you-modal');
-            if (thankYouModal) {
-                thankYouModal.classList.add('hidden');
-                thankYouModal.classList.remove('visible');
-                document.body.style.overflow = '';
-            }
+        console.log("Adding click event to Thank You modal close button");
+        closeThankYouBtn.addEventListener('click', function(e) {
+            console.log("Thank You modal close button clicked");
+            e.preventDefault();
+            e.stopPropagation();
+            closeThankYouModal();
         });
+    } else {
+        // Fallback to try other selectors if the ID isn't found
+        const altThankYouBtn = document.querySelector('#thank-you-modal .button-container .close-modal');
+        console.log("Alternate thank you close button found:", altThankYouBtn ? "YES" : "NO");
+        
+        if (altThankYouBtn) {
+            altThankYouBtn.addEventListener('click', function(e) {
+                console.log("Alternate Thank You modal button clicked");
+                e.preventDefault();
+                e.stopPropagation();
+                closeThankYouModal();
+            });
+        } else {
+            // Last resort: add click handlers to all buttons in the thank you modal
+            console.log("Using last resort: attaching to all thank you modal buttons");
+            const allThankYouCloseButtons = document.querySelectorAll('#thank-you-modal button');
+            console.log("Found fallback thank you close buttons:", allThankYouCloseButtons.length);
+            
+            allThankYouCloseButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log("Fallback Thank You modal button clicked");
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeThankYouModal();
+                });
+            });
+        }
     }
     
     // Close modal when clicking outside content

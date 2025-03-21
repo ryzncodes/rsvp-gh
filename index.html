@@ -264,30 +264,32 @@
 
     <!-- Thank You Modal -->
     <div id="thank-you-modal" class="modal thank-you-modal hidden fixed inset-0 z-50 overflow-auto flex items-center justify-center p-4">
-        <div class="modal-overlay"></div>
-        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto">
-            <div class="text-center p-5">
+        <div class="modal-overlay" onclick="var modal = document.getElementById('thank-you-modal'); modal.classList.add('hidden'); modal.style.display = 'none'; document.body.style.overflow = ''; return false;"></div>
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto relative">
+            <!-- Top button for closing -->
+            <button class="close-button" onclick="var modal = document.getElementById('thank-you-modal'); modal.classList.add('hidden'); modal.style.display = 'none'; document.body.style.overflow = ''; return false;" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <div class="text-center p-5 pb-8">
                 <div class="checkmark mb-3">✓</div>
                 <h2 class="text-xl font-semibold mb-2" data-lang="thank-you">Terima Kasih!</h2>
-                <p class="text-gray-600 mb-8" data-lang="thank-you-message">
+                <p class="text-gray-600" data-lang="thank-you-message">
                     RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!
                 </p>
-                <div class="button-container">
-                    <button class="close-modal px-4 py-1.5 rounded bg-blue-500 text-white text-sm" data-lang="close">
-                        Tutup
-                    </button>
-                </div>
             </div>
         </div>
     </div>
 
     <!-- Loading Modal -->
-    <div id="loading-modal" class="modal loading-modal hidden fixed inset-0 z-50 overflow-auto flex items-center justify-center p-4">
+    <div id="loading-modal" class="modal loading-modal hidden fixed inset-0 z-70 overflow-auto flex items-center justify-center p-4">
         <div class="modal-overlay"></div>
-        <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto">
+        <div class="modal-content loading-content bg-white rounded-lg shadow-xl max-w-md w-full mx-auto relative">
             <div class="text-center p-6">
                 <div class="loading-spinner mb-4">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto"></div>
+                    <div class="custom-spinner h-16 w-16 mx-auto"></div>
                 </div>
                 <h2 class="text-2xl font-semibold mb-2" data-lang="loading-title">Menghantar RSVP...</h2>
                 <p class="text-gray-600" data-lang="loading-message">
