@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmation = document.getElementById('confirmation');
     const closeConfirmationBtn = document.getElementById('close-confirmation');
     const attendanceRadios = document.getElementsByName('attendance');
-    const guestsGroup = document.getElementById('guestsGroup');
     
     // Modal functionality
     if (openModalBtn) {
@@ -310,33 +309,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // RSVP Form functionality
     if (rsvpForm) {
         const attendanceRadios = document.getElementsByName('attendance');
-        const guestsGroup = document.getElementById('guestsGroup');
 
         // Show/hide guests dropdown based on attendance
-        function toggleGuestsVisibility() {
-            // Add null check to prevent errors if guestsGroup doesn't exist
-            if (!guestsGroup) {
-                console.log("guestsGroup element not found in the DOM");
-                return;
-            }
-            
-            const selectedRadio = document.querySelector('input[name="attendance"]:checked');
-            if (selectedRadio && selectedRadio.value === 'Ya') {
-                guestsGroup.style.display = 'block';
-            } else {
-                guestsGroup.style.display = 'none';
+        if (attendanceRadios.length > 0) {
+            for (let i = 0; i < attendanceRadios.length; i++) {
+                attendanceRadios[i].addEventListener('change', function() {
+                    // Since we don't have a guestsGroup element, we don't need to toggle its visibility
+                    // Just log the selection for debugging
+                    console.log("Attendance selection changed to:", this.value);
+                });
             }
         }
-    
-        // Initial setup - only call if guestsGroup exists
-        if (guestsGroup) {
-            toggleGuestsVisibility();
-        }
-        
-        // Toggle guests visibility when attendance selection changes
-        attendanceRadios.forEach(radio => {
-            radio.addEventListener('change', toggleGuestsVisibility);
-        });
     
         // Handle form submission
         rsvpForm.addEventListener('submit', function(e) {
