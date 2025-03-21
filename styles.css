@@ -1746,6 +1746,18 @@ button[type="submit"] {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25) !important;
   border-radius: 12px;
   max-width: 350px;
+  padding: 2rem;
+}
+
+.loading-modal .modal-content h2 {
+  font-size: 1.75rem !important;
+  color: #4a86e8;
+  margin-bottom: 1rem !important;
+}
+
+.loading-modal .modal-content p {
+  font-size: 1.1rem !important;
+  color: #6b7280;
 }
 
 .loading-modal {
