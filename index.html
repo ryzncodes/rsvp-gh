@@ -126,15 +126,17 @@
                 </p>
                 
                 <!-- Map Toggle Button -->
-                <button id="map-toggle" class="map-toggle-btn inline-flex items-center justify-center px-4 py-2 mt-2 mb-4 rounded-md bg-blue-50 text-blue-800 border border-blue-200 text-sm font-medium hover:bg-blue-100 transition-colors">
-                    <span data-lang="view-map">View Map</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 map-icon-down" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 map-icon-up hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                    </svg>
-                </button>
+                <div class="text-center">
+                    <button id="map-toggle">
+                        <span data-lang="view-map">View Map</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="map-icon-down" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="map-icon-up hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                        </svg>
+                    </button>
+                </div>
                 
                 <!-- Collapsible Map Drawer -->
                 <div id="map-drawer" class="map-drawer">
