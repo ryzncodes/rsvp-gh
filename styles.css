@@ -40,6 +40,7 @@ body {
   background-color: #f8f7f3;
   background-image: url('ut-dd.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 /* Fix Opacity Issues - ensure everything is visible */
@@ -66,9 +67,9 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
   margin-right: auto;
   border: 1px solid rgba(255, 255, 255, 0.3);
   position: relative;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px) saturate(160%);
-  -webkit-backdrop-filter: blur(15px) saturate(160%);
+  background: rgba(255, 255, 255, 0.8); /* More opaque background */
+  backdrop-filter: blur(5px); /* Reduced blur */
+  -webkit-backdrop-filter: blur(5px); /* Reduced blur */
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   overflow: hidden; /* Ensure no content spills outside */
 }
@@ -103,9 +104,9 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
 .detail-item {
   position: relative;
   z-index: 5;
-  background: rgba(255, 255, 255, 0.7) !important;
-  backdrop-filter: blur(10px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+  background: rgba(255, 255, 255, 0.9) !important; /* More opaque */
+  backdrop-filter: blur(3px) !important; /* Reduced blur */
+  -webkit-backdrop-filter: blur(3px) !important; /* Reduced blur */
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.1) !important;
   text-align: center;
@@ -212,8 +213,8 @@ select:focus-visible {
 
 /* Ensure Modal Works Correctly */
 .modal {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5); /* More opaque */
+  backdrop-filter: blur(2px); /* Reduced blur */
 }
 
 .modal.visible {
@@ -376,57 +377,54 @@ footer {
 
 /* Map Container */
 .map-drawer {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
 }
 
-.map-drawer.hidden {
-  height: 0;
-  opacity: 0;
-}
-
-.map-drawer:not(.hidden) {
-  height: auto;
-  opacity: 1;
+.map-drawer.expanded {
+  max-height: 300px;
 }
 
 .map-container {
   position: relative;
   width: 100%;
-  height: 300px;
-  border-radius: 1rem;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 2rem;
   overflow: hidden;
-  margin: 1rem 0;
-  border: 1px solid var(--gold-light);
-  box-shadow: 0 4px 20px rgba(74, 134, 232, 0.1);
+  border-radius: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border: 0;
-  display: block;
 }
 
 .map-container a {
   display: block;
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
 }
 
 .map-container .map-overlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 1;
   transition: all 0.3s ease;
-  transform: translateY(0);
 }
 
 .map-container:hover .map-overlay {
@@ -435,22 +433,43 @@ footer {
 
 .map-container .map-overlay span {
   background: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 2rem;
-  font-size: 1rem;
   color: var(--gold-dark);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  transform: translateY(-80px);
-  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid var(--gold-light);
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .map-container:hover .map-overlay span {
-  transform: translateY(-85px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.map-container .map-overlay span.google-maps-text {
+  display: none;
   background: white;
-  border: 1px solid var(--gold);
+  color: var(--gold-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.map-container:hover .map-overlay span.google-maps-text {
+  display: inline-block;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Import Arabic font */
@@ -618,11 +637,37 @@ footer {
 /* Additional responsive tweaks */
 @media (max-width: 640px) {
   .home-container {
-    border-radius: 0.5rem;
+    max-width: 100%;
+    padding: 1rem;
+    text-align: center;
   }
   
-  .book-page {
-    padding: 1rem;
+  .book-page-left, .book-page-right {
+    text-align: center;
+  }
+  
+  .names-title, .tagline, .invitation-text, .full-names, .date-badge, .location,
+  .wedding-details-title, .timeline-container, .rsvp-section, .contact-footer {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .date-badge {
+    display: inline-flex;
+    margin: 0 auto 1rem;
+  }
+  
+  .timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .timeline-content {
+    align-items: center;
+    text-align: center;
   }
   
   .bismillah {
@@ -670,6 +715,70 @@ footer {
   
   .timeline-content {
     padding: 0.75rem 1rem;
+  }
+  
+  #map-toggle {
+    display: inline-flex;
+    margin: 0 auto 1rem;
+  }
+  
+  .map-container {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-attachment: fixed;
+  }
+  
+  .container {
+    background: rgba(255, 255, 255, 0.9); /* Even more opaque on mobile */
+    backdrop-filter: blur(3px); /* Further reduced blur on mobile */
+    -webkit-backdrop-filter: blur(3px);
+  }
+  
+  /* Fix for the timeline on mobile - ensure it's properly centered */
+  .timeline-container {
+    padding-left: 0; /* Remove left padding */
+    padding-right: 0; /* Remove right padding */
+    gap: 2rem;
+  }
+  
+  .timeline-container::before {
+    left: 50%; /* Center the timeline line */
+    transform: translateX(-50%);
+  }
+  
+  .time-badge {
+    position: relative;
+    left: auto; /* Reset left positioning */
+    margin: 0 auto 0.5rem; /* Center the badge with margin */
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .timeline-item {
+    padding-left: 0; /* Remove left padding */
+    margin-left: 0; /* Remove left margin */
+  }
+  
+  .timeline-content {
+    padding: 0.75rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .rsvp-button {
+    padding: 0.6rem 2.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .wedding-details-title {
+    margin-bottom: 1.5rem; /* Reduce margin */
+    font-size: 1.75rem; /* Smaller font size */
   }
 }
 

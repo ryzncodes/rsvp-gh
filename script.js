@@ -25,34 +25,42 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (mapToggle && mapDrawer) {
         mapToggle.addEventListener('click', function() {
-            // Toggle active class on the drawer
-            if (mapDrawer.classList.contains('active')) {
-                // For closing animation, first remove active class, then hide after transition
-                mapDrawer.classList.remove('active');
-                // Wait for the transition to complete before adding hidden class
-                setTimeout(() => {
-                    mapDrawer.classList.add('hidden');
-                }, 300); // Match this timing with the CSS transition duration
-            } else {
-                // For opening, first remove hidden, then add active after a small delay
-                mapDrawer.classList.remove('hidden');
-                setTimeout(() => {
-                    mapDrawer.classList.add('active');
-                }, 10);
-            }
+            // Toggle between hidden and expanded class
+            mapDrawer.classList.toggle('expanded');
             
-            // Toggle the arrow icons
+            // Toggle the visibility of the map icons
             mapIconDown.classList.toggle('hidden');
             mapIconUp.classList.toggle('hidden');
+            
+            // Update button text based on state
+            const viewMapText = translations[currentLanguage]['view-map'] || 'View Map';
+            const hideMapText = translations[currentLanguage]['hide-map'] || 'Hide Map';
+            
+            const langSpan = mapToggle.querySelector('[data-lang="view-map"]');
+            if (langSpan) {
+                if (mapDrawer.classList.contains('expanded')) {
+                    langSpan.textContent = hideMapText;
+                } else {
+                    langSpan.textContent = viewMapText;
+                }
+            }
         });
+        
+        // Ensure the overlay text in the map is initially hidden
+        const mapOverlayText = document.querySelector('.google-maps-text');
+        if (mapOverlayText) {
+            mapOverlayText.style.display = 'none';
+            mapOverlayText.style.opacity = '0';
+            mapOverlayText.style.visibility = 'hidden';
+        }
     }
     
     // Force set placeholders for form fields based on the current language
     const setFormPlaceholders = (lang) => {
-        document.getElementById('name').setAttribute('placeholder', TRANSLATIONS[lang]['name-placeholder']);
-        document.getElementById('email').setAttribute('placeholder', TRANSLATIONS[lang]['email-placeholder']);
-        document.getElementById('phone').setAttribute('placeholder', TRANSLATIONS[lang]['phone-placeholder']);
-        document.getElementById('dietary').setAttribute('placeholder', TRANSLATIONS[lang]['dietary-placeholder']);
+        document.getElementById('name').setAttribute('placeholder', translations[lang]['name-placeholder']);
+        document.getElementById('email').setAttribute('placeholder', translations[lang]['email-placeholder']);
+        document.getElementById('phone').setAttribute('placeholder', translations[lang]['phone-placeholder']);
+        document.getElementById('dietary').setAttribute('placeholder', translations[lang]['dietary-placeholder']);
     };
     
     // Set initial placeholders
@@ -90,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingModal = document.getElementById('loading-modal');
     const confirmation = document.getElementById('confirmation');
     const closeConfirmationBtn = document.getElementById('close-confirmation');
-    const attendingRadios = document.getElementsByName('attending');
+    const attendanceRadios = document.getElementsByName('attendance');
     const guestsGroup = document.getElementById('guestsGroup');
     
     // Modal functionality
@@ -197,12 +205,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // RSVP Form functionality
     if (rsvpForm) {
-        const attendingRadios = document.getElementsByName('attending');
+        const attendanceRadios = document.getElementsByName('attendance');
         const guestsGroup = document.getElementById('guestsGroup');
 
         // Show/hide guests dropdown based on attendance
         function toggleGuestsVisibility() {
-            const selectedRadio = document.querySelector('input[name="attending"]:checked');
+            const selectedRadio = document.querySelector('input[name="attendance"]:checked');
             if (selectedRadio && selectedRadio.value === 'Ya') {
                 guestsGroup.style.display = 'block';
             } else {
@@ -214,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleGuestsVisibility();
         
         // Toggle guests visibility when attendance selection changes
-        attendingRadios.forEach(radio => {
+        attendanceRadios.forEach(radio => {
             radio.addEventListener('change', toggleGuestsVisibility);
         });
     
@@ -245,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Validate phone number
             if (data.phone.length < 10 || data.phone.length > 15) {
                 closeLoadingModal();
-                alert(TRANSLATIONS[currentLang]['invalid-phone'] || 'Please enter a valid phone number');
+                alert(translations[currentLanguage]['invalid-phone'] || 'Please enter a valid phone number');
                 this.dataset.submitting = 'false';
                 return;
             }
@@ -261,13 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Submitting to URL:', url);
             
             // Submit to Google Sheets
-            fetch(url, {
-                method: 'GET',
-                mode: 'no-cors',
-                cache: 'no-cache'
-            })
-            .then(response => {
-                console.log('Response received');
+            submitToGoogleSheets(url, data, function(response) {
                 // Close loading modal
                 closeLoadingModal();
                 
@@ -291,12 +293,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     document.getElementById('rsvpForm').dataset.submitting = 'false';
                 }, 3000);
-            })
-            .catch(error => {
-                console.error('Error submitting form:', error);
+            }, function(error) {
                 // Close loading modal and show error
                 closeLoadingModal();
-                alert(TRANSLATIONS[currentLang]['submission-error'] || 'Error submitting form. Please try again.');
+                alert(translations[currentLanguage]['submission-error'] || 'Error submitting form. Please try again.');
                 
                 // Reset submitting flag
                 document.getElementById('rsvpForm').dataset.submitting = 'false';
@@ -433,24 +433,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update all elements with data-lang attribute
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            if (TRANSLATIONS[lang][key]) {
-                element.textContent = TRANSLATIONS[lang][key];
+            if (translations[lang][key]) {
+                element.textContent = translations[lang][key];
             }
         });
 
         // Update placeholders for inputs and textareas
         document.querySelectorAll('[data-placeholder]').forEach(element => {
             const key = element.getAttribute('data-placeholder');
-            if (TRANSLATIONS[lang][key]) {
-                element.placeholder = TRANSLATIONS[lang][key];
+            if (translations[lang][key]) {
+                element.placeholder = translations[lang][key];
             }
         });
 
         // Update radio button values based on language
         const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
         if (attendanceRadios.length === 2) {
-            attendanceRadios[0].value = TRANSLATIONS[lang]['yes'];
-            attendanceRadios[1].value = TRANSLATIONS[lang]['no'];
+            attendanceRadios[0].value = translations[lang]['yes'];
+            attendanceRadios[1].value = translations[lang]['no'];
         }
 
         currentLang = lang;
@@ -468,16 +468,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update all translatable elements
         document.querySelectorAll('[data-lang]').forEach(el => {
             const key = el.getAttribute('data-lang');
-            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
-                el.innerHTML = TRANSLATIONS[currentLang][key];
+            if (translations[currentLang] && translations[currentLang][key]) {
+                el.innerHTML = translations[currentLang][key];
             }
         });
         
         // Update all placeholder attributes
         document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
             const key = el.getAttribute('data-lang-placeholder');
-            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
-                el.setAttribute('placeholder', TRANSLATIONS[currentLang][key]);
+            if (translations[currentLang] && translations[currentLang][key]) {
+                el.setAttribute('placeholder', translations[currentLang][key]);
             }
         });
         
@@ -485,8 +485,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-lang-attr]').forEach(el => {
             const attrName = el.getAttribute('data-lang-attr');
             const attrKey = el.getAttribute('data-lang-' + attrName);
-            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][attrKey]) {
-                el.setAttribute(attrName, TRANSLATIONS[currentLang][attrKey]);
+            if (translations[currentLang] && translations[currentLang][attrKey]) {
+                el.setAttribute(attrName, translations[currentLang][attrKey]);
             }
         });
     }
@@ -531,23 +531,54 @@ function checkGoogleSheetsConnection() {
     
     updateConnectionStatus('checking', 'Checking connection to Google Sheets...');
     
-    // Send a test ping to Google Sheets
-    fetch(CONFIG.GOOGLE_SCRIPT_URL + '?ping=true', {
-        method: 'GET',
-        mode: 'no-cors', // This is needed for Google Apps Script
-    })
-    .then(() => {
-        console.log('Google Sheets: Connection test sent successfully');
-        updateConnectionStatus('success', 'Connected to Google Sheets');
-        // Note: We can't actually check the response due to CORS restrictions
-        // This just confirms we were able to send the request
-    })
-    .catch(error => {
-        console.error('Google Sheets: Connection failed', error);
-        updateConnectionStatus('error', 'Connection to Google Sheets failed');
-    });
+    try {
+        // Send a test ping to Google Sheets
+        fetch(CONFIG.GOOGLE_SCRIPT_URL + '?ping=true', {
+            method: 'GET',
+            mode: 'no-cors', // This is needed for Google Apps Script
+            cache: 'no-cache'
+        })
+        .then(() => {
+            console.log('Google Sheets: Connection test sent successfully');
+            updateConnectionStatus('success', 'Connected to Google Sheets');
+            // Note: We can't actually check the response due to CORS restrictions
+            // This just confirms we were able to send the request
+        })
+        .catch(error => {
+            console.error('Google Sheets: Connection failed', error);
+            updateConnectionStatus('error', 'Connection to Google Sheets failed');
+        });
+    } catch (e) {
+        console.error('Google Sheets: Error sending connection test', e);
+        updateConnectionStatus('error', 'Error connecting to Google Sheets');
+    }
     
     console.log('Google Sheets: Connecting to ' + CONFIG.GOOGLE_SCRIPT_URL);
+}
+
+// Submit to Google Sheets with enhanced error handling
+function submitToGoogleSheets(url, data, onSuccess, onError) {
+    console.log('Submitting to URL:', url);
+    
+    try {
+        // Submit to Google Sheets
+        fetch(url, {
+            method: 'GET',
+            mode: 'no-cors',
+            cache: 'no-cache'
+        })
+        .then(response => {
+            console.log('Response received');
+            if (onSuccess) onSuccess(response);
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+            if (onError) onError(error);
+        });
+    } catch (e) {
+        console.error('Exception when submitting form:', e);
+        if (onError) onError(e);
+    }
 }
 
 // Helper to update connection status indicator
