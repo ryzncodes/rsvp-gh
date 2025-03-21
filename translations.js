@@ -2,10 +2,14 @@
 const TRANSLATIONS = {
     // English translations
     'en': {
+        // Version indicator to ensure this file is loaded correctly
+        'version': '1.0.1',
+        
         // Common elements
         'title': 'Dini & Faiz',
         'tagline': 'WALIMATULURUS',
         'invitation-text': 'With full gratitude to God, we cordially invite Dato\'/Datin/Dr/Sir/Madam/Mr/Ms to our wedding reception',
+        'full-names': 'Nur Dini Binti Zakaria & Muhammad Faiz bin Kasman',
         'location-venue': 'Iris Hall Bangi',
         'location-address': '22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Reception',
@@ -61,10 +65,14 @@ const TRANSLATIONS = {
     
     // Bahasa Melayu translations
     'bm': {
+        // Version indicator to ensure this file is loaded correctly
+        'version': '1.0.1',
+        
         // Common elements
         'title': 'Dini & Faiz',
         'tagline': 'WALIMATULURUS',
         'invitation-text': 'Dengan penuh kesyukuran kehadrat Illahi, kami mempersilakan Dato\'/Datin/Dr/Tuan/Puan/Encik/Cik ke walimatulurus kami',
+        'full-names': 'Nur Dini Binti Zakaria & Muhammad Faiz bin Kasman',
         'location-venue': 'Iris Hall Bangi',
         'location-address': '22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Majlis Bermula',
@@ -118,3 +126,9 @@ const TRANSLATIONS = {
         'duplicate-submission': 'Anda telah menghantar RSVP baru-baru ini. Sila tunggu sebentar sebelum menghantar lagi.'
     }
 };
+
+// Make available globally
+window.TRANSLATIONS = TRANSLATIONS;
+
+// Debug message
+console.log("Translations loaded successfully - version", TRANSLATIONS.en.version);

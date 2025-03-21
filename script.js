@@ -1,4 +1,61 @@
+// Global error handler to catch any JavaScript errors
+window.addEventListener('error', function(event) {
+    console.error('JavaScript Error:', event.message);
+    console.error('Error source:', event.filename, 'Line:', event.lineno, 'Column:', event.colno);
+    console.error('Error object:', event.error);
+    
+    // Display visible error message in development
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        const errorDiv = document.createElement('div');
+        errorDiv.style.position = 'fixed';
+        errorDiv.style.bottom = '10px';
+        errorDiv.style.left = '10px';
+        errorDiv.style.backgroundColor = 'red';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '10px';
+        errorDiv.style.zIndex = '9999';
+        errorDiv.textContent = `Error: ${event.message} (${event.filename}:${event.lineno})`;
+        document.body.appendChild(errorDiv);
+    }
+});
+
+// Global helper to access translations safely
+function getTranslation(lang, key, defaultValue = '') {
+    try {
+        // Try to get from TRANSLATIONS first
+        if (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+            return TRANSLATIONS[lang][key];
+        }
+        
+        // Return default value if no translation found
+        return defaultValue;
+    } catch (e) {
+        console.error(`Error accessing translation [${lang}][${key}]:`, e);
+        return defaultValue;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded - starting script initialization");
+    
+    // Debug translation object
+    console.log("Translations object found:", typeof TRANSLATIONS !== 'undefined' ? "YES" : "NO");
+    
+    // Debug button existence
+    const rsvpButton = document.getElementById('open-rsvp-modal');
+    const langButton = document.getElementById('lang-toggle');
+    console.log("RSVP button found:", rsvpButton ? "YES" : "NO");
+    console.log("Language toggle button found:", langButton ? "YES" : "NO");
+    
+    // Add direct onclick attributes to the buttons in case event listeners fail
+    if (rsvpButton) {
+        rsvpButton.setAttribute('onclick', "openRSVPModal(event); return false;");
+    }
+    
+    if (langButton) {
+        langButton.setAttribute('onclick', "toggleLanguage(); return false;");
+    }
+    
     // Ensure all elements are visible at load
     document.querySelectorAll('.detail-item, .detail-item h2, .detail-item p').forEach(function(el) {
         el.style.opacity = '1';
@@ -12,10 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // CONFIG should be defined in config.js which is loaded before this script
     
     // Language Settings
-    let currentLang = getBrowserLanguage();
+    let currentLanguage = getBrowserLanguage();
+    console.log("Current language:", currentLanguage);
     
     // Initialize language
-    updateLanguage(currentLang);
+    updateLanguage(currentLanguage);
     
     // Map Drawer Functionality
     const mapToggle = document.getElementById('map-toggle');
@@ -33,8 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
             mapIconUp.classList.toggle('hidden');
             
             // Update button text based on state
-            const viewMapText = translations[currentLanguage]['view-map'] || 'View Map';
-            const hideMapText = translations[currentLanguage]['hide-map'] || 'Hide Map';
+            const viewMapText = getTranslation(currentLanguage, 'view-map', 'View Map');
+            const hideMapText = getTranslation(currentLanguage, 'hide-map', 'Hide Map');
             
             const langSpan = mapToggle.querySelector('[data-lang="view-map"]');
             if (langSpan) {
@@ -57,27 +115,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Force set placeholders for form fields based on the current language
     const setFormPlaceholders = (lang) => {
-        document.getElementById('name').setAttribute('placeholder', translations[lang]['name-placeholder']);
-        document.getElementById('email').setAttribute('placeholder', translations[lang]['email-placeholder']);
-        document.getElementById('phone').setAttribute('placeholder', translations[lang]['phone-placeholder']);
-        document.getElementById('dietary').setAttribute('placeholder', translations[lang]['dietary-placeholder']);
+        try {
+            document.getElementById('name').setAttribute('placeholder', getTranslation(lang, 'name-placeholder', 'Enter your name'));
+            document.getElementById('email').setAttribute('placeholder', getTranslation(lang, 'email-placeholder', 'Enter your email'));
+            document.getElementById('phone').setAttribute('placeholder', getTranslation(lang, 'phone-placeholder', 'Enter your phone'));
+            document.getElementById('dietary').setAttribute('placeholder', getTranslation(lang, 'dietary-placeholder', 'Enter dietary restrictions'));
+        } catch (e) {
+            console.error("Error setting form placeholders:", e);
+        }
     };
     
     // Set initial placeholders
-    setFormPlaceholders(currentLang);
+    setFormPlaceholders(currentLanguage);
     
     // Language toggle functionality
     const langToggle = document.getElementById('lang-toggle');
     if (langToggle) {
+        console.log("Adding click event to language toggle button");
         langToggle.addEventListener('click', function() {
-            currentLang = currentLang === 'en' ? 'bm' : 'en';
-            updateLanguage(currentLang);
+            console.log("Language toggle clicked - switching language");
+            currentLanguage = currentLanguage === 'en' ? 'bm' : 'en';
+            console.log("Language switched to:", currentLanguage);
+            updateLanguage(currentLanguage);
             
             // Update form placeholders with the new language
-            setFormPlaceholders(currentLang);
+            setFormPlaceholders(currentLanguage);
             
             // Save language preference
-            localStorage.setItem('preferredLanguage', currentLang);
+            localStorage.setItem('preferredLanguage', currentLanguage);
             
             // Ensure detail items remain visible after language change
             setTimeout(function() {
@@ -87,6 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }, 10);
         });
+    } else {
+        console.error("Language toggle button not found in DOM");
     }
     
     // Modal elements
@@ -103,13 +170,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Modal functionality
     if (openModalBtn) {
-        openModalBtn.addEventListener('click', function() {
+        console.log("Adding click event to RSVP button");
+        openModalBtn.addEventListener('click', function(e) {
+            console.log("RSVP button clicked - opening modal");
+            e.preventDefault(); // Prevent default behavior
+            e.stopPropagation(); // Stop event propagation
+            
+            // Make sure the modal element exists
+            if (!modal) {
+                console.error("Modal element not found");
+                return;
+            }
+            
             // Make modal visible (Tailwind display)
             modal.classList.remove('hidden');
             modal.classList.add('visible');
+            
+            // Directly add styling to ensure visibility
+            modal.style.display = 'flex';
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            
             // Prevent body scrolling
             document.body.style.overflow = 'hidden';
+            
+            // Debug modal state
+            console.log("Modal classes:", modal.className);
+            console.log("Modal display:", window.getComputedStyle(modal).display);
         });
+    } else {
+        console.error("RSVP button not found in DOM");
     }
     
     if (closeModalBtn) {
@@ -165,10 +255,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function closeModal() {
+        console.log("Closing modal");
+        
         if (modal) {
+            // Use both Tailwind classes and direct styles for maximum compatibility
             modal.classList.add('hidden');
             modal.classList.remove('visible');
+            
+            // Direct styling to ensure it's hidden
+            modal.style.display = 'none';
+            modal.style.visibility = 'hidden';
+            
+            // Re-enable body scrolling
             document.body.style.overflow = '';
+            
+            // Debug modal state after closing
+            console.log("Modal closed, classes:", modal.className);
+        } else {
+            console.error("Modal element not found when trying to close");
         }
     }
     
@@ -253,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Validate phone number
             if (data.phone.length < 10 || data.phone.length > 15) {
                 closeLoadingModal();
-                alert(translations[currentLanguage]['invalid-phone'] || 'Please enter a valid phone number');
+                alert(getTranslation(currentLanguage, 'invalid-phone', 'Please enter a valid phone number'));
                 this.dataset.submitting = 'false';
                 return;
             }
@@ -296,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, function(error) {
                 // Close loading modal and show error
                 closeLoadingModal();
-                alert(translations[currentLanguage]['submission-error'] || 'Error submitting form. Please try again.');
+                alert(getTranslation(currentLanguage, 'submission-error', 'Error submitting form. Please try again.'));
                 
                 // Reset submitting flag
                 document.getElementById('rsvpForm').dataset.submitting = 'false';
@@ -430,31 +534,53 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateLanguage(lang) {
+        console.log("Updating language to:", lang);
+        
+        // Fallback if language doesn't exist
+        if (!(typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang])) {
+            console.error("No translations found for language:", lang);
+            lang = 'en'; // Default to English
+            console.log("Falling back to default language (en)");
+        }
+        
         // Update all elements with data-lang attribute
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            if (translations[lang][key]) {
-                element.textContent = translations[lang][key];
+            try {
+                element.textContent = getTranslation(lang, key, element.textContent);
+            } catch (err) {
+                console.error(`Error updating element with key ${key}:`, err);
             }
         });
 
         // Update placeholders for inputs and textareas
         document.querySelectorAll('[data-placeholder]').forEach(element => {
             const key = element.getAttribute('data-placeholder');
-            if (translations[lang][key]) {
-                element.placeholder = translations[lang][key];
+            try {
+                element.placeholder = getTranslation(lang, key, element.placeholder);
+            } catch (err) {
+                console.error(`Error updating placeholder with key ${key}:`, err);
             }
         });
 
         // Update radio button values based on language
         const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
         if (attendanceRadios.length === 2) {
-            attendanceRadios[0].value = translations[lang]['yes'];
-            attendanceRadios[1].value = translations[lang]['no'];
+            try {
+                attendanceRadios[0].value = getTranslation(lang, 'yes', 'Yes');
+                attendanceRadios[1].value = getTranslation(lang, 'no', 'No');
+            } catch (err) {
+                console.error("Error updating radio buttons:", err);
+            }
         }
 
-        currentLang = lang;
-        document.getElementById('current-lang').textContent = lang.toUpperCase();
+        currentLanguage = lang;
+        
+        // Update the language toggle display
+        const langDisplay = document.getElementById('current-lang');
+        if (langDisplay) {
+            langDisplay.textContent = lang.toUpperCase();
+        }
     }
 
     // Language switching function
@@ -468,16 +594,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update all translatable elements
         document.querySelectorAll('[data-lang]').forEach(el => {
             const key = el.getAttribute('data-lang');
-            if (translations[currentLang] && translations[currentLang][key]) {
-                el.innerHTML = translations[currentLang][key];
+            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
+                el.innerHTML = TRANSLATIONS[currentLang][key];
             }
         });
         
         // Update all placeholder attributes
         document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
             const key = el.getAttribute('data-lang-placeholder');
-            if (translations[currentLang] && translations[currentLang][key]) {
-                el.setAttribute('placeholder', translations[currentLang][key]);
+            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
+                el.setAttribute('placeholder', TRANSLATIONS[currentLang][key]);
             }
         });
         
@@ -485,8 +611,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('[data-lang-attr]').forEach(el => {
             const attrName = el.getAttribute('data-lang-attr');
             const attrKey = el.getAttribute('data-lang-' + attrName);
-            if (translations[currentLang] && translations[currentLang][attrKey]) {
-                el.setAttribute(attrName, translations[currentLang][attrKey]);
+            if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][attrKey]) {
+                el.setAttribute(attrName, TRANSLATIONS[currentLang][attrKey]);
             }
         });
     }
@@ -602,5 +728,42 @@ function updateConnectionStatus(status, message) {
         case 'checking':
             statusEl.classList.add('text-yellow-500');
             break;
+    }
+}
+
+// Global functions for direct onclick attributes
+function openRSVPModal(event) {
+    console.log("Direct RSVP button click detected");
+    event.preventDefault();
+    
+    const modal = document.getElementById('rsvp-modal');
+    if (modal) {
+        // Show modal
+        modal.classList.remove('hidden');
+        modal.classList.add('visible');
+        modal.style.display = 'flex';
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+        
+        // Prevent scrolling
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function toggleLanguage() {
+    console.log("Direct language toggle click detected");
+    
+    // Get current language
+    const currentLangElement = document.getElementById('current-lang');
+    const currentLang = currentLangElement ? currentLangElement.textContent.toLowerCase() : 'en';
+    
+    // Toggle language
+    const newLang = (currentLang === 'en' || currentLang === 'en') ? 'bm' : 'en';
+    
+    // Update all elements using the translation function
+    if (typeof updateLanguage === 'function') {
+        updateLanguage(newLang);
+    } else {
+        console.error("updateLanguage function not found");
     }
 } 
