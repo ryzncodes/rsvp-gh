@@ -3,8 +3,9 @@ const TRANSLATIONS = {
     // English translations
     'en': {
         // Common elements
-        'title': 'Faiz & Dini',
-        'tagline': 'WALIMATUL URUS',
+        'title': 'Dini & Faiz',
+        'tagline': 'WALIMATULURUS',
+        'invitation-text': 'With full gratitude to God, we cordially invite Dato\'/Datin/Dr/Sir/Madam/Mr/Ms to our wedding reception',
         'location-venue': 'Iris Hall Bangi',
         'location-address': '22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Reception',
@@ -61,8 +62,9 @@ const TRANSLATIONS = {
     // Bahasa Melayu translations
     'bm': {
         // Common elements
-        'title': 'Faiz & Dini',
-        'tagline': 'WALIMATUL URUS',
+        'title': 'Dini & Faiz',
+        'tagline': 'WALIMATULURUS',
+        'invitation-text': 'Dengan penuh kesyukuran kehadrat Illahi, kami mempersilakan Dato\'/Datin/Dr/Tuan/Puan/Encik/Cik ke walimatulurus kami',
         'location-venue': 'Iris Hall Bangi',
         'location-address': '22A, Jalan P/1A, Suntrack Industrial Hub Seksyen 13, Bandar Baru Bangi',
         'ceremony': 'Majlis Bermula',

@@ -16,7 +16,7 @@ function doGet(e) {
   try {
     // Get the active spreadsheet and sheet
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = spreadsheet.getSheetByName("RSVP Responses");
+    var sheet = spreadsheet.getSheetByName("Dini RSVP Responses");
     
     // Create the sheet if it doesn't exist
     if (!sheet) {

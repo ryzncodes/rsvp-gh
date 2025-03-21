@@ -1261,4 +1261,54 @@ textarea {
     bottom: 0;
     background: transparent;
     z-index: 50;
+}
+
+.invitation-text {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #4b5563;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .invitation-text {
+        font-size: 1.05rem;
+        max-width: 80%;
+    }
+}
+
+/* Smaller Bismillah styles */
+.bismillah-small {
+    font-family: 'Scheherazade New', serif;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    color: var(--gold-dark);
+    direction: rtl;
+    font-weight: 400;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.arabic-translation-small {
+    font-family: var(--font-sans);
+    font-style: italic;
+    color: rgba(44, 90, 160, 0.7);
+    font-size: 0.7rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+
+@media (min-width: 768px) {
+    .bismillah-small {
+        font-size: 1.5rem;
+    }
+    
+    .arabic-translation-small {
+        font-size: 0.75rem;
+    }
 } 
