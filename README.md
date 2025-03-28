@@ -5,7 +5,8 @@ A beautiful, accessible wedding RSVP website designed with senior citizens in mi
 ## Features
 
 - Elegant design with large text and high contrast
-- Two-page layout with dedicated home and RSVP pages
+- Elegant design with large text and high contrast
+- Single-page layout with wedding info and a modal RSVP form
 - Modern styling with custom fonts and subtle animations
 - Responsive design that works beautifully on all devices
 - Accessible form with proper ARIA attributes
@@ -13,21 +14,10 @@ A beautiful, accessible wedding RSVP website designed with senior citizens in mi
 - Google Sheets integration for collecting responses
 - Easy to customize for your event
 
-## Pages
+## Structure
 
-1. **Home Page (index.html)**
-
-   - Wedding couple introduction
-   - Date and venue details
-   - Event schedule information
-   - Link to RSVP page
-
-2. **RSVP Page (rsvp.html)**
-   - Simple, focused RSVP form
-   - Name, email, and attendance information
-   - Dietary restrictions field
-   - Confirmation message after submission
-   - Link back to main page
+- **Home Page (index.html)**: Contains all wedding information (couple, date, venue, schedule) and includes a modal pop-up for the RSVP form.
+- **RSVP Form (Modal within index.html)**: Collects guest details (name, phone, email, attendance, number of guests, dietary needs, wishes).
 
 ## Setup Instructions
 
@@ -97,11 +87,17 @@ This website includes several features to make it accessible to senior citizens:
 
 ## Files Included
 
-- `index.html` - The main webpage with wedding info and RSVP form
+- `index.html` - The main webpage with wedding info and the modal RSVP form
 - `styles.css` - Styling with accessibility in mind
-- `script.js` - JavaScript to handle form submission
+- `script.js` - JavaScript to handle form submission, language switching, and animations
+- `config.js` - Configuration file for the Google Apps Script URL
+- `translations.js` - Contains text strings for English and Malay
 - `google-apps-script.js` - Code to paste into Google Apps Script (not used directly)
 - `README.md` - This documentation file
+- `.env.example` - Example environment file (used for local config if needed)
+- `.gitignore` - Specifies intentionally untracked files that Git should ignore
+- `favicon.ico` - Icon for the browser tab
+- `ut-dd.jpg` - Background image
 
 ## Customization Tips
 

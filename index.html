@@ -9,33 +9,6 @@
     <link rel="preload" href="flower-bg.png" as="image">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" as="style">
     
-    <!-- Immediate fix for opacity issues -->
-    <script>
-        // Force elements to be visible before any other scripts run
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var style = document.createElement('style');
-                style.textContent = `
-                    .detail-item, .detail-item h2, .detail-item p, 
-                    [data-lang="ceremony"], [data-lang="garden-pavilion"],
-                    [data-lang="reception"], [data-lang="grand-ballroom"],
-                    [data-lang="dress-code"], [data-lang="semi-formal"],
-                    #rsvpForm {
-                        opacity: 1 !important;
-                        visibility: visible !important;
-                        display: block !important;
-                    }
-                `;
-                document.head.appendChild(style);
-                
-                // Force opacity directly on elements
-                document.querySelectorAll('.detail-item, .detail-item h2, .detail-item p, #rsvpForm').forEach(function(el) {
-                    el.style.opacity = '1';
-                    el.style.visibility = 'visible';
-                });
-            }, 0);
-        });
-    </script>
     <!-- Modern CSS Reset -->
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <!-- Tailwind-like utility classes -->
@@ -353,4 +326,4 @@
     }
     </script>
 </body>
-</html> 
+</html>
