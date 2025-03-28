@@ -3,7 +3,7 @@
 
 const CONFIG = {
     // Production Google Script URL - VERIFY THIS IS CORRECT
-    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxXxigYw-UygMaxRhqDPcj_Y5yDiAvnQ-xdPuY_6-n6P50ctcmDA4-9C-gZShstT7hQ/exec',
+    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzYQebS9XzLmgmpW2Gl1UFyk4gp9twQJld50gRfELqlFTFUOSn3PptN-kbx-QfG5LLj/exec',
     // Debug mode (will show connection status on screen)
     DEBUG: true,
     // Max retries for connection

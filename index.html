@@ -225,6 +225,18 @@
                     </div>
                 </div>
 
+                <!-- Number of Attendees Dropdown (Initially Hidden) -->
+                <div class="form-group hidden" id="attendees-group">
+                    <label for="attendees"><span data-lang="attendees">Bilangan Hadir</span> <span class="text-red-500">*</span></label>
+                    <select id="attendees" name="attendees" required>
+                        <option value="1" data-lang="attendee-1">1</option>
+                        <option value="2" data-lang="attendee-2">2</option>
+                        <option value="3" data-lang="attendee-3">3</option>
+                        <option value="4" data-lang="attendee-4">4</option>
+                        <option value="5" data-lang="attendee-5">5</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="dietary"><span data-lang="dietary">Sekatan Pemakanan</span> <span class="text-gray-400" data-lang="dietary-optional">(Pilihan)</span></label>
                     <textarea id="dietary" name="dietary" rows="3" data-placeholder="dietary-placeholder"></textarea>

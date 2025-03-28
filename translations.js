@@ -59,6 +59,12 @@ const TRANSLATIONS = {
         'name-placeholder': 'Enter your full name',
         'phone-placeholder': 'Enter your phone number',
         'email-placeholder': 'Enter your email address',
+        'attendees': 'Number Attending', // New label
+        'attendee-1': '1', // New option
+        'attendee-2': '2', // New option
+        'attendee-3': '3', // New option
+        'attendee-4': '4', // New option
+        'attendee-5': '5', // New option
         "thank-you": "Thank You!",
         "thank-you-message": "Your RSVP has been received. We look forward to celebrating with you!",
         "close": "Close",
@@ -129,6 +135,12 @@ const TRANSLATIONS = {
         'name-placeholder': 'Masukkan nama penuh anda',
         'phone-placeholder': 'Masukkan nombor telefon anda',
         'email-placeholder': 'Masukkan alamat emel anda',
+        'attendees': 'Bilangan Hadir', // New label
+        'attendee-1': '1', // New option
+        'attendee-2': '2', // New option
+        'attendee-3': '3', // New option
+        'attendee-4': '4', // New option
+        'attendee-5': '5', // New option
         "thank-you": "Terima Kasih!",
         "thank-you-message": "RSVP anda telah diterima. Kami tidak sabar untuk meraikan bersama anda!",
         "close": "Tutup",

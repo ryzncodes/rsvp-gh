@@ -363,15 +363,45 @@ document.addEventListener('DOMContentLoaded', function() {
     if (rsvpForm) {
         const attendanceRadios = document.getElementsByName('attendance');
 
-        // Show/hide guests dropdown based on attendance
-        if (attendanceRadios.length > 0) {
+        const attendeesGroup = document.getElementById('attendees-group'); // Get the dropdown group
+        const attendeesSelect = document.getElementById('attendees'); // Get the select element
+
+        // Show/hide attendees dropdown based on attendance
+        if (attendanceRadios.length > 0 && attendeesGroup && attendeesSelect) { // Check if all elements exist
+            const handleAttendanceChange = (selectedValue) => {
+                // Use the actual value 'Ya' or the translated value for 'yes'
+                const yesValue = getTranslation(currentLanguage, 'yes', 'Ya'); // Get the current 'Yes' value
+                if (selectedValue === yesValue) {
+                    attendeesGroup.classList.remove('hidden'); // Show the dropdown
+                    attendeesSelect.required = true; // Make it required
+                } else {
+                    attendeesGroup.classList.add('hidden'); // Hide the dropdown
+                    attendeesSelect.required = false; // Make it not required
+                    attendeesSelect.value = '1'; // Reset to default value if hidden
+                }
+                console.log("Attendance selection changed to:", selectedValue, "Attendees dropdown visible:", !attendeesGroup.classList.contains('hidden'));
+            };
+
+            // Add event listeners
             for (let i = 0; i < attendanceRadios.length; i++) {
                 attendanceRadios[i].addEventListener('change', function() {
-                    // Since we don't have a guestsGroup element, we don't need to toggle its visibility
-                    // Just log the selection for debugging
-                    console.log("Attendance selection changed to:", this.value);
+                    handleAttendanceChange(this.value);
                 });
             }
+
+            // Initial check in case the form is pre-filled or reloaded
+            const selectedAttendance = document.querySelector('input[name="attendance"]:checked');
+            if (selectedAttendance) {
+                 handleAttendanceChange(selectedAttendance.value);
+            } else {
+                // Default state if nothing is selected initially
+                attendeesGroup.classList.add('hidden');
+                attendeesSelect.required = false;
+            }
+        } else {
+             if (!attendeesGroup) console.error("Attendees group element (#attendees-group) not found.");
+             if (!attendeesSelect) console.error("Attendees select element (#attendees) not found.");
+             if (attendanceRadios.length === 0) console.error("Attendance radio buttons not found.");
         }
     
         // Handle form submission
@@ -395,6 +425,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(rsvpForm);
             const data = Object.fromEntries(formData.entries());
             
+            // Determine consistent attendance status
+            const attendingValue = data.attendance; // This is 'Yes' or 'Ya' etc.
+            const yesTranslation = getTranslation(currentLanguage, 'yes', 'Ya'); // Get current 'Yes' value
+            const attendanceStatus = (attendingValue === yesTranslation) ? 'yes' : 'no';
+            
             // Clean phone number
             data.phone = data.phone.replace(/[^0-9+]/g, '');
             
@@ -406,11 +441,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Create URL with parameters
+            // Create URL with parameters, using the consistent status
             const params = new URLSearchParams();
             for (let [key, value] of Object.entries(data)) {
+                // Skip the original language-dependent attendance value
+                if (key === 'attendance') continue; 
                 params.append(key, value.trim());
             }
+            // Add the consistent attendance status
+            params.append('attendance_status', attendanceStatus); 
             
             // Log the full URL for debugging
             const url = `${CONFIG.GOOGLE_SCRIPT_URL}?${params.toString()}`;
@@ -810,4 +849,4 @@ function toggleLanguage() {
     } else {
         console.error("updateLanguage function not found");
     }
-} 
+}
