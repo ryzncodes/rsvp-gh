@@ -3,27 +3,27 @@
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-script: 'Great Vibes', cursive;
-  
-  /* Blue color scheme */
-  --gold: #4a86e8;
-  --gold-dark: #2c5aa0;
-  --gold-light: #d0e0f7;
-  --cream: #f5f9ff;
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
-  --primary: 213 76.2% 60.3%; /* Blue in HSL */
-  --primary-foreground: 213 100% 96%;
-  --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
-  --accent: 213 76.2% 90%;  /* Light blue */
-  --accent-foreground: 213 76.2% 30%;
-  --border: 213 76.2% 85%;
-  --input: 213 76.2% 90%;
-  --ring: 213 76.2% 60.3%;
+
+  /* Cream/Gold color scheme */
+  --gold: #B8860B; /* DarkGoldenrod */
+  --gold-dark: #8B4513; /* Saddle Brown */
+  --gold-light: #FAF0E6; /* Linen */
+  --cream: #F8F7F3; /* Match body background */
+  --background: 39 14% 96%; /* Cream HSL */
+  --foreground: 30 50% 20%; /* Dark Brown HSL */
+  --card: 39 14% 96%; /* Cream HSL */
+  --card-foreground: 30 50% 20%; /* Dark Brown HSL */
+  --primary: #8B4513; /* Saddle Brown */
+  --primary-foreground: #FAF0E6; /* Linen */
+  --secondary: 43 33% 95%; /* Lighter Cream HSL */
+  --secondary-foreground: 30 50% 25%; /* Slightly lighter Brown HSL */
+  --muted: 43 33% 95%; /* Lighter Cream HSL */
+  --muted-foreground: 30 20% 45%; /* Muted Brown HSL */
+  --accent: #FAF0E6;  /* Linen */
+  --accent-foreground: #8B4513; /* Saddle Brown */
+  --border: #E0DCCC; /* Existing creamy border */
+  --input: #FAF0E6; /* Linen */
+  --ring: #B8860B; /* DarkGoldenrod */
   --radius: 0.5rem;
   --line-height-normal: 1.5;
   --line-height-heading: 1.2;
@@ -38,13 +38,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f7f3;
-  background-image: url('ut-dd.jpg');
+  background-image: url('bg-new.png');
   background-size: cover;
   background-attachment: fixed;
 }
 
 /* Fix Opacity Issues - ensure everything is visible */
-body *, h1, h2, h3, p, div, button, input, select, textarea, 
+body *, h1, h2, h3, p, div, button, input, select, textarea,
 .detail-item, .detail-item *, .rsvp-button, .names-title {
   opacity: 1 !important;
 }
@@ -62,7 +62,7 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
 
 .font-great-vibes {
   font-family: 'Great Vibes', cursive;
-  color: #4a6da7;
+  color: var(--gold-dark); /* Use variable */
   font-size: clamp(1.8rem, 3vw, 2.5rem) !important;
   line-height: 1.3;
 }
@@ -77,7 +77,7 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(139, 69, 19, 0.1); /* Saddle Brown shadow */
   overflow: hidden;
   padding: 1rem;
   max-width: 100%;
@@ -109,13 +109,13 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
 }
 
 /* Hide scrollbars but maintain scrolling functionality - Extended to all elements */
-html, body, div, .container, .home-container, .modal, .modal-content, 
+html, body, div, .container, .home-container, .modal, .modal-content,
 .timeline-section, .map-drawer, textarea, .book-page, .book-page-left, .book-page-right {
   scrollbar-width: none !important; /* Firefox */
   -ms-overflow-style: none !important; /* IE/Edge */
 }
 
-html::-webkit-scrollbar, 
+html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 div::-webkit-scrollbar,
 .container::-webkit-scrollbar,
@@ -183,7 +183,7 @@ textarea::-webkit-scrollbar,
   backdrop-filter: blur(3px) !important; /* Reduced blur */
   -webkit-backdrop-filter: blur(3px) !important; /* Reduced blur */
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.1) !important;
+  box-shadow: 0 4px 16px 0 rgba(139, 69, 19, 0.08) !important; /* Saddle Brown shadow */
   text-align: center;
   min-height: 120px;
   padding: 1.5rem 1rem !important;
@@ -256,7 +256,7 @@ textarea::-webkit-scrollbar,
 
 .rsvp-button {
   background: var(--gold);
-  color: white;
+  color: var(--primary-foreground);
   padding: 0.75rem 2.5rem;
   font-size: 1rem;
   border-radius: 2rem;
@@ -282,7 +282,7 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.3);
+  box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.3); /* DarkGoldenrod shadow */
   border-color: var(--gold);
 }
 
@@ -298,15 +298,15 @@ select:focus-visible {
 
 /* Date Badge */
 .date-badge {
-  background-color: rgba(208, 224, 247, 0.5) !important;
+  background-color: rgba(250, 240, 230, 0.7) !important; /* Linen with opacity */
   color: var(--gold-dark) !important;
-  border: 1px solid rgba(44, 90, 160, 0.2) !important;
+  border: 1px solid rgba(139, 69, 19, 0.3) !important; /* Saddle Brown border */
 }
 
 /* Footer */
 footer {
-  background-color: rgba(208, 224, 247, 0.2) !important;
-  border-top: 1px solid rgba(44, 90, 160, 0.1) !important;
+  background-color: rgba(250, 240, 230, 0.3) !important; /* Linen with opacity */
+  border-top: 1px solid rgba(139, 69, 19, 0.15) !important; /* Saddle Brown border */
 }
 
 /* RSVP Modal Styles - Elegant redesign */
@@ -348,7 +348,7 @@ footer {
 }
 
 #rsvp-modal .modal-content h2 {
-    color: #4a86e8;
+    color: var(--gold-dark); /* Use variable */
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -420,8 +420,8 @@ footer {
 
 #rsvp-modal .form-group input:focus,
 #rsvp-modal .form-group textarea:focus {
-    border-color: #4a86e8;
-    box-shadow: 0 0 0 3px rgba(74, 134, 232, 0.15);
+    border-color: var(--gold); /* Use variable */
+    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15); /* DarkGoldenrod shadow */
     outline: none;
 }
 
@@ -443,15 +443,15 @@ footer {
     width: 18px;
     height: 18px;
     margin-right: 10px;
-    accent-color: #4a86e8;
+    accent-color: var(--gold); /* Use variable */
 }
 
 /* Submit button styling */
 #rsvp-modal button[type="submit"] {
     width: 100%;
     padding: 12px 20px;
-    background-color: #4a86e8;
-    color: white;
+    background-color: var(--gold); /* Use variable */
+    color: var(--primary-foreground); /* Use variable */
     border: none;
     border-radius: 10px;
     font-weight: 600;
@@ -461,13 +461,13 @@ footer {
     margin-top: 10px;
     height: auto;
     line-height: 1.5;
-    box-shadow: 0 2px 6px rgba(74, 134, 232, 0.3);
+    box-shadow: 0 2px 6px rgba(184, 134, 11, 0.3); /* DarkGoldenrod shadow */
 }
 
 #rsvp-modal button[type="submit"]:hover {
-    background-color: #3a76d8;
+    background-color: var(--gold-dark); /* Use variable */
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(74, 134, 232, 0.4);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.4); /* Saddle Brown shadow */
 }
 
 /* Confirmation Modal */
@@ -551,7 +551,7 @@ footer {
     width: 16px;
     height: 16px;
     margin-right: 8px;
-    accent-color: #4a86e8;
+    accent-color: var(--gold); /* Use variable */
 }
 
 /* Form spacing for the modal */
@@ -565,8 +565,8 @@ footer {
 #rsvpForm button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #4a86e8;
-    color: white;
+    background-color: var(--gold); /* Use variable */
+    color: var(--primary-foreground); /* Use variable */
     border: none;
     border-radius: 0.5rem;
     font-weight: 600;
@@ -653,15 +653,15 @@ footer {
     border-radius: 8px;
     font-size: 0.9rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid #4a86e8;
-    color: #4a86e8;
+    border: 1px solid var(--gold); /* Use variable */
+    color: var(--gold); /* Use variable */
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
 .map-link-overlay:hover .google-maps-text {
-    background-color: #4a86e8;
-    color: white;
+    background-color: var(--gold); /* Use variable */
+    color: var(--primary-foreground); /* Use variable */
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
@@ -689,7 +689,7 @@ footer {
 .arabic-translation {
   font-family: var(--font-sans);
   font-style: italic;
-  color: rgba(44, 90, 160, 0.8);
+  color: rgba(139, 69, 19, 0.8); /* Saddle Brown with opacity */
   font-size: 0.875rem;
   line-height: 1.6;
   margin-top: 0.5rem;
@@ -700,7 +700,7 @@ footer {
   .bismillah {
     font-size: 2.25rem;
   }
-  
+
   .arabic-translation {
     font-size: 0.875rem;
   }
@@ -716,12 +716,12 @@ footer {
     border-radius: 0.5rem;
     overflow: hidden;
   }
-  
+
   .book-page-left {
     width: 60%;
     padding: 2rem 3rem; /* Increased horizontal padding */
     height: 100%;
-    border-right: 1px solid rgba(74, 134, 232, 0.2);
+    border-right: 1px solid rgba(184, 134, 11, 0.2); /* DarkGoldenrod border */
     background: rgba(255, 255, 255, 0.3);
     display: flex;
     flex-direction: column;
@@ -731,7 +731,7 @@ footer {
     z-index: 1;
     text-align: center;
   }
-  
+
   .book-page-left > * {
     width: 100%;
     text-align: center;
@@ -754,7 +754,7 @@ footer {
    .book-page-left .tagline {
       margin-bottom: 1rem; /* Increased from mb-3 (0.75rem) */
   }
-  
+
   .book-page-right {
     width: 40%;
     padding: 1rem;
@@ -766,34 +766,34 @@ footer {
     position: relative;
     z-index: 1;
   }
-  
+
   /* Right page content layout */
   .book-page-right .home-header {
     padding: 0;
     margin-bottom: 1.5rem;
   }
-  
+
   .book-page-right #main-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
   }
-  
+
   .book-page-right .details-section {
     gap: 1rem;
     margin: 0;
   }
-  
+
   .book-page-right .detail-item {
     padding: 1.25rem 1rem !important;
   }
-  
+
   .book-page-right .rsvp-button-section {
     margin-top: auto;
     padding-top: 2rem;
   }
-  
+
   .book-page-right footer {
     margin-top: auto;
     padding: 1rem;
@@ -807,19 +807,19 @@ footer {
     width: 80% !important;
     height: 90vh !important;
   }
-  
+
   .book-page-left {
     padding: 3rem;
   }
-  
+
   .book-page-right {
     padding: 2.5rem;
   }
-  
+
   .book-page-left .names-title {
     font-size: 3rem !important;
   }
-  
+
   .book-page-left .bismillah {
     font-size: 3rem;
   }
@@ -832,18 +832,18 @@ footer {
     position: relative;
     z-index: 1;
   }
-  
+
   .book-page-left, .book-page-right {
     padding: 0.75rem;
     width: 100%; /* Ensure full width on mobile */
     max-width: 100%; /* Prevent overflow */
     margin-bottom: 1rem;
   }
-  
+
   .book-page-right {
     padding-top: 0;
   }
-  
+
   .home-container {
     height: auto !important; /* Allow container to expand based on content */
     min-height: 90vh;
@@ -859,54 +859,54 @@ footer {
     padding: 1rem;
     text-align: center;
   }
-  
+
   .book-page-left, .book-page-right {
     text-align: center;
   }
-  
+
   .names-title, .tagline, .invitation-text, .full-names, .date-badge, .location,
   .wedding-details-title, .timeline-container, .rsvp-section, .contact-footer {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
   }
-  
+
   .date-badge {
     display: inline-flex;
     /* margin: 0 auto 1rem; */
   }
-  
+
   .timeline-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  
+
   .timeline-content {
     align-items: center;
     text-align: center;
   }
-  
+
   .bismillah {
     font-size: 1.5rem;
   }
-  
+
   .names-title {
     font-size: 2.5rem !important;
   }
-  
+
   .modal-content {
     margin: 1rem !important;
     padding: 1rem !important;
     max-height: calc(100vh - 2rem) !important;
     overflow-y: auto !important;
   }
-  
+
   .form-group {
     margin-bottom: 1rem !important;
   }
-  
+
   .form-group input[type="text"],
   .form-group input[type="email"],
   .form-group input[type="tel"],
@@ -914,32 +914,32 @@ footer {
     padding: 0.875rem 1rem;
     font-size: 1rem;
   }
-  
+
   .timeline-container {
     padding-left: 3.5rem; /* Smaller padding for mobile */
     gap: 3rem; /* Reduced spacing for mobile */
   }
-  
+
   .timeline-container::before {
     left: 1.5rem; /* Adjust for smaller badges */
   }
-  
+
   .time-badge {
     left: -3.5rem;
     width: 3rem;
     height: 3rem;
     font-size: 0.9rem;
   }
-  
+
   .timeline-content {
     padding: 0.75rem 1rem;
   }
-  
+
   #map-toggle {
     display: inline-flex;
     margin: 0 auto 1rem;
   }
-  
+
   .map-container {
     max-width: 100%;
     margin-left: auto;
@@ -951,25 +951,25 @@ footer {
   body {
     background-attachment: fixed;
   }
-  
+
   .container {
     background: rgba(255, 255, 255, 0.98); /* Even more opaque on mobile */
     backdrop-filter: blur(3px); /* Further reduced blur on mobile */
     -webkit-backdrop-filter: blur(3px);
   }
-  
+
   /* Fix for the timeline on mobile - ensure it's properly centered */
   .timeline-container {
     padding-left: 0; /* Remove left padding */
     padding-right: 0; /* Remove right padding */
     gap: 2rem;
   }
-  
+
   .timeline-container::before {
     left: 50%; /* Center the timeline line */
     transform: translateX(-50%);
   }
-  
+
   .time-badge {
     position: relative;
     left: auto; /* Reset left positioning */
@@ -977,23 +977,23 @@ footer {
     width: 3rem;
     height: 3rem;
   }
-  
+
   .timeline-item {
     padding-left: 0; /* Remove left padding */
     margin-left: 0; /* Remove left margin */
   }
-  
+
   .timeline-content {
     padding: 0.75rem;
     text-align: center;
     width: 100%;
   }
-  
+
   .rsvp-button {
     padding: 0.6rem 2.5rem;
     font-size: 0.9rem;
   }
-  
+
   .wedding-details-title {
     margin-bottom: 1.5rem; /* Reduce margin */
     font-size: 1.75rem; /* Smaller font size */
@@ -1005,7 +1005,7 @@ footer {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   max-height: 100%;
   padding: 1.25rem 1rem;
   background: transparent;
@@ -1105,14 +1105,15 @@ footer {
 }
 
 /* Contact Footer */
+/* This rule was already updated in the previous step, keeping it consistent */
 .contact-footer {
   text-align: center;
   margin-top: 1.5rem;
   padding: 1.5rem 1rem;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(208, 224, 247, 0.95));
+  background: rgba(248, 247, 243, 0.95); /* Creamy background */
   border-radius: 1rem;
-  box-shadow: 0 6px 25px rgba(74, 134, 232, 0.25);
-  border: 2px solid var(--gold);
+  box-shadow: 0 6px 20px rgba(100, 100, 80, 0.15); /* Neutral shadow */
+  border: 1px solid #e0dccc; /* Subtle creamy border */
   width: 100%;
   transform: scale(1.02);
 }
@@ -1143,9 +1144,9 @@ footer {
 
 .contact-link:hover {
   background: white;
-  color: var(--gold);
+  color: var(--gold-dark); /* Use variable */
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(74, 134, 232, 0.15);
+  box-shadow: 0 4px 10px rgba(139, 69, 19, 0.15); /* Saddle Brown shadow */
 }
 
 /* Mobile responsiveness - ensure everything fits */
@@ -1153,21 +1154,21 @@ footer {
   .right-page-content {
     padding: 1rem 0.75rem;
   }
-  
+
   .wedding-details-title {
     font-size: 1.75rem;
     margin-bottom: 1rem;
   }
-  
+
   .contact-footer {
     padding: 0.75rem;
   }
-  
+
   .contact-text {
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .contact-link {
     padding: 0.4rem 0.75rem;
     font-size: 0.9rem;
@@ -1200,14 +1201,15 @@ footer {
 }
 
 /* Contact Footer */
+/* This second rule needs to match the first one */
 .contact-footer {
   text-align: center;
   margin-top: 1.5rem;
   padding: 1.5rem 1rem;
-  background: white;
+  background: rgba(248, 247, 243, 0.95); /* Creamy background */
   border-radius: 1rem;
-  box-shadow: 0 4px 25px rgba(74, 134, 232, 0.15);
-  border: 1px solid var(--gold-light);
+  box-shadow: 0 4px 20px rgba(100, 100, 80, 0.15); /* Neutral shadow */
+  border: 1px solid #e0dccc; /* Subtle creamy border */
   width: 100%;
 }
 
@@ -1219,8 +1221,8 @@ footer {
 }
 
 .contact-link:hover {
-  background: rgba(74, 134, 232, 0.1);
-  color: var(--gold);
+  background: rgba(184, 134, 11, 0.1); /* DarkGoldenrod hover */
+  color: var(--gold-dark); /* Use variable */
 }
 
 .contact-link svg {
@@ -1249,8 +1251,8 @@ footer {
 }
 
 /* Ensure proper line length for readability */
-.timeline-content, 
-.rsvp-note, 
+.timeline-content,
+.rsvp-note,
 .contact-text {
   max-width: 70ch;
   margin-left: auto;
@@ -1319,7 +1321,7 @@ textarea {
 }
 
 .thank-you-modal .checkmark {
-    color: #4a86e8;
+    color: var(--gold); /* Use variable */
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
 }
@@ -1344,7 +1346,7 @@ textarea {
 
 .thank-you-modal button {
     background-color: white !important;
-    color: white !important;
+    color: var(--primary-foreground) !important; /* Use variable */
     border: none !important;
     /* padding: 0.4rem 1.5rem !important; */
     border-radius: 0.5rem !important;
@@ -1358,7 +1360,7 @@ textarea {
 }
 
 .thank-you-modal button:hover {
-    background-color: #2c5aa0 !important;
+    background-color: var(--gold-dark) !important; /* Use variable */
 }
 
 /* Prevent accidental clicks */
@@ -1461,7 +1463,7 @@ header {
 .arabic-translation-small {
     font-family: var(--font-sans);
     font-style: italic;
-    color: rgba(44, 90, 160, 0.7);
+    color: rgba(139, 69, 19, 0.7); /* Saddle Brown with opacity */
     font-size: 0.7rem;
     line-height: 1.2;
     letter-spacing: 0.01em;
@@ -1471,7 +1473,7 @@ header {
     .bismillah-small {
         font-size: 1.5rem;
     }
-    
+
     .arabic-translation-small {
         font-size: 0.75rem;
     }
@@ -1484,40 +1486,40 @@ header {
     padding: 0.6rem 2.5rem;
     font-size: 0.9rem;
   }
-  
+
   .wedding-details-title {
     margin-bottom: 1.5rem; /* Reduce margin */
     font-size: 1.75rem; /* Smaller font size */
   }
-  
+
   .timeline-container {
     padding-left: 3rem;
     gap: 2.5rem;
   }
-  
+
   .timeline-container::before {
     left: 1.25rem;
   }
-  
+
   .time-badge {
     left: -3rem;
     width: 2.5rem;
     height: 2.5rem;
     font-size: 0.85rem;
   }
-  
+
   .timeline-content {
     padding: 0.6rem;
   }
-  
+
   .timeline-content h3 {
     font-size: 1rem;
   }
-  
+
   .timeline-content p {
     font-size: 0.85rem;
   }
-  
+
   .contact-link {
     font-size: 1rem; /* Slightly smaller text */
     padding: 0.5rem 1rem;
@@ -1541,7 +1543,7 @@ button[type="submit"] {
   border-width: 3px;
   border-style: solid;
   border-color: transparent;
-  border-bottom-color: #4a86e8;
+  border-bottom-color: var(--gold); /* Use variable */
   border-radius: 50%;
   animation: spinner 1s linear infinite;
 }
@@ -1601,11 +1603,11 @@ button[type="submit"] {
         padding: 24px 20px;
         border-radius: 12px;
     }
-    
+
     #rsvp-modal .modal-content h2 {
         font-size: 1.35rem;
     }
-    
+
     #rsvp-modal .form-group input[type="text"],
     #rsvp-modal .form-group input[type="email"],
     #rsvp-modal .form-group input[type="tel"],
@@ -1622,20 +1624,20 @@ button[type="submit"] {
         padding: 20px 16px;
         border-radius: 10px;
     }
-    
+
     #rsvp-modal .modal-content h2 {
         font-size: 1.25rem;
     }
-    
+
     #rsvp-modal .form-group {
         margin-bottom: 16px;
     }
-    
+
     #rsvp-modal .form-group label {
         margin-bottom: 6px;
         font-size: 0.85rem;
     }
-    
+
     #rsvp-modal .form-group input[type="text"],
     #rsvp-modal .form-group input[type="email"],
     #rsvp-modal .form-group input[type="tel"],
@@ -1644,11 +1646,11 @@ button[type="submit"] {
         font-size: 0.85rem;
         border-radius: 8px;
     }
-    
+
     #rsvp-modal .form-group textarea {
         min-height: 70px;
     }
-    
+
     #rsvp-modal button[type="submit"] {
         padding: 10px 16px;
         font-size: 0.9rem;
@@ -1659,7 +1661,7 @@ button[type="submit"] {
 @media (max-width: 1023px) {
     .thank-you-modal .modal-content {
         max-width: 90%;
-        width: 90%; 
+        width: 90%;
         padding: 24px 20px;
     }
 }
@@ -1669,15 +1671,15 @@ button[type="submit"] {
         max-width: 300px;
         padding: 20px 16px;
     }
-    
+
     .thank-you-modal .checkmark {
         font-size: 1.75rem;
     }
-    
+
     .thank-you-modal h2 {
         font-size: 1.1rem !important;
     }
-    
+
     .thank-you-modal p {
         font-size: 0.85rem !important;
         margin-bottom: 0.75rem !important;
@@ -1716,9 +1718,9 @@ button[type="submit"] {
   border-radius: 0.5rem;
   gap: 0.5rem;
   cursor: pointer;
-  background-color: rgba(74, 134, 232, 0.1);
-  color: #4a86e8;
-  border: 1px solid rgba(74, 134, 232, 0.3);
+  background-color: rgba(184, 134, 11, 0.1); /* DarkGoldenrod background */
+  color: var(--gold); /* Use variable */
+  border: 1px solid rgba(184, 134, 11, 0.3); /* DarkGoldenrod border */
   transition: all 0.2s ease;
 }
 
@@ -1728,7 +1730,7 @@ button[type="submit"] {
 }
 
 #map-toggle:hover {
-  background-color: rgba(74, 134, 232, 0.2);
+  background-color: rgba(184, 134, 11, 0.2); /* DarkGoldenrod hover */
 }
 
 /* Additional centering for small screens */
@@ -1745,7 +1747,7 @@ button[type="submit"] {
     align-items: center;
     margin: 0 auto 1rem;
   }
-  
+
   .date-badge {
     margin: 0 auto 1.5rem;
   }
@@ -1762,8 +1764,8 @@ button[type="submit"] {
   margin: 0 auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  background-color: #4a86e8;
-  color: white;
+  background-color: var(--gold); /* Use variable */
+  color: var(--primary-foreground); /* Use variable */
   border: none;
   position: relative;
   z-index: 5;
@@ -1771,7 +1773,7 @@ button[type="submit"] {
 
 .close-icon-button:hover {
   transform: scale(1.1);
-  background-color: #3a76d8;
+  background-color: var(--gold-dark); /* Use variable */
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
@@ -1792,7 +1794,7 @@ button[type="submit"] {
 
 .loading-modal .modal-content h2 {
   font-size: 1.75rem !important;
-  color: #4a86e8;
+  color: var(--gold-dark); /* Use variable */
   margin-bottom: 1rem !important;
 }
 
@@ -1825,7 +1827,7 @@ button[type="submit"] {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  color: #4a86e8;
+  color: var(--gold); /* Use variable */
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -1841,5 +1843,5 @@ button[type="submit"] {
   width: 1.75rem;
   height: 1.75rem;
   stroke-width: 2.5;
-  stroke: #4a86e8;
+  stroke: var(--gold); /* Use variable */
 }
