@@ -23,7 +23,7 @@ const TRANSLATIONS = {
         'grand-ballroom': '1:00 PM',
         'dress-code': 'Event Ends',
         'semi-formal': '4:00 PM',
-        'garden-attire': 'June 21, 2025 • 11:00 AM - 4:00 PM',
+        'event-date-time': 'June 21, 2025 • 11:00 AM - 4:00 PM', // Renamed from garden-attire
         'rsvp-button': 'RSVP',
         'contact-us': 'If you have any questions, please contact',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',
@@ -99,7 +99,7 @@ const TRANSLATIONS = {
         'grand-ballroom': '1:00 PM',
         'dress-code': 'Majlis Berakhir',
         'semi-formal': '4:00 PM',
-        'garden-attire': '21 Jun 2025 • 11:00 AM - 4:00 PM',
+        'event-date-time': '21 Jun 2025 • 11:00 AM - 4:00 PM', // Renamed from garden-attire
         'rsvp-button': 'RSVP',
         'contact-us': 'Jika ada sebarang pertanyaan, sila hubungi',
         'contact-details': 'Dini: 01156369249 | Mama: 0124636238',

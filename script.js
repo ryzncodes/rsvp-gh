@@ -794,12 +794,28 @@ function submitToGoogleSheets(url, data, onSuccess, onError) {
 function updateConnectionStatus(status, message) {
     const statusEl = document.getElementById('connection-status');
     if (!statusEl) return;
-    
+
+    // Check if we are in development mode
+    const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    if (!isDev) {
+        // Production mode: Hide the status element completely
+        statusEl.textContent = ''; // Clear any previous message
+        statusEl.classList.add('hidden'); // Ensure it's hidden
+        // Log errors to console in production instead of displaying
+        if (status === 'error') {
+            console.error("Google Sheets Connection Status:", message);
+        }
+        return; // Don't proceed further in production
+    }
+
+    // Development mode: Show the status message
+    statusEl.classList.remove('hidden'); // Ensure it's visible
     statusEl.textContent = message;
-    
+
     // Clear existing status classes
     statusEl.classList.remove('text-green-500', 'text-red-500', 'text-yellow-500');
-    
+
     // Add appropriate status class
     switch(status) {
         case 'success':

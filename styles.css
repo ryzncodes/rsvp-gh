@@ -709,7 +709,7 @@ footer {
   
   .book-page-left {
     width: 60%;
-    padding: 2rem;
+    padding: 2rem 3rem; /* Increased horizontal padding */
     height: 100%;
     border-right: 1px solid rgba(74, 134, 232, 0.2);
     background: rgba(255, 255, 255, 0.3);
@@ -727,6 +727,22 @@ footer {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* Adjust font size for names in this view */
+  .book-page-left .font-great-vibes {
+      font-size: clamp(1.8rem, 3vw, 2.3rem) !important; /* Reduced max size */
+  }
+
+  /* Add more vertical spacing */
+  .book-page-left .invitation-text {
+      margin-bottom: 1rem; /* Increased from mb-3 (0.75rem) */
+  }
+   .book-page-left .invitation-subtext {
+      margin-bottom: 2rem; /* Increased from mb-6 (1.5rem) */
+  }
+   .book-page-left .tagline {
+      margin-bottom: 1rem; /* Increased from mb-3 (0.75rem) */
   }
   
   .book-page-right {
@@ -1816,4 +1832,4 @@ button[type="submit"] {
   height: 1.75rem;
   stroke-width: 2.5;
   stroke: #4a86e8;
-} 
+}
