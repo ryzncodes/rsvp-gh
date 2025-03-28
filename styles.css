@@ -313,9 +313,18 @@ footer {
 .modal {
     transition: all 0.3s ease-in-out;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Align modal content to the top */
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
+    position: fixed; /* Ensure it covers the viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 5vh; /* Add some space at the top */
+    z-index: 50; /* Ensure modal is on top */
+    backdrop-filter: blur(2px); /* Keep the blur effect */
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .modal.hidden {
@@ -329,8 +338,9 @@ footer {
     max-width: 480px;
     width: 95%;
     margin: 0 auto;
-    padding: 30px;
-    overflow: visible;
+    padding: 30px 40px; /* Increased horizontal padding */
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 85vh; /* Limit height to 85% of viewport height */
     border-radius: 16px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     border: none;
