@@ -711,7 +711,92 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-}); 
+
+    // Background Music Control
+    const backgroundMusic = document.getElementById('background-music');
+    const muteButton = document.getElementById('mute-button');
+    let musicPlaying = false; // Track if music has successfully started
+
+    // SVG Icons
+    const volumeOnIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 20px; height: 20px;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+        </svg>`;
+    const volumeOffIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 20px; height: 20px;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+        </svg>`;
+
+    if (backgroundMusic && muteButton) {
+        // Attempt to play music initially (browsers might block autoplay)
+        backgroundMusic.play().then(() => {
+            musicPlaying = true;
+            console.log("Autoplay successful");
+            muteButton.innerHTML = volumeOnIcon; // Ensure correct icon if autoplay works
+        }).catch(error => {
+            console.log("Autoplay prevented:", error);
+            // Music didn't start automatically, keep icon as 'on' but it's effectively muted until first click
+            muteButton.innerHTML = volumeOnIcon; // Assume it will play or is playing
+        });
+
+        // Function to try starting music on first user interaction
+        const playMusicOnInteraction = () => {
+            if (!musicPlaying) {
+                 backgroundMusic.play().then(() => {
+                    musicPlaying = true;
+                    backgroundMusic.muted = false; // Ensure unmuted
+                    muteButton.innerHTML = volumeOnIcon; // Set correct icon
+                    console.log("Music started on user interaction.");
+                    // Remove this listener after first successful play
+                    document.removeEventListener('click', playMusicOnInteraction);
+                    document.removeEventListener('keydown', playMusicOnInteraction);
+                 }).catch(error => {
+                    console.error("Error playing music on interaction:", error);
+                    // If it fails even on interaction, show muted icon
+                    muteButton.innerHTML = volumeOffIcon;
+                    backgroundMusic.muted = true;
+                 });
+            }
+        };
+
+        // Add listeners for the first interaction
+        document.addEventListener('click', playMusicOnInteraction, { once: true }); // Use {once: true} if possible, otherwise remove listener manually
+        document.addEventListener('keydown', playMusicOnInteraction, { once: true }); // Use {once: true} if possible, otherwise remove listener manually
+
+
+        // Mute button toggles mute state *after* music has potentially started
+        muteButton.addEventListener('click', function() {
+            // If music hasn't started, this click *will* trigger playMusicOnInteraction first
+            // If music *has* started, just toggle mute
+            if (musicPlaying) {
+                 if (backgroundMusic.muted) {
+                    backgroundMusic.muted = false;
+                    muteButton.innerHTML = volumeOnIcon;
+                } else {
+                    backgroundMusic.muted = true;
+                    muteButton.innerHTML = volumeOffIcon;
+                }
+            }
+        });
+
+        // Update icon if music ends or pauses unexpectedly (optional)
+        backgroundMusic.addEventListener('pause', () => {
+            if (musicPlaying && !backgroundMusic.muted) { // Only update if it wasn't manually muted
+                 // Decide if you want to show 'off' icon when paused, or keep 'on'
+                 // muteButton.innerHTML = volumeOffIcon;
+            }
+        });
+        backgroundMusic.addEventListener('play', () => {
+             if (musicPlaying && !backgroundMusic.muted) {
+                 muteButton.innerHTML = volumeOnIcon;
+             }
+        });
+
+    } else {
+        if (!backgroundMusic) console.error("Background music element not found");
+        if (!muteButton) console.error("Mute button element not found");
+    }
+});
 
 // Google Sheets connection check
 function checkGoogleSheetsConnection() {
