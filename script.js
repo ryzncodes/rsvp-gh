@@ -37,6 +37,14 @@ function getTranslation(lang, key, defaultValue = '') {
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded - starting script initialization");
+
+    // Initialize Snowstorm JS (if available)
+    if (typeof snowStorm !== 'undefined') {
+        snowStorm.snowColor = '#ffffff'; // Set snow color to white
+        console.log("Snowstorm JS configured.");
+    } else {
+        console.log("Snowstorm JS object not found.");
+    }
     
     // Debug translation object
     console.log("Translations object found:", typeof TRANSLATIONS !== 'undefined' ? "YES" : "NO");
