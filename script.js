@@ -35,15 +35,83 @@ function getTranslation(lang, key, defaultValue = '') {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM fully loaded - starting script initialization");
+window.addEventListener('load', function() {
+    console.log("Window loaded - starting script initialization");
 
-    // Initialize Snowstorm JS (if available)
-    if (typeof snowStorm !== 'undefined') {
-        snowStorm.snowColor = '#ffffff'; // Set snow color to white
-        console.log("Snowstorm JS configured.");
+    // // Initialize Snowstorm JS (if available)
+    // if (typeof snowStorm !== 'undefined') {
+    //     snowStorm.snowColor = '#ffffff'; // Set snow color to white
+    //     console.log("Snowstorm JS configured.");
+    // } else {
+    //     console.log("Snowstorm JS object not found.");
+    // }
+    
+    // Initialize tsParticles for snowfall effect
+    console.log("Attempting to initialize tsParticles...");
+    if (typeof tsParticles !== 'undefined') {
+        console.log("tsParticles object found, initializing...");
+        tsParticles.load("tsparticles", {
+            preset: "snow",
+            fullScreen: {
+                enable: true
+            },
+            particles: {
+                number: {
+                    value: 100, // Reduced number of particles
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#B8860B" // Gold color for snow
+                },
+                opacity: {
+                    value: 0.7,
+                    random: true
+                },
+                size: {
+                    value: 4,
+                    random: true
+                },
+                move: {
+                    enable: true,
+                    speed: 1, // Gentle falling speed
+                    direction: "bottom",
+                    random: true,
+                    straight: false,
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "window",
+                events: {
+                    onhover: {
+                        enable: false,
+                    },
+                    onclick: {
+                        enable: false
+                    }
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    }
+                }
+            },
+            detectRetina: true,
+            background: {
+                color: "transparent",
+                opacity: 0
+            }
+        }).then(container => {
+            console.log("tsParticles snow effect initialized successfully.");
+        }).catch(error => {
+            console.error("Error initializing tsParticles:", error);
+        });
     } else {
-        console.log("Snowstorm JS object not found.");
+        console.error("tsParticles object not found. Make sure the library is loaded.");
     }
     
     // Debug translation object

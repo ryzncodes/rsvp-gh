@@ -25,9 +25,12 @@
     <!-- Language Scripts -->
     <script src="translations.js"></script>
     <script src="config.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/snowstorm/1.44.20131208/snowstorm-min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js" onload="console.log('tsParticles script loaded successfully')" onerror="console.error('Failed to load tsParticles')"></script>
     <script src="script.js" defer></script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
+    <div id="tsparticles"></div>
     <audio id="background-music" src="bg-music.mp3" loop></audio> <!-- Removed autoplay, will handle in JS -->
     <button id="mute-button" style="position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 5px; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
         <!-- Initial Volume On Icon -->
@@ -345,6 +348,5 @@
         return true;
     }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/snowstorm/1.44.20131208/snowstorm-min.js"></script>
 </body>
 </html>
