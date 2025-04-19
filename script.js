@@ -872,6 +872,134 @@ window.addEventListener('load', function() {
         if (!backgroundMusic) console.error("Background music element not found");
         if (!muteButton) console.error("Mute button element not found");
     }
+
+    // Enhanced animation functions
+    function initializeAnimations() {
+        // Scroll-triggered animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for scroll animations
+        const elementsToAnimate = document.querySelectorAll('.detail-item, .timeline-item, .contact-footer');
+        elementsToAnimate.forEach(el => {
+            // Set initial state
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            // Start observing
+            observer.observe(el);
+        });
+
+        // Enhanced hover effects
+        document.querySelectorAll('.rsvp-button, .contact-link, .timeline-content').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                anime({
+                    targets: el,
+                    scale: 1.02,
+                    duration: 300,
+                    easing: 'easeOutQuad'
+                });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                anime({
+                    targets: el,
+                    scale: 1,
+                    duration: 300,
+                    easing: 'easeOutQuad'
+                });
+            });
+        });
+
+        // Language toggle animation
+        const langButton = document.getElementById('lang-toggle');
+        if (langButton) {
+            langButton.addEventListener('click', () => {
+                anime({
+                    targets: langButton,
+                    rotate: '1turn',
+                    duration: 500,
+                    easing: 'easeOutElastic(1, .5)'
+                });
+            });
+        }
+    }
+
+    // Enhanced loading animation for RSVP form
+    function showLoadingAnimation() {
+        const loadingModal = document.getElementById('loading-modal');
+        if (loadingModal) {
+            anime({
+                targets: loadingModal.querySelector('.loading-spinner'),
+                rotate: '1turn',
+                duration: 1000,
+                loop: true,
+                easing: 'linear'
+            });
+        }
+    }
+
+    // Particle effect for special moments
+    function createParticleEffect(x, y) {
+        const particles = document.createElement('div');
+        particles.className = 'particles';
+        document.body.appendChild(particles);
+
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particles.appendChild(particle);
+
+            const angle = (Math.random() * 360) * Math.PI / 180;
+            const velocity = 2 + Math.random() * 2;
+            const size = 4 + Math.random() * 4;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+
+            anime({
+                targets: particle,
+                translateX: Math.cos(angle) * 100 * velocity,
+                translateY: Math.sin(angle) * 100 * velocity,
+                opacity: [1, 0],
+                duration: 1000 + Math.random() * 1000,
+                easing: 'easeOutExpo',
+                complete: () => particle.remove()
+            });
+        }
+
+        setTimeout(() => particles.remove(), 2000);
+    }
+
+    // Initialize animations when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeAnimations();
+        
+        // Add particle effect to RSVP button click
+        const rsvpButton = document.querySelector('.rsvp-button');
+        if (rsvpButton) {
+            rsvpButton.addEventListener('click', (e) => {
+                const rect = rsvpButton.getBoundingClientRect();
+                createParticleEffect(
+                    rect.left + rect.width / 2,
+                    rect.top + rect.height / 2
+                );
+            });
+        }
+    });
 });
 
 // Google Sheets connection check

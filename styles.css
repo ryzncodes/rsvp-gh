@@ -232,7 +232,9 @@ textarea::-webkit-scrollbar,
 }
 
 .animate-in {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* RSVP Button - Updated for better containment */
@@ -1855,4 +1857,116 @@ button[type="submit"] {
   height: 100%;
   z-index: 10; /* Change from -1 to a positive value to overlay on top */
   pointer-events: none; /* Important: This prevents it from intercepting clicks */
+}
+
+/* Enhanced Animation Styles */
+.animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile-specific animation adjustments */
+@media (max-width: 768px) {
+    .detail-item, .timeline-item, .contact-footer {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+/* Particle Effects */
+.particles {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.particle {
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Enhanced Loading Spinner */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--gold-light);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+/* Smooth Transitions */
+.rsvp-button,
+.contact-link,
+.timeline-content,
+.detail-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Language Toggle Animation */
+#lang-toggle {
+    transition: transform 0.3s ease;
+}
+
+/* Enhanced Hover Effects */
+.rsvp-button:hover,
+.contact-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+}
+
+.timeline-content:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+}
+
+/* Modal Animations */
+.modal {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content {
+    animation: modalContentSlideIn 0.4s ease-out;
+}
+
+@keyframes modalContentSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
