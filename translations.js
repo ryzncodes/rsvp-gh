@@ -20,7 +20,7 @@ const TRANSLATIONS = {
         'ceremony': 'Reception',
         'garden-pavilion': 'Starts at 11:00 AM',
         'reception': 'Arrival of Bride & Groom',
-        'grand-ballroom': '1:00 PM',
+        'grand-ballroom': '12:30 PM',
         'dress-code': 'Event Ends',
         'semi-formal': '4:00 PM',
         'event-date-time': 'June 21, 2025 • 11:00 AM - 4:00 PM', // Renamed from garden-attire
@@ -96,7 +96,7 @@ const TRANSLATIONS = {
         'ceremony': 'Majlis Bermula',
         'garden-pavilion': '11:00 AM',
         'reception': 'Ketibaan Pengantin',
-        'grand-ballroom': '1:00 PM',
+        'grand-ballroom': '12:30 PM',
         'dress-code': 'Majlis Berakhir',
         'semi-formal': '4:00 PM',
         'event-date-time': '21 Jun 2025 • 11:00 AM - 4:00 PM', // Renamed from garden-attire
