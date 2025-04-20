@@ -8,7 +8,7 @@ const TRANSLATIONS = {
         // Common elements
         'title': 'Dini & Faiz',
         'tagline': 'WALIMATULURUS',
-        'invitation-text': 'With full gratitude to God, we cordially invite Dato\'/Datin/Dr/Sir/Madam/Mr/Ms to our wedding reception',
+        'invitation-text': 'With full gratitude to God, we cordially invite Tan Sri/Dato\'/Datin/Dr/Sir/Madam/Mr/Ms to our wedding reception',
         'full-names': 'Nur Dini Zakaria & Muhammad Faiz Kasman',
         'parents-names': 'Daughter of Zakaria Md Husain & Noraiyu binti Buang',
         'parents-names-header': 'Zakaria Md Husain & Noraiyu binti Buang',
@@ -36,7 +36,7 @@ const TRANSLATIONS = {
         
         // RSVP form
         'rsvp-title': 'RSVP for Our Wedding',
-        'rsvp-deadline': 'Please respond before end of May 2025',
+        'rsvp-deadline': 'Please respond before 31st of May 2025',
         'name': 'Name',
         'phone': 'Phone',
         'email': 'Email',
@@ -84,7 +84,7 @@ const TRANSLATIONS = {
         // Common elements
         'title': 'Dini & Faiz',
         'tagline': 'WALIMATULURUS',
-        'invitation-text': 'Dengan penuh kesyukuran kehadrat Illahi, kami mempersilakan Dato\'/Datin/Dr/Tuan/Puan/Encik/Cik ke walimatulurus kami',
+        'invitation-text': 'Dengan penuh kesyukuran kehadrat Illahi, kami mempersilakan Tan Sri/Dato\'/Datin/Dr/Tuan/Puan/Encik/Cik ke walimatulurus kami',
         'full-names': 'Nur Dini Binti Zakaria & Muhammad Faiz Kasman',
         'parents-names': 'Anak kepada Zakaria Md Husain & Noraiyu binti Buang',
         'parents-names-header': 'Zakaria Md Husain & Noraiyu binti Buang',
@@ -112,7 +112,7 @@ const TRANSLATIONS = {
         
         // RSVP form
         'rsvp-title': 'RSVP untuk Majlis Perkahwinan Kami',
-        'rsvp-deadline': 'Sila beri maklum balas sebelum akhir Mei 2025',
+        'rsvp-deadline': 'Sila beri maklum balas sebelum 31 Mei 2025',
         'name': 'Nama',
         'phone': 'Telefon',
         'email': 'Emel',

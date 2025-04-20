@@ -57,22 +57,47 @@ window.addEventListener('load', function() {
             },
             particles: {
                 number: {
-                    value: 100, // Reduced number of particles
+                    value: 50, // Reduced number of particles for better performance
                     density: {
                         enable: true,
                         value_area: 800
                     }
                 },
                 color: {
-                    value: "#B8860B" // Gold color for snow
+                    value: "#FFFFFF" // White color for better flower visibility
+                },
+                shape: {
+                    type: "image",
+                    image: {
+                        src: "https://www.transparentpng.com/thumb/flower/yellow-flower-png-clipart-14.png", // Example flower image URL
+                        width: 100,
+                        height: 100,
+                        replaceColor: false
+                    }
                 },
                 opacity: {
-                    value: 0.7,
+                    value: 0.9,
                     random: true
                 },
                 size: {
-                    value: 4,
-                    random: true
+                    value: 15, // Increased size for flower visibility
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 2,
+                        size_min: 8,
+                        sync: false
+                    }
+                },
+                rotate: {
+                    value: 0,
+                    random: true,
+                    direction: "clockwise",
+                    animation: {
+                        enable: true,
+                        speed: 3,
+                        sync: false
+                    }
                 },
                 move: {
                     enable: true,
@@ -80,23 +105,33 @@ window.addEventListener('load', function() {
                     direction: "bottom",
                     random: true,
                     straight: false,
-                    out_mode: "out"
+                    out_mode: "out",
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
                 }
             },
             interactivity: {
                 detect_on: "window",
                 events: {
                     onhover: {
-                        enable: false,
+                        enable: true,
+                        mode: "repulse" // Makes flowers move away when hovered
                     },
                     onclick: {
-                        enable: false
+                        enable: true,
+                        mode: "push" // Adds more flowers when clicked
                     }
                 },
                 modes: {
                     repulse: {
                         distance: 100,
                         duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
                     }
                 }
             },
@@ -106,7 +141,7 @@ window.addEventListener('load', function() {
                 opacity: 0
             }
         }).then(container => {
-            console.log("tsParticles snow effect initialized successfully.");
+            console.log("tsParticles flower effect initialized successfully.");
         }).catch(error => {
             console.error("Error initializing tsParticles:", error);
         });
