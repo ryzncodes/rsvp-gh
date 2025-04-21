@@ -57,7 +57,7 @@ window.addEventListener('load', function() {
             },
             particles: {
                 number: {
-                    value: 50, // Reduced number of particles for better performance
+                    value: 60, // Reduced number of particles for better performance
                     density: {
                         enable: true,
                         value_area: 800
@@ -69,7 +69,7 @@ window.addEventListener('load', function() {
                 shape: {
                     type: "image",
                     image: {
-                        src: "https://www.transparentpng.com/thumb/flower/yellow-flower-png-clipart-14.png", // Example flower image URL
+                        src: "gold-flower.png", // Updated to use local gold flower image
                         width: 100,
                         height: 100,
                         replaceColor: false
@@ -80,7 +80,7 @@ window.addEventListener('load', function() {
                     random: true
                 },
                 size: {
-                    value: 15, // Increased size for flower visibility
+                    value: 20, // Increased size for flower visibility
                     random: true,
                     anim: {
                         enable: false,
@@ -117,7 +117,7 @@ window.addEventListener('load', function() {
                 detect_on: "window",
                 events: {
                     onhover: {
-                        enable: true,
+                        enable: false,
                         mode: "repulse" // Makes flowers move away when hovered
                     },
                     onclick: {
