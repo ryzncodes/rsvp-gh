@@ -2205,3 +2205,93 @@ button[type="submit"] {
     padding-top: 0.25rem;
   }
 }
+
+.hero-text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.hero-text-content {
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  color: #B8860B; /* DarkGoldenrod */
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+  color: var(--gold);
+}
+
+.hero-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  line-height: 1.1;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  color: var(--gold);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.hero-and {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  line-height: 1;
+  margin: 0.5rem 0;
+  color: var(--gold);
+}
+
+.hero-day {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0px;
+  margin-top: 2rem;
+  color: var(--gold);
+}
+
+.hero-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0px;
+  margin-bottom: 1.5rem;
+  color: var(--gold);
+}
+
+.hero-venue {
+  font-family: var(--font-sans);
+  font-size: 1.3rem;
+  font-weight: 200;
+  font-style: italic;
+  letter-spacing: -1px;
+  color: var(--gold);
+}
+
+/* Responsive adjustments for smaller phones */
+@media (max-height: 700px) {
+  .hero-name {
+    font-size: 3rem;
+  }
+  
+  .hero-and {
+    font-size: 2.5rem;
+    margin: 0.25rem 0;
+  }
+  
+  .hero-subtitle, .hero-day, .hero-date, .hero-venue {
+    margin-bottom: 0.5rem;
+  }
+}
