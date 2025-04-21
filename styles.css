@@ -74,9 +74,9 @@ body *, h1, h2, h3, p, div, button, input, select, textarea,
   margin-right: auto;
   border: 1px solid rgba(255, 255, 255, 0.3);
   position: relative;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   box-shadow: 0 8px 32px 0 rgba(139, 69, 19, 0.1); /* Saddle Brown shadow */
   overflow: hidden;
   padding: 1rem;
@@ -764,41 +764,67 @@ footer {
     background: rgba(255, 255, 255, 0.4);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between; /* Changed from center to space-between */
     position: relative;
     z-index: 1;
   }
 
   /* Right page content layout */
-  .book-page-right .home-header {
-    padding: 0;
-    margin-bottom: 1.5rem;
-  }
-
-  .book-page-right #main-content {
+  .book-page-right .right-page-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .book-page-right .details-section {
+    justify-content: space-between; /* Changed from center to space-between */
+    height: 100%;
     gap: 1rem;
-    margin: 0;
   }
-
-  .book-page-right .detail-item {
-    padding: 1.25rem 1rem !important;
+  
+  .book-page-right .timeline-section {
+    flex: 0 1 auto; /* Allow it to shrink if needed */
   }
-
-  .book-page-right .rsvp-button-section {
-    margin-top: auto;
-    padding-top: 2rem;
+  
+  .book-page-right .rsvp-section {
+    flex: 0 0 auto; /* Don't allow to grow or shrink */
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
   }
-
+  
   .book-page-right footer {
     margin-top: auto;
-    padding: 1rem;
+    padding-top: 1rem;
+    margin-bottom: 1.5rem;
+    flex: 0 0 auto; /* Don't allow to grow or shrink */
+  }
+  
+  .contact-footer {
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
+  
+  .contact-details {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .contact-link {
+    padding: 0.25rem;
+  }
+  
+  /* Move to 2-column layout for larger screens when the page is in book format */
+  .book-page-right .contact-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .contact-footer {
+    max-width: 85%;
+    padding: 1.5rem;
+  }
+  
+  .contact-text {
+    margin-bottom: 1.25rem;
   }
 }
 
@@ -1002,7 +1028,7 @@ footer {
   }
 }
 
-/* Right Page Styles - Improved containment */
+/* Right Page Styles - Improved spacing for desktop */
 .right-page-content {
   height: 100%;
   display: flex;
@@ -1015,6 +1041,27 @@ footer {
   box-shadow: none;
   border: none;
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  .right-page-content {
+    justify-content: space-between;
+    height: 100%;
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .wedding-details-title {
+    margin-bottom: 1.25rem;
+  }
+  
+  .timeline-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .rsvp-section {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Wedding Details Title */
@@ -1107,73 +1154,121 @@ footer {
 }
 
 /* Contact Footer */
-/* This rule was already updated in the previous step, keeping it consistent */
 .contact-footer {
   text-align: center;
-  margin-top: 1.5rem;
-  padding: 1.5rem 1rem;
-  background: rgba(248, 247, 243, 0.95); /* Creamy background */
+  margin: 1.5rem auto;
+  padding: 1.75rem 1.75rem 1.25rem;
+  background: #ffffff; /* White background */
   border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(100, 100, 80, 0.15); /* Neutral shadow */
+  box-shadow: 0 4px 20px rgba(100, 100, 80, 0.15); /* Neutral shadow */
   border: 1px solid #e0dccc; /* Subtle creamy border */
-  width: 100%;
-  transform: scale(1.02);
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Add decorative elements */
+.contact-footer::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  background-image: url('gold-flake.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.contact-footer::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  background-image: url('gold-flake.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: 1;
 }
 
 .contact-text {
-  color: var(--gold-dark);
-  font-size: 1.2rem;
-  line-height: 1.6;
+  color: #8B4513; /* Saddle Brown */
+  font-size: 1.05rem;
+  line-height: 1.4;
   font-weight: 600;
   letter-spacing: 0.01em;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
   margin-bottom: 1rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .contact-link {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid var(--gold-light);
-  transition: all 0.2s ease;
-  color: var(--gold-dark);
+  justify-content: space-between;
   text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  color: inherit;
+  padding: 0.65rem 0;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid rgba(224, 220, 204, 0.7);
 }
 
-.contact-link:hover {
-  background: white;
-  color: var(--gold-dark); /* Use variable */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(139, 69, 19, 0.15); /* Saddle Brown shadow */
+.contact-link:last-child {
+  border-bottom: none;
+  padding-bottom: 0.25rem;
 }
 
-/* Mobile responsiveness - ensure everything fits */
-@media (max-width: 480px) {
-  .right-page-content {
-    padding: 1rem 0.75rem;
-  }
+.contact-link:first-child {
+  padding-top: 0.25rem;
+}
 
-  .wedding-details-title {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-  }
+.contact-name {
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  font-size: 1rem;
+}
 
-  .contact-footer {
-    padding: 0.75rem;
-  }
+.contact-number {
+  color: #B8860B; /* DarkGoldenrod */
+  text-align: right;
+  font-size: 1rem;
+}
 
-  .contact-text {
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-  }
+#connection-status {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  color: #4CAF50;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 0.25rem;
+}
 
+@media (max-width: 767px) {
   .contact-link {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.9rem;
+    width: 100%;
+    max-width: 300px;
   }
 }
 
@@ -1220,6 +1315,20 @@ footer {
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .contact-details {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-details {
+    flex-direction: column;
+  }
 }
 
 .contact-link:hover {
@@ -1233,6 +1342,18 @@ footer {
   transition: transform 0.2s ease;
 }
 
+.contact-icon.bride-icon {
+  color: #FF69B4; /* Hot pink */
+}
+
+.contact-icon.man-icon {
+  color: #4169E1; /* Royal blue */
+}
+
+.contact-icon.woman-icon {
+  color: #FF6347; /* Tomato */
+}
+
 .contact-link:hover svg {
   transform: scale(1.1);
 }
@@ -1244,6 +1365,12 @@ footer {
 
 .contact-number {
   color: var(--gold);
+}
+
+@media (min-width: 768px) {
+  .contact-number {
+    display: none;
+  }
 }
 
 #connection-status {
@@ -1969,4 +2096,84 @@ button[type="submit"] {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Desktop layout for contact section */
+@media (min-width: 768px) {
+  .contact-footer {
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    max-width: 90%;
+    width: auto;
+    position: relative;
+  }
+  
+  .contact-text {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0;
+  }
+  
+  .contact-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 0;
+    padding: 0 0 0.75rem 0;
+    position: relative;
+  }
+  
+  .contact-link {
+    flex-direction: column;
+    padding: 0.5rem 0;
+    text-align: center;
+    border: none;
+  }
+  
+  .contact-name {
+    margin-bottom: 0;
+    text-align: center;
+    padding: 0;
+    font-weight: 500;
+  }
+  
+  .contact-number {
+    display: none;
+  }
+  
+  #connection-status {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    padding-top: 0.25rem;
+  }
+}
+
+/* Mobile layout remains as is with these existing styles */
+@media (max-width: 767px) {
+  .contact-details {
+    flex-direction: column;
+  }
+  
+  .contact-link {
+    justify-content: space-between;
+    text-align: left;
+    border-bottom: 1px solid rgba(224, 220, 204, 0.7);
+    padding: 0.65rem 0;
+  }
+  
+  .contact-name {
+    text-align: left;
+  }
+  
+  .contact-number {
+    text-align: right;
+  }
+  
+  .contact-link:last-child {
+    border-bottom: none;
+    padding-bottom: 0.25rem;
+  }
+  
+  .contact-link:first-child {
+    padding-top: 0.25rem;
+  }
 }
