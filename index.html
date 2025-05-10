@@ -260,13 +260,8 @@
                 <!-- Number of Attendees Dropdown (Initially Hidden) -->
                 <div class="form-group hidden" id="attendees-group">
                     <label for="attendees"><span data-lang="attendees">Bilangan Hadir</span> <span class="text-red-500">*</span></label>
-                    <select id="attendees" name="attendees" required>
-                        <option value="1" data-lang="attendee-1">1</option>
-                        <option value="2" data-lang="attendee-2">2</option>
-                        <option value="3" data-lang="attendee-3">3</option>
-                        <option value="4" data-lang="attendee-4">4</option>
-                        <option value="5" data-lang="attendee-5">5</option>
-                    </select>
+                    <input type="number" id="attendees" name="attendees" min="1" max="20" step="1" value="1" required 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div class="form-group">
