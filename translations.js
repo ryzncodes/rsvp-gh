@@ -36,7 +36,7 @@ const TRANSLATIONS = {
         
         // RSVP form
         'rsvp-title': 'RSVP for Our Wedding',
-        'rsvp-deadline': 'Please respond before 31st of May 2025',
+        'rsvp-deadline': 'Please respond before 6th of June 2025',
         'name': 'Name',
         'phone': 'Phone',
         'email': 'Email',
@@ -112,7 +112,7 @@ const TRANSLATIONS = {
         
         // RSVP form
         'rsvp-title': 'RSVP untuk Majlis Perkahwinan Kami',
-        'rsvp-deadline': 'Sila beri maklum balas sebelum 31 Mei 2025',
+        'rsvp-deadline': 'Sila beri maklum balas sebelum 6 Jun 2025',
         'name': 'Nama',
         'phone': 'Telefon',
         'email': 'Emel',
